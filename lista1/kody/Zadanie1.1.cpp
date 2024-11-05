@@ -78,8 +78,8 @@ void WYPISZ_WYNIK(int A[], int n) {
         cout << A[m] << " ";
     }
     cout << endl;
-    cout << "Liczba porównañ: " << porownania << endl;
-    cout << "Liczba przypisañ: " << przypisania << endl;
+    cout << "Liczba porownan: " << porownania << endl;
+    cout << "Liczba przypisan: " << przypisania << endl;
 }
 int main() {
     srand(time(0)); // Inicjalizacja losowego generatora
@@ -98,12 +98,12 @@ int main() {
 
         RESETUJ();
         INSERTION_SORT(arr, n);
-        cout << "Próba " << i + 1 << " dla " << n << " elementów:" << endl;
+        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
         WYPISZ_WYNIK(arr, n);
         cout << endl;
     }
 
-    cout << "Test zmodyfikowanego insertion sort (INSERTIONSORT2):" << endl;
+    cout << "Test zmodyfikowanego insertion sort:" << endl;
     for (int i = 0; i < proby; i++) {
         int n = rozmiary[i];
         int arr[n];
@@ -113,7 +113,7 @@ int main() {
 
         RESETUJ();
         INSERTION_SORT_MODIFIED(arr, n);
-        cout << "Próba " << i + 1 << " dla " << n << " elementów:" << endl;
+        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
         WYPISZ_WYNIK(arr, n);
         cout << endl;
     }
