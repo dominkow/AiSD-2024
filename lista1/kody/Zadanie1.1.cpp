@@ -3,72 +3,79 @@
 #include <ctime>   // do inicjalizacji losowych liczb
 using namespace std;
 
-int porownania = 0;
+int porownania = 0;     // zadanie 4 - utworzenie zmiennych do przechowywania porownan i przypisan
 int przypisania = 0;
 
-void RESETUJ() {
+void RESETUJ() {        // zeruje liczniki porownan i przypisan co kazde sortowanie tablicy
     porownania = 0;
     przypisania = 0;
 }
 
-void INSERTION_SORT(int A[], int n) {
-    for (int i = 1; i < n; i++) {
-        int key = A[i];
+void INSERTION_SORT(int A[], int n) {       //utworzenie tablicy A, o wielkosci n
+    for (int i = 1; i < n; i++) {           //wprowadzenie zmiennej i, i = 1 (bo przyjmujemy ze el. indeksu 0 jest posortowany)
+        int key = A[i];                     //przypisanie dla key elementu ktory chcemy posortowac (wstawic w odpowiednie miejsce w naszej posortowanej tablicy)
         przypisania++;
-        int j = i - 1;
-        while (j >= 0 && A[j] > key) {
+        int j = i - 1;                      //przypisanie dla j miejsca tuz przed i w celu wskazania ostatniego posortowanego elementu
+        przypisania++;
+        while (j >= 0 && A[j] > key) {      //wykonujemy petle while dopuki miescimy sie w tablicy i element z posortowanej czÄ™Å›ci tablicy (A[i]) jest wiÄ™kszy od key.
             porownania++;
-            A[j + 1] = A[j];
+            A[j + 1] = A[j];                //przesuwamy A[j] o jedno miejsce w prawo aby zrobic miejsce dla key
             przypisania++;
             j--;
+            przypisania++;                  //zmniejszamy wartosc o jeden, przesuwajac o jedna pozycje w lewo
         }
-        porownania++; // Dodatkowe porównanie, gdy warunek while przestaje byæ spe³niony
-        A[j + 1] = key;
+        porownania++;                       //dodatkowe porÃ³wnanie, gdy warunek while przestaje byc spelniony
+        A[j + 1] = key;                     //while skonczyl dzialac, czyli znalezlismy miejsce dla key, przypisujemy je
         przypisania++;
     }
 }
 
-void INSERTION_SORT_MODIFIED(int A[], int n) {
-    for (int s = 1; s < n - 1; s += 2) {
-        int pierwszy = A[s];
+void INSERTION_SORT_MODIFIED(int A[], int n) {   //stworzenie tablicy A, dlugosci n
+    for (int s = 1; s < n - 1; s += 2) {         //wprowadzenie zm. s, ziwkesza sie o 2 aby przechodzic dwa elementy na raz
+        int pierwszy = A[s];                     //definiujemy pierwsza i druga pozycje
         int drugi = A[s + 1];
         przypisania += 2;
-        if (pierwszy > drugi) {
+        if (pierwszy > drugi) {                  //jesli pierwsz wiekszy od drugiego to zamieniamy je miescami (sort.rosnaco)
             swap(pierwszy, drugi);
-            przypisania += 2;
+            przypisania += 2;                    //swap traktujemy jako 2 przypisania
             porownania++;
         }
         int k = s - 1;
-        while (k >= 0 && A[k] > pierwszy) {
+        przypisania++;                           //ustawiamy k na s-1, (miejsce bezposrednio przed pierwszy),przesuwamy sie w prawo
+        while (k >= 0 && A[k] > pierwszy) {      //petla while, k musi byc wiekszy niz pierwszy, bo chcemy przesunac w prawo
             porownania++;
-            A[k + 1] = A[k];
+            A[k + 1] = A[k];                     //przesuwamy element o jedne w prawo(do k+1)
             przypisania++;
             k--;
+            przypisania++;                        //zmniejszamy wartosc o 1
         }
-        A[k + 1] = pierwszy;
+        A[k + 1] = pierwszy;                     //wstawiamy pierwszy na odpowiednie miejsce A[k+1]
         przypisania++;
         k = s;
-        while (k >= 0 && A[k] > drugi) {
+        przypisania++;                            //ustawiamy k na pozycje s aby moc sortowac element drugi
+        while (k >= 0 && A[k] > drugi) {         //while analogicznie do tego przy pierwszym
             porownania++;
             A[k + 1] = A[k];
             przypisania++;
             k--;
+            przypisania++;
         }
         A[k + 1] = drugi;
         przypisania++;
-    }
-    if (n % 2 == 0) {
+    }                                            //trzeba rozwazyc przypadki gdy n jest parzyste i nieprzyste
+    if (n % 2 == 0) {                            //sprawdzamy czy n parzyste czy nie
         porownania++;
-        int ostatni = A[n - 1];
+        int ostatni = A[n - 1];                  //jesli tak to robimy ekstra wstawienie dla ostatniego elementu bo nie mial pary
         przypisania++;
         int k = n - 2;
-        while (k >= 0 && A[k] > ostatni) {
+        przypisania++;                          //bierzemy k jako przedostatni element
+        while (k >= 0 && A[k] > ostatni) {       // dzialanie analogiczne do powyzszych
             porownania++;
-            A[k + 1] = A[k];
+            A[k + 1] = A[k];                     //Przesuwamy elementy wiÄ™ksze od ostatni o jedno miejsce w prawo
             przypisania++;
             k--;
         }
-        A[k + 1] = ostatni;
+        A[k + 1] = ostatni;                      //przypisujemy ostatni element
         przypisania++;
     }
 }
@@ -84,7 +91,7 @@ void WYPISZ_WYNIK(int A[], int n) {
 int main() {
     srand(time(0)); // Inicjalizacja losowego generatora
 
-    // Przyk³adowe dane wejœciowe do testów
+    // Przykladowe dane wejsciowe do testow
     int rozmiary[5] = {6, 8, 10, 12, 15};
     int proby = 5;
 

@@ -4,120 +4,131 @@
 #include <cstdlib>
 using namespace std;
 
-int porownania = 0;
+int porownania = 0;                         //zmienne globalne do przypisan i porownan
 int przypisania = 0;
 
-void RESETUJ() {
+void RESETUJ() {                            //funkcja zerujaca po kazdym posortowaniu tablicy
     porownania = 0;
     przypisania = 0;
 }
 
-void MERGE(int A[], int p, int s, int k){
-    int n1 = s - p + 1;
+void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p, srodku s, koncu k
+    int n1 = s - p + 1;                     //zdefiniowanie dlugosci lewej i prawej czesci tablicy
     int n2 = k - s;
     int L[n1 + 1];
     int P[n2 + 1];
+    przypisania +=4;
 
-    L[n1] = INT_MAX;
-    P[n2] = INT_MAX;
+    L[n1] = INT_MAX;                        //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
+    P[n2] = INT_MAX;                        //gdy skoñczymy przegl¹daæ jedn¹ z czêœci, dalsze porównania obejma tylko drug¹ czêœæ.
     przypisania +=2;
 
-    for (int i = 0; i < n1; i++) {
+    for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L
         L[i] = A[p + 1];
         przypisania++;
     }
-    for (int j = 0; j < n2; j++ ){
+    for (int j = 0; j < n2; j++ ){          //przypisujemy elementy z prawej strony do P
         P[j] = A[s + 1 + j];
         przypisania++;
     }
 
-    int i = 0;
+    int i = 0;                              //i dla lewej, j dla prawej
     int j = 0;
-    for (int l = p; l <= k; l++) {
-        if (L[i] <= P[j]) {
+    przypisania +=2;
+    for (int l = p; l <= k; l++) {          //zmienna l zaczynajaca od p, mniejsza od k
+        if (L[i] <= P[j]) {                 //sprawdzamy co jest wieksze
             porownania++;
-            A[l] = L[i];
+            A[l] = L[i];                    //przepisujemy mniejszy element do A[] i zwiêkszamy i.
             przypisania++;
             i++;
+            przypisania++;
         }
         else {
-            A[l] = P[j];
+            A[l] = P[j];                    //w przeciwnym razie przepisujemy element z P[] do A[] i zwiêkszamy j.
             porownania++;
             przypisania;
             j++;
+            przypisania++;
         }
     }
 }
 
-void MERGE_SORT(int A[], int p, int k){
-    if (p < k) {
+void MERGE_SORT(int A[], int p, int k){     //tworzymy tablice A, z poczakiem p i koncem k
+    if (p < k) {                            //jesli p mniejsze od k (jezeli na odwrot to element jest juz posortowany)
         porownania++;
         int s = (p + k) / 2;
-        MERGE_SORT(A, p, s);
-        MERGE_SORT(A, s + 1, k);
-        MERGE(A, p, s, k);
+        przypisania++;                      //liczymy srodek
+        MERGE_SORT(A, p, s);                //wywolujemy rekurencyjne sortowanie lewej strony
+        MERGE_SORT(A, s + 1, k);            //wywolujemy rekurencyjne sortowanie prawej strony
+        MERGE(A, p, s, k);                  //scalamy
     }
 }
 
-void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){
-    int n1 = s1 - p + 1;
+void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z pocztakiem p, jedna/trzecia s1, dwiema/trzecimi s2, koncem k
+    int n1 = s1 - p + 1;        //zdefiniowanie dlugosci lewej, srodkowej i prawej czesci
     int n2 = s2- s1;
     int n3 = k - s2;
-
+    przypisania +=3;
     int L[n1 + 1];
     int S[n2 + 1];
     int P[n3 + 1];
-    L[n1] = INT_MAX;
-    S[n2] = INT_MAX;
+    przypisania +=3;
+    L[n1] = INT_MAX;            //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
+    S[n2] = INT_MAX;            //gdy skoñczymy przegl¹daæ jedn¹ z czêœci, dalsze porównania nie obejma juz jej
     P[n3] = INT_MAX;
-    przypisania +=3
+    przypisania +=3;
 
-    for (int i = 0; i < n1; i++){
+    for (int i = 0; i < n1; i++){       //przypisujemy elementy z lewej do L
         L[i] = A[p + 1];
-        przypisania++
+        przypisania++;
     }
-    for (int j = 0; j < n2; j++){
+    for (int j = 0; j < n2; j++){       //przypisujemy elementy ze srodka do S
         S[j] = A[s1 + 1 + j];
-        przypisania++
+        przypisania++;
     }
-    for (int m = 0; m < n3; m++){
+    for (int m = 0; m < n3; m++){       //przypisujemy elementy z prawej do P
         P[m] = A[s2 + 1 + m];
-        przypisania++
+        przypisania++;
     }
-    int i = 0;
+    int i = 0;                          // i dla lewej, j dla srodka, m dla prawej
     int j = 0;
     int m = 0;
+    przypisania =+3;
 
-    for (int x = p; x <= k; x++) {
-         if (L[i] <= S[j] && L[i] <= P[m]) {
+    for (int x = p; x <= k; x++) {          //przeglad kazdego elementu od p do k
+         if (L[i] <= S[j] && L[i] <= P[m]) {    //jak sordek wiekszy/rowny lewej i prawa wieksza/rowna lewej
             porownania++;
-            A[x] = L[i];
+            A[x] = L[i];                        //najmnijeszy element przypisujemy na biezaca pozycje A[x]
             przypisania++;
-            i++;
-        } else if (S[j] <= L[i] && S[j] <= P[m]) {
+            i++;                                //przesuwamy wskaznik i do nastepnego elementu
+            przypisania++;
+        } else if (S[j] <= L[i] && S[j] <= P[m]) {  //jak lewa wieksza/rowna od srodka i prawa wieksza rowna od srodka
             porownania++;
-            A[x] = S[j];
+            A[x] = S[j];                            //przypisujemy element na biezca pozycje
             przypisania++;
-            j++;
-        } else {
+            j++;                                    //idziemy do nastepnego elementu
+            przypisania++;
+        } else {                                    // w przeciwnym wypadku
             porownania++;
-            A[x] = P[m];
+            A[x] = P[m];                            //przypisujemy element na biezaca pozycje
             przypisania++;
-            m++;
+            m++;                                    //idzemy do nastepnego
+            przypisania++;
 
         }
     }
 }
 
-void MERGE_SORT_MODYFIKOWANY(int A[], int p, int k) {
-    if (p < k) {
+void MERGE_SORT_MODYFIKOWANY(int A[], int p, int k) {   //tworzymy tablice A z poczatkiem p i koncem k
+    if (p < k) {                        //jezeli p mniejsze od k (odwrotnie mamy juz element posortowany
         porownania++;
-        int s1 = p + (k - p) / 3;
-        int s2 = p + 2 * (k - p) / 3;
-        MERGE_SORT_MODYFIKOWANY(A, p, s1);
-        MERGE_SORT_MODYFIKOWANY(A, s1 + 1, s2);
-        MERGE_SORT_MODYFIKOWANY(A, s2 + 1, k);
-        MERGE_MODYFIKOWANY(A, p, s1, s2, k);
+        int s1 = p + (k - p) / 3;       //dzielimy tablice na czesc 1 i 2
+        int s2 = p + 2 * (k - p) / 3;   //dzielimy tablice na czesc 2 i 3
+        przypisania +=2;
+        MERGE_SORT_MODYFIKOWANY(A, p, s1);  //sortujemy pierwsza czesc
+        MERGE_SORT_MODYFIKOWANY(A, s1 + 1, s2); //sortujemy 2 czesc
+        MERGE_SORT_MODYFIKOWANY(A, s2 + 1, k);  //sortujemy 3 czesc
+        MERGE_MODYFIKOWANY(A, p, s1, s2, k);    //scalamy
     }
 }
 
