@@ -89,6 +89,12 @@ void WYPISZ_WYNIK(int A[], int n) {
     cout << "Liczba porownan: " << porownania << endl;
     cout << "Liczba przypisan: " << przypisania << endl;
 }
+void WYPISZ_TABLICE(int* tab, int n) {
+    for (int i = 0; i < n; i++) {
+        cout << tab[i] << " ";
+    }
+    cout << endl;
+}
 
 void GENERATOR_TABLIC(int A[], int n) {
     srand(time(0));
@@ -97,15 +103,29 @@ void GENERATOR_TABLIC(int A[], int n) {
     }
 }
 
-
 int main() {
     int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
     for (int i = 0; i < 5; i++) {
         int n = sizes[i];
-        int* A = new int[n]; // dynamiczne przechowywyanie tablicy A o dlugosci n
+        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        int* B = new int[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
+
         GENERATOR_TABLIC(A, n); // generujemy losowe liczby
 
-        // Mierzenie czasu i liczenie przypisan i porownan dla normalnego
+        // Kopiujemy wygenerowaną tablicę A do B, aby zapamiętać początkową kolejność
+        for (int j = 0; j < n; j++) {
+            B[j] = A[j];
+        }
+
+        // Wyświetlanie oryginalnej zawartości tablic A i B (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Oryginalna tablica A: ";
+            WYPISZ_TABLICE(A, n);
+            cout << "Kopia tablicy B: ";
+            WYPISZ_TABLICE(B, n);
+        }
+
+        // Mierzenie czasu i liczenie przypisan i porownan dla normalnego sortowania
         RESETUJ();
         clock_t start_time = clock();
         INSERTION_SORT(A, n);
@@ -115,22 +135,44 @@ int main() {
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
-        //
-        GENERATOR_TABLIC(A, n);
+        // Wyświetlanie posortowanej tablicy A po normalnym sortowaniu (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Posortowana tablica A po INSERTION_SORT: ";
+            WYPISZ_TABLICE(A, n);
+        }
 
-        // Mierzzenie czasu u liczenie przypisan i porownan dla modyfikacji
+        // Przywracamy oryginalną kolejność liczb z B do A
+        for (int j = 0; j < n; j++) {
+            A[j] = B[j];
+        }
+
+        // Wyświetlanie przywróconej tablicy A (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Tablica A przywrócona z B: ";
+            WYPISZ_TABLICE(A, n);
+        }
+
+        // Mierzenie czasu i liczenie przypisan i porownan dla modyfikacji sortowania
         RESETUJ();
         start_time = clock();
         INSERTION_SORT_MOD(A, n);
         end_time = clock();
-        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w millisekundach
+        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
         cout << "INSERTION_SORT_MOD for size " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
+        // Wyświetlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Posortowana tablica A po INSERTION_SORT_MOD: ";
+            WYPISZ_TABLICE(A, n);
+        }
+
         delete[] A; // zwalniamy pamiec poprzez usuniecie tablicy A
+        delete[] B; // zwalniamy pamiec poprzez usuniecie tablicy B
         cout << endl;
     }
 
     return 0;
 }
+
