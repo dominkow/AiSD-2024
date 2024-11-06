@@ -131,49 +131,55 @@ void HEAP_SORT_T(int A[], int n) {      //tworzymy tablice A dlugosci n
         HEAPIFY_T(A, 0, n);             //wywolujemy HEAPIFY...
     }
 }
-void WYPISZ_WYNIK(int arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
-    }
+void WYPISZ_WYNIK(int A[], int n) {
+//    cout << "Posortowana tablica: ";
+//    for (int m = 0; m < n; m++) {
+//        cout << A[m] << " ";
+//    }
     cout << endl;
+    cout << "Liczba porownan: " << porownania << endl;
+    cout << "Liczba przypisan: " << przypisania << endl;
 }
 
-int main() {
+void GENERATOR_TABLIC(int A[], int n) {
     srand(time(0));
-
-    // Przyk³adowe rozmiary do testów
-    int rozmiary[5] = {6, 8, 10, 12, 15};
-    int proby = 5;
-
-    cout << "Test binarnego HEAP_SORTA:" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 100; // Losowe liczby od 0 do 19
-        }
-
-        RESETUJ();
-        HEAPSORT(arr, n);
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
-        cout << endl;
+    for (int i = 0; i < n; i++) {
+        A[i] = rand() % 100001;
     }
+}
 
-    // Zak³adamy, ¿e mamy te¿ zmodyfikowan¹ wersjê HEAP_SORT_BIN, jeœli jest dostêpna
-    // Funkcjê mo¿na pomin¹æ, jeœli HEAP_SORT_BIN nie istnieje
-    cout << "Test ternarnego HEAP_SORT):" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 100; // Losowe liczby od 0 do 19
-        }
 
+int main() {
+    int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
+    for (int i = 0; i < 5; i++) {
+        int n = sizes[i];
+        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        GENERATOR_TABLIC(A, n); // generujemy losowe liczby
+
+        // Mierzenie czasu i liczenie przypisan i porównan dla standardowego HEAPSORT
         RESETUJ();
-        HEAP_SORT_T(arr, n); // Zamieñ na HEAP_SORT_BIN, jeœli jest dostêpna
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
+        clock_t start_time = clock();
+        HEAPSORT(A, n); // poprawne wywołanie HEAPSPORT z zakresem (0, n-1)
+        clock_t end_time = clock();
+        double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
+        cout << "HEAPSORT dla rozmiaru " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        // Ponownie generujemy
+        GENERATOR_TABLIC(A, n);
+
+        // Mierzenie czasu i liczenie przypisan oraz porownan dla HEAP_SORT_T
+        RESETUJ();
+        start_time = clock();
+        HEAP_SORT_T(A, n); // poprawne wywolanie HEAP_SORT_T z zakresem (0, n-1)
+        end_time = clock();
+        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
+        cout << "HEAP_SORT_T dla rozmiaru " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        delete[] A; // zwalniamy pamiec, usuwajac tablice A
         cout << endl;
     }
 

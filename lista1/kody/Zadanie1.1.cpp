@@ -30,7 +30,7 @@ void INSERTION_SORT(int A[], int n) {       //utworzenie tablicy A, o wielkosci 
     }
 }
 
-void INSERTION_SORT_MODIFIED(int A[], int n) {   //stworzenie tablicy A, dlugosci n
+void INSERTION_SORT_MOD(int A[], int n) {   //stworzenie tablicy A, dlugosci n
     for (int s = 1; s < n - 1; s += 2) {         //wprowadzenie zm. s, ziwkesza sie o 2 aby przechodzic dwa elementy na raz
         int pierwszy = A[s];                     //definiujemy pierwsza i druga pozycje
         int drugi = A[s + 1];
@@ -80,50 +80,56 @@ void INSERTION_SORT_MODIFIED(int A[], int n) {   //stworzenie tablicy A, dlugosc
     }
 }
 void WYPISZ_WYNIK(int A[], int n) {
-    cout << "Posortowana tablica: ";
-    for (int m = 0; m < n; m++) {
-        cout << A[m] << " ";
-    }
+//    cout << "Posortowana tablica: ";
+//    for (int m = 0; m < n; m++) {
+//        cout << A[m] << " ";
+//    }
     cout << endl;
     cout << "Liczba porownan: " << porownania << endl;
     cout << "Liczba przypisan: " << przypisania << endl;
 }
-int main() {
-    srand(time(0)); // Inicjalizacja losowego generatora
 
-    // Przykladowe dane wejsciowe do testow
-    int rozmiary[5] = {6, 8, 10, 12, 15};
-    int proby = 5;
-
-    cout << "Test klasycznego insertion sort:" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 100;
-        }
-
-        RESETUJ();
-        INSERTION_SORT(arr, n);
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
-        cout << endl;
+void GENERATOR_TABLIC(int A[], int n) {
+    srand(time(0));
+    for (int i = 0; i < n; i++) {
+        A[i] = rand() % 100001;
     }
-
-    cout << "Test zmodyfikowanego insertion sort:" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 100;
-        }
-
-        RESETUJ();
-        INSERTION_SORT_MODIFIED(arr, n);
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
-        cout << endl;
-    }
-    return 0;
 }
 
+
+int main() {
+    int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
+    for (int i = 0; i < 5; i++) {
+        int n = sizes[i];
+        int* A = new int[n]; // dynamiczne przechowywyanie tablicy A o dlugosci n
+        GENERATOR_TABLIC(A, n); // generujemy losowe liczby
+
+        // Mierzenie czasu i liczenie przypisan i porownan dla normalnego
+        RESETUJ();
+        clock_t start_time = clock();
+        INSERTION_SORT(A, n);
+        clock_t end_time = clock();
+        double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
+        cout << "INSERTION_SORT for size " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        //
+        GENERATOR_TABLIC(A, n);
+
+        // Mierzzenie czasu u liczenie przypisan i porownan dla modyfikacji
+        RESETUJ();
+        start_time = clock();
+        INSERTION_SORT_MOD(A, n);
+        end_time = clock();
+        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w millisekundach
+        cout << "INSERTION_SORT_MOD for size " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        delete[] A; // zwalniamy pamiec poprzez usuniecie tablicy A
+        cout << endl;
+    }
+
+    return 0;
+}

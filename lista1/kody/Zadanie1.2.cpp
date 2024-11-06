@@ -19,8 +19,8 @@ void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p
     int P[n2 + 1];
     przypisania +=4;
 
-    L[n1] = INT_MAX;                        //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
-    P[n2] = INT_MAX;                        //gdy skoñczymy przegl¹daæ jedn¹ z czêœci, dalsze porównania obejma tylko drug¹ czêœæ.
+    L[n1] = INT_MAX;                        //dodanie "wartoÅ“ci nieskoÃ±czonoÅ“ci" na koÃ±cach tych tablic.
+    P[n2] = INT_MAX;                        //gdy skoÃ±czymy przegladac jedna z czesci, dalsze porÃ³wnania obejma tylko druga czesc.
     przypisania +=2;
 
     for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L
@@ -38,13 +38,13 @@ void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p
     for (int l = p; l <= k; l++) {          //zmienna l zaczynajaca od p, mniejsza od k
         if (L[i] <= P[j]) {                 //sprawdzamy co jest wieksze
             porownania++;
-            A[l] = L[i];                    //przepisujemy mniejszy element do A[] i zwiêkszamy i.
+            A[l] = L[i];                    //przepisujemy mniejszy element do A[] i zwiekszamy i.
             przypisania++;
             i++;
             przypisania++;
         }
         else {
-            A[l] = P[j];                    //w przeciwnym razie przepisujemy element z P[] do A[] i zwiêkszamy j.
+            A[l] = P[j];                    //w przeciwnym razie przepisujemy element z P[] do A[] i zwiekszamy j.
             porownania++;
             przypisania;
             j++;
@@ -73,8 +73,8 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tabli
     int S[n2 + 1];
     int P[n3 + 1];
     przypisania +=3;
-    L[n1] = INT_MAX;            //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
-    S[n2] = INT_MAX;            //gdy skoñczymy przegl¹daæ jedn¹ z czêœci, dalsze porównania nie obejma juz jej
+    L[n1] = INT_MAX;            //dodanie "wartosci nieskonczonosci" na koncach tych tablic.
+    S[n2] = INT_MAX;            //gdy skonczymy przegladac jedna z czesci, dalsze porÃ³wnania nie obejma juz jej
     P[n3] = INT_MAX;
     przypisania +=3;
 
@@ -96,7 +96,7 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tabli
     przypisania =+3;
 
     for (int x = p; x <= k; x++) {          //przeglad kazdego elementu od p do k
-         if (L[i] <= S[j] && L[i] <= P[m]) {    //jak sordek wiekszy/rowny lewej i prawa wieksza/rowna lewej
+         if (L[i] <= S[j] && L[i] <= P[m]) {    //jak srodek wiekszy/rowny lewej i prawa wieksza/rowna lewej
             porownania++;
             A[x] = L[i];                        //najmnijeszy element przypisujemy na biezaca pozycje A[x]
             przypisania++;
@@ -131,50 +131,55 @@ void MERGE_SORT_MODYFIKOWANY(int A[], int p, int k) {   //tworzymy tablice A z p
         MERGE_MODYFIKOWANY(A, p, s1, s2, k);    //scalamy
     }
 }
-
 void WYPISZ_WYNIK(int A[], int n) {
-    cout << "Posortowana tablica: ";
-    for (int m = 0; m < n; m++) {
-        cout << A[m] << " ";
-    }
+//    cout << "Posortowana tablica: ";
+//    for (int m = 0; m < n; m++) {
+//        cout << A[m] << " ";
+//    }
     cout << endl;
     cout << "Liczba porownan: " << porownania << endl;
     cout << "Liczba przypisan: " << przypisania << endl;
 }
 
-int main() {
+void GENERATOR_TABLIC(int A[], int n) {
     srand(time(0));
-
-    int rozmiary[5] = {6, 8, 10, 12, 15};
-    int proby = 5;
-
-    cout << "Test klasycznego MERGE_SORT:" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 1000;
-        }
-
-        RESETUJ();
-        MERGE_SORT(arr, 0, n - 1);
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
-        cout << endl;
+    for (int i = 0; i < n; i++) {
+        A[i] = rand() % 100001;
     }
+}
 
-    cout << "Test zmodyfikowanego MERGE_SORT:" << endl;
-    for (int i = 0; i < proby; i++) {
-        int n = rozmiary[i];
-        int arr[n];
-        for (int j = 0; j < n; j++) {
-            arr[j] = rand() % 1000;
-        }
 
+int main() {
+    int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
+    for (int i = 0; i < 5; i++) {
+        int n = sizes[i];
+        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        GENERATOR_TABLIC(A, n); // generujemy losowe liczby
+
+        // Mierzenie czasu i liczenie przypisan i porÃ³wnan dla standardowego MERGE_SORT
         RESETUJ();
-        MERGE_SORT_MODYFIKOWANY(arr, 0, n - 1);
-        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
-        WYPISZ_WYNIK(arr, n);
+        clock_t start_time = clock();
+        MERGE_SORT(A, 0, n - 1); // poprawne wywoÅ‚anie MERGE_SORT z zakresem (0, n-1)
+        clock_t end_time = clock();
+        double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
+        cout << "MERGE_SORT dla rozmiaru " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        // Ponownie generujemy
+        GENERATOR_TABLIC(A, n);
+
+        // Mierzenie czasu i liczenie przypisan oraz porownan dla MERGE_SORT_MODYFIKOWANY
+        RESETUJ();
+        start_time = clock();
+        MERGE_SORT_MODYFIKOWANY(A, 0, n - 1); // poprawne wywolanie MERGE_SORT_MODYFIKOWANY z zakresem (0, n-1)
+        end_time = clock();
+        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
+        cout << "MERGE_SORT_MODYFIKOWANY dla rozmiaru " << n << ":\n";
+        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        WYPISZ_WYNIK(A, n);
+
+        delete[] A; // zwalniamy pamiec, usuwajac tablice A
         cout << endl;
     }
 
