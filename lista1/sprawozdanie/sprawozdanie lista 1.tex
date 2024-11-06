@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{polski}
+\usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{graphicx}
 \title{AiSD Lista 1}
@@ -7,11 +8,90 @@
 
 \begin{document}
 	\maketitle  
+	
 	\section{Algorytm sortowania INSERTION SORT (przez wstawianie)}
 	
-	\
+\large {W podstawowej wersji (bez modyfikacji) algorytmu sortowania przez wstawienie wyróżniamy następujący fragment kodu: }
+
+	\begin{lstlisting}[language=C++, caption={Kod dla funkcji sortującej przez wstawienie}, numbers=left, frame=single, xleftmargin=20pt]
+void INSERTION_SORT(int A[], int n) {
+	for (int i = 1; i < n; i++) {
+		int key = A[i];
+		int j = i - 1;
+		while (j >= 0 && A[j] > key) {
+			A[j + 1] = A[j];
+			j--;
+		}
+		A[j + 1] = key;
+		}
+	}
+	\end{lstlisting}
 	
+\large {Powyższy fragment kodu idealnie przez funkcje for przechodzi kolejno po każdym elemencie tablicy \(A\). Naszą iterację zaczynamy od drugiego elementu tablicy (z indeksem \(1\)) (zakładając, że \(0\) jest już posortowany). Zmienna \(key\) umożliwia przechowanie wartości wstawianego elementu zapobiegając  nadpisaniu oraz pozwalając na porównywanie tej wartości z kolejnymi elementami posortowanego ciągu. Gdy napotkany element w posortowanej części jest większy od wstawianego, przesuwamy go o jedną pozycję w prawo, aby zrobić miejsce na wstawienie nowego elementu. Jeśli element w posortowanej części jest mniejszy lub równy wstawianemu, wówczas zapisujemy wstawiany element na kolejnej pozycji.}
+		
+\large {
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{tabelains1.png}
+	\caption{ilość przypisań oraz porównań dla INSERTION SORT}
+	\label{fig:tabela1}
+\end{figure}
+
+
+\newpage
+
+\large {Modyfikacja INSERTION SORTA polega na wstawianiu "na raz" dwóch kolejnych elementów tablicy. Zatem duża część kodu działa w dość analogiczny sposób.}
+
+
+
+\begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void INSERTION_SORT_MOD(int A[], int n) {
+	for (int s = 1; s < n - 1; s += 2) {
+		int pierwszy = A[s];
+		int drugi = A[s + 1];
+		if (pierwszy > drugi) {
+			swap(pierwszy, drugi);
+		}
+		int k = s - 1;
+		while (k >= 0 && A[k] > pierwszy) {
+			A[k + 1] = A[k];
+			k--;
+		}
+		A[k + 1] = pierwszy;
+		A[k + 2] = drugi;
+	}
+}
+
+\end{lstlisting}
+
+\large{Pętla zaczyna się od indeksu \(1\) i iteruje z krokiem \(+2\), co pozwala jednocześnie rozpatrywać dwie wartości – \(pierwszy\) i \(drugi\). Następie porównujemy je za pomocą funkcji if i jeśli \(pierwszy\) jest większy zamieniamy miejscami. Funkcja while działa już na tej samej zasadzie co w kodzie bez modyfikacji.}
+
+\newpage
+
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+if (n % 2 == 0) {
+	int ostatni = A[n - 1];
+	int k = n - 2;
+	while (k >= 0 && A[k] > ostatni) {
+		A[k + 1] = A[k];
+		k--;
+	}
+	A[k + 1] = ostatni;
+}
 	
+\end{lstlisting}
+
+\large{Przedstawiona modyfikacja jednak wymaga rozważenia przypadku, czy tablica \(A\) ma długość parzystą, czy nieparzystą. Problem pojawia się gdy \(n\) jest parzyste, gdyż ostatni sortowany element nie ma pary (\(ostatni = A[n - 1]\)). Dla \(k\) przypisujemy przedostatni indeks tablicy, które też będzie miejscem rozpoczęcia wstawiania elementu \(ostatni\). Pętla \(while\) działa identycznie jak ta w podstawowym INSERTION SORCIE, z uwagą, że naszym \(key\) jest \(ostatni\).}
+
+	\section{Algorytm sortowania MERGE SORT (przez scalenie)}
 	
- 		
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+
+	
+\end{lstlisting}
+
+
 \end{document}
+
+
+

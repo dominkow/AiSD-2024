@@ -74,6 +74,7 @@ void INSERTION_SORT_MOD(int A[], int n) {   //stworzenie tablicy A, dlugosci n
             A[k + 1] = A[k];                     //Przesuwamy elementy większe od ostatni o jedno miejsce w prawo
             przypisania++;
             k--;
+            przypisania++;
         }
         A[k + 1] = ostatni;                      //przypisujemy ostatni element
         przypisania++;
