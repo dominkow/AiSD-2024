@@ -131,7 +131,7 @@ int main() {
         INSERTION_SORT(A, n);
         clock_t end_time = clock();
         double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "INSERTION_SORT for size " << n << ":\n";
+        cout << "INSERTION_SORT dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
@@ -158,7 +158,7 @@ int main() {
         INSERTION_SORT_MOD(A, n);
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "INSERTION_SORT_MOD for size " << n << ":\n";
+        cout << "INSERTION_SORT_MOD dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 

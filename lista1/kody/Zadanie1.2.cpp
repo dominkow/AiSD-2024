@@ -23,7 +23,7 @@ void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p
     P[n2] = INT_MAX;                        //gdy skoñczymy przegladac jedna z czesci, dalsze porównania obejma tylko druga czesc.
     przypisania +=2;
 
-    for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L
+    for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L (była p+1 zamiast p+i)
         L[i] = A[p + i];
         przypisania++;
     }
@@ -182,13 +182,13 @@ int main() {
         MERGE_SORT(A, 0, n-1);
         clock_t end_time = clock();
         double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "INSERTION_SORT for size " << n << ":\n";
+        cout << "MERGE_SORT dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
         // Wyświetlanie posortowanej tablicy A po normalnym sortowaniu (dla rozmiaru 10)
         if (n == 10) {
-            cout << "Posortowana tablica A po INSERTION_SORT: ";
+            cout << "Posortowana tablica A po MERGE_SORT: ";
             WYPISZ_TABLICE(A, n);
         }
 
@@ -209,13 +209,13 @@ int main() {
         MERGE_SORT_MODYFIKOWANY(A, 0, n-1);
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "INSERTION_SORT_MOD for size " << n << ":\n";
+        cout << "MERGE_SORT_MODYFIKOWANY dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
         // Wyświetlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
         if (n == 10) {
-            cout << "Posortowana tablica A po INSERTION_SORT_MOD: ";
+            cout << "Posortowana tablica A po MERGE_SORT_MODYFIKOWANY: ";
             WYPISZ_TABLICE(A, n);
         }
 
