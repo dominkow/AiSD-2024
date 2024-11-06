@@ -24,7 +24,7 @@ void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p
     przypisania +=2;
 
     for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L
-        L[i] = A[p + 1];
+        L[i] = A[p + i];
         przypisania++;
     }
     for (int j = 0; j < n2; j++ ){          //przypisujemy elementy z prawej strony do P
@@ -79,7 +79,7 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tabli
     przypisania +=3;
 
     for (int i = 0; i < n1; i++){       //przypisujemy elementy z lewej do L
-        L[i] = A[p + 1];
+        L[i] = A[p + i];
         przypisania++;
     }
     for (int j = 0; j < n2; j++){       //przypisujemy elementy ze srodka do S
@@ -147,41 +147,83 @@ void GENERATOR_TABLIC(int A[], int n) {
         A[i] = rand() % 100001;
     }
 }
-
+void WYPISZ_TABLICE(int* tab, int n) {
+    for (int i = 0; i < n; i++) {
+        cout << tab[i] << " ";
+    }
+    cout << endl;
+}
 
 int main() {
     int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
     for (int i = 0; i < 5; i++) {
         int n = sizes[i];
         int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        int* B = new int[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
+
         GENERATOR_TABLIC(A, n); // generujemy losowe liczby
 
-        // Mierzenie czasu i liczenie przypisan i porównan dla standardowego MERGE_SORT
+        // Kopiujemy wygenerowaną tablicę A do B, aby zapamiętać początkową kolejność
+        for (int j = 0; j < n; j++) {
+            B[j] = A[j];
+        }
+
+        // Wyświetlanie oryginalnej zawartości tablic A i B (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Oryginalna tablica A: ";
+            WYPISZ_TABLICE(A, n);
+            cout << "Kopia tablicy B: ";
+            WYPISZ_TABLICE(B, n);
+        }
+
+        // Mierzenie czasu i liczenie przypisan i porownan dla normalnego sortowania
         RESETUJ();
         clock_t start_time = clock();
-        MERGE_SORT(A, 0, n - 1); // poprawne wywołanie MERGE_SORT z zakresem (0, n-1)
+        MERGE_SORT(A, 0, n-1);
         clock_t end_time = clock();
         double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "MERGE_SORT dla rozmiaru " << n << ":\n";
+        cout << "INSERTION_SORT for size " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
-        // Ponownie generujemy
-        GENERATOR_TABLIC(A, n);
+        // Wyświetlanie posortowanej tablicy A po normalnym sortowaniu (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Posortowana tablica A po INSERTION_SORT: ";
+            WYPISZ_TABLICE(A, n);
+        }
 
-        // Mierzenie czasu i liczenie przypisan oraz porownan dla MERGE_SORT_MODYFIKOWANY
+        // Przywracamy oryginalną kolejność liczb z B do A
+        for (int j = 0; j < n; j++) {
+            A[j] = B[j];
+        }
+
+        // Wyświetlanie przywróconej tablicy A (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Tablica A przywrócona z B: ";
+            WYPISZ_TABLICE(A, n);
+        }
+
+        // Mierzenie czasu i liczenie przypisan i porownan dla modyfikacji sortowania
         RESETUJ();
         start_time = clock();
-        MERGE_SORT_MODYFIKOWANY(A, 0, n - 1); // poprawne wywolanie MERGE_SORT_MODYFIKOWANY z zakresem (0, n-1)
+        MERGE_SORT_MODYFIKOWANY(A, 0, n-1);
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "MERGE_SORT_MODYFIKOWANY dla rozmiaru " << n << ":\n";
+        cout << "INSERTION_SORT_MOD for size " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
-        delete[] A; // zwalniamy pamiec, usuwajac tablice A
+        // Wyświetlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
+        if (n == 10) {
+            cout << "Posortowana tablica A po INSERTION_SORT_MOD: ";
+            WYPISZ_TABLICE(A, n);
+        }
+
+        delete[] A; // zwalniamy pamiec poprzez usuniecie tablicy A
+        delete[] B; // zwalniamy pamiec poprzez usuniecie tablicy B
         cout << endl;
     }
 
     return 0;
 }
+
