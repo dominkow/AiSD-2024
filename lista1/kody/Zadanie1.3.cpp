@@ -11,15 +11,17 @@ void RESETUJ() {
     przypisania = 0;
 }
 // dla kopca binarnego mamy pozycje:
-int LEWA_B (int i){
+int LEWA(int i) {
+    return 2 * i;
+}
+
+int PRAWA(int i) {
     return 2 * i + 1;
 }
-int PRAWA_B (int i){
-    return 2 * i + 2;
-}
-void HEAPIFY(int A[], int n, int i){
-    int l = LEWA_B(i);
-    int p = PRAWA_B(i);
+
+void HEAPIFY(int A[], int i, int n) {
+    int l = LEWA(i);
+    int p = PRAWA(i);
     int naj = i;
 
     if (l < n && A[l] > A[i]) {
@@ -27,27 +29,31 @@ void HEAPIFY(int A[], int n, int i){
         naj = l;
         przypisania++;
     }
-    if (p < n && A[p] > A[naj]){
+
+    if (p < n && A[p] > A[naj]) {
         porownania++;
         naj = p;
         przypisania++;
     }
+
     if (naj != i) {
         porownania++;
-        swap (A[i], A[naj]);
+        swap(A[i], A[naj]);
         przypisania +=2;
         HEAPIFY(A, naj, n);
     }
 }
 
+
 void BUILD_HEAP(int A[], int n) {
-    for (int i = n / 2 - 1; i >= 1; i--) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
     HEAPIFY(A, i, n);
     }
 }
 
-void HEAP_SORT_BIN(int A[], int n){
+void HEAPSORT(int A[], int n) {
     BUILD_HEAP(A, n);
+
     for (int i = n - 1; i >= 1; i--) {
         swap(A[0], A[i]);
         przypisania +=2;
@@ -55,6 +61,7 @@ void HEAP_SORT_BIN(int A[], int n){
         HEAPIFY(A, 0, n);
     }
 }
+
 
 int LEWA_T(int i){
     return 3 * i;
@@ -136,8 +143,8 @@ int main() {
         }
 
         RESETUJ();
-        HEAP_SORT_BIN(arr, n);
-        cout << "Próba " << i + 1 << " dla " << n << " elementów:" << endl;
+        HEAPSORT(arr, n);
+        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
         WYPISZ_WYNIK(arr, n);
         cout << endl;
     }
@@ -154,7 +161,7 @@ int main() {
 
         RESETUJ();
         HEAP_SORT_T(arr, n); // Zamieñ na HEAP_SORT_BIN, jeœli jest dostêpna
-        cout << "Próba " << i + 1 << " dla " << n << " elementów:" << endl;
+        cout << "Proba " << i + 1 << " dla " << n << " elementow:" << endl;
         WYPISZ_WYNIK(arr, n);
         cout << endl;
     }
