@@ -70,15 +70,19 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){
     L[n1] = INT_MAX;
     S[n2] = INT_MAX;
     P[n3] = INT_MAX;
+    przypisania +=3
 
     for (int i = 0; i < n1; i++){
         L[i] = A[p + 1];
+        przypisania++
     }
     for (int j = 0; j < n2; j++){
         S[j] = A[s1 + 1 + j];
+        przypisania++
     }
     for (int m = 0; m < n3; m++){
         P[m] = A[s2 + 1 + m];
+        przypisania++
     }
     int i = 0;
     int j = 0;
