@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 03:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 03:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -418,12 +418,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 292--295
 
  []
 
-[10] (./sprawozdanie lista 1.aux) ) 
+<mergetabela.png, id=46, 845.40843pt x 123.46124pt>
+File: mergetabela.png Graphic file (type png)
+<use mergetabela.png>
+Package pdftex.def Info: mergetabela.png  used on input line 306.
+(pdftex.def)             Requested size: 310.4979pt x 45.34271pt.
+<wykresmerge.png, id=47, 420.06938pt x 225.84375pt>
+File: wykresmerge.png Graphic file (type png)
+<use wykresmerge.png>
+Package pdftex.def Info: wykresmerge.png  used on input line 313.
+(pdftex.def)             Requested size: 310.4979pt x 166.93565pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--321
+
+ []
+
+[10 <./mergetabela.png> <./wykresmerge.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 322--325
+
+ []
+
+[11] (./sprawozdanie lista 1.aux) ) 
 Here is how much of TeX's memory you used:
- 4781 strings out of 476025
- 72803 string characters out of 5794016
+ 4797 strings out of 476025
+ 73101 string characters out of 5794016
  1888382 words of memory out of 5000000
- 25159 multiletter control sequences out of 15000+600000
+ 25173 multiletter control sequences out of 15000+600000
  519720 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,67p,789b,1642s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -437,10 +457,10 @@ fb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr8.pfb><c:/texlive/2023/
 texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023/texmf-dist/fonts/t
 ype1/public/pl/pltt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-sup
 er/sfrm1200.pfb>
-Output written on "sprawozdanie lista 1.pdf" (10 pages, 164655 bytes).
+Output written on "sprawozdanie lista 1.pdf" (11 pages, 223603 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 109 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -299,6 +299,38 @@ Złożoność:}
 	\item \textbf{Złożoność optymistyczna:} $O(n)$, 
 	\item \textbf{Złożoność pesymistyczna:} $O(n^2)$, 
 \end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{mergetabela.png}
+	\caption{Porównanie ilości porównań i przypisań w MERGE SORT oraz MERGE SORT MODYFIKOWANY.}
+	\label{fig:tabela2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{wykresmerge.png}
+	\caption{Wykres ilości porównań i przypisań w MERGE SORT oraz MERGE SORT MODYFIKOWANY.}
+	\label{fig:wykres2}
+\end{figure}
+
+\large{Czas wykonywania sortowania MERGE SORT:
+	dla 10000 elementów  - \(1 ms\)\\
+	dla 50000 elementów - \(8 ms\)}\\
+
+\large{Czas wykonania sortowania MERGE SORT MODYFIKOWANY:
+	dla 10000 elementów - \(2 ms\)\\
+	dla 50000 elementów - \(8 ms\)}\\
+	
+\large{W tym przypadku zdecydowanie bardziej wydajniejszym i lżejszym algorytmem jest merge z modyfikacja, który dodatkowo nie odstaje wcale bardzo czasowo względem klasycznego merga. Dodatkowo Merge sort jest znacznie szybszy od insertion sorta jak również znacznie lżejszy, przez co i wydajniejszy, co zgadza się z teorią.}
+
+\begin{itemize}
+	\item \textbf{Złożoność optymistyczna} $O(n \log n)$, 
+	\item \textbf{Złożoność pesymistyczna:} $O(n \log n)$,
+\end{itemize}
+
+
 \end{document}
 
 
