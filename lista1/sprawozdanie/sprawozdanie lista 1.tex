@@ -270,6 +270,35 @@ funkcja \(PRAWA T\) zwraca \(3 * i + 1\)\\
 Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna s, która przy porównywaniu  wartości dodaje jedną dodatkową pętle if.} 
 
 	\section{Porównania}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{tabelains.png}
+		\caption{Porównanie ilości porównań i przypisań w INSERTION SORT oraz INSERTION SORT MOD.}
+		\label{fig:tabela1}
+	\end{figure}
+	
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{wykresins.png}
+		\caption{Wykres ilości porównań i przypisań w INSERTION SORT oraz INSERTION SORT MOD.}
+		\label{fig:wykres1}
+	\end{figure}
+	\newpage
+\large{Czas wykonywania sortowania INSERTION SORT:
+dla 10000 elementów  - \(95 ms\)\\
+dla 50000 elementów - \(1950 ms\)}\\
+
+\large{Czas wykonania sortowania INSERTION SORT MOD:
+dla 10000 elementów - \(90 ms\)\\
+dla 50000 elementów - \(2015 ms\)}\\
+
+\large{Obydwa algorytmy mają bardzo zbliżoną złożoność, która minimalnie jest większa dla zmodyfikowanej wersji insertion sort. Pod względem ilości czasu na sortowanie również wypadają bardzo podobnie.\\
+Złożoność:}
+\begin{itemize}
+	\item \textbf{Złożoność optymistyczna:} $O(n)$, 
+	\item \textbf{Złożoność pesymistyczna:} $O(n^2)$, 
+\end{itemize}
 \end{document}
 
 
