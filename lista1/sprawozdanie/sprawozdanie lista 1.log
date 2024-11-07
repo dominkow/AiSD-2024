@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  6 NOV 2024 23:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 01:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -124,80 +124,182 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \Gin@req@height=\dimen145
 \Gin@req@width=\dimen146
 )
+(c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2022/04/08 v2.17n AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(c:/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks20
+\ex@=\dimen147
+))
+(c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen148
+)
+(c:/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count267
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count268
+\leftroot@=\count269
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count270
+\DOTSCASE@=\count271
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen149
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count272
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count273
+\dotsspace@=\muskip16
+\c@parentequation=\count274
+\dspbrk@lvl=\count275
+\tag@help=\toks21
+\row@=\count276
+\column@=\count277
+\maxfields@=\count278
+\andhelp@=\toks22
+\eqnshift@=\dimen150
+\alignsep@=\dimen151
+\tagshift@=\dimen152
+\tagwidth@=\dimen153
+\totwidth@=\dimen154
+\lineht@=\dimen155
+\@envbody=\toks23
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
 (c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count267
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count279
+\l__pdf_internal_box=\box55
 )
 (./sprawozdanie lista 1.aux)
 \openout1 = `"sprawozdanie lista 1.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-\c@lstlisting=\count268
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+\c@lstlisting=\count280
 
 (c:/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count269
-\scratchdimen=\dimen147
-\scratchbox=\box54
-\nofMPsegments=\count270
-\nofMParguments=\count271
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count272
-\MPscratchDim=\dimen148
-\MPnumerator=\count273
-\makeMPintoPDFobject=\count274
-\everyMPtoPDFconversion=\toks21
+\scratchcounter=\count281
+\scratchdimen=\dimen156
+\scratchbox=\box56
+\nofMPsegments=\count282
+\nofMParguments=\count283
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count284
+\MPscratchDim=\dimen157
+\MPnumerator=\count285
+\makeMPintoPDFobject=\count286
+\everyMPtoPDFconversion=\toks26
 ) (c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(c:/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(c:/texlive/2023/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+
+(c:/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+))
+(c:/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+
+(c:/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(c:/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))
+(c:/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(c:/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (c:/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Trying to load font information for OML+plm on input line 1
-0.
+2.
 
 (c:/texlive/2023/texmf-dist/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 
-10.
+12.
 
 (c:/texlive/2023/texmf-dist/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMX+plex on input line 
-10.
+12.
 
 (c:/texlive/2023/texmf-dist/tex/latex/polski/omxplex.fd
 File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <12> on input line 10.
+(Font)              <12> on input line 12.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <8> on input line 10.
+(Font)              <8> on input line 12.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <6> on input line 10.
+(Font)              <6> on input line 12.
 
-Overfull \hbox (15.22775pt too wide) in paragraph at lines 12--12
+Overfull \hbox (15.22775pt too wide) in paragraph at lines 14--14
 []\OT4/cmr/bx/n/14.4 Algorytm sor-to-wa-nia IN-SER-TION SORT (przez
  []
 
@@ -211,25 +313,25 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
-7.
+9.
 
 (c:/texlive/2023/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1
-8.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
+0.
 
 (c:/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 18.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 20.
 <tabelains1.png, id=1, 475.7775pt x 47.42719pt>
 File: tabelains1.png Graphic file (type png)
 <use tabelains1.png>
-Package pdftex.def Info: tabelains1.png  used on input line 35.
+Package pdftex.def Info: tabelains1.png  used on input line 37.
 (pdftex.def)             Requested size: 310.4979pt x 30.95322pt.
  [1
 
@@ -237,41 +339,52 @@ Package pdftex.def Info: tabelains1.png  used on input line 35.
 texmf-dist/fonts/enc/dvips/pl/plrm.enc}{c:/texlive/2023/texmf-dist/fonts/enc/dv
 ips/cm-super/cm-super-ts1.enc}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pl
 mi.enc}]
-Overfull \hbox (0.29944pt too wide) in paragraph at lines 52--53
+Overfull \hbox (0.29944pt too wide) in paragraph at lines 55--56
 [][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (35.54938pt too wide) in paragraph at lines 55--56
+Overfull \hbox (35.54938pt too wide) in paragraph at lines 58--59
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[2 <./tabelains1.png>] [3{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/plms.en
-c}] (./sprawozdanie lista 1.aux) )
-(\end occurred inside a group at level 1)
+[2 <./tabelains1.png>]
+Overfull \hbox (3.61354pt too wide) in paragraph at lines 101--102
+[]\OT4/cmr/m/n/12 W przy-pad-ku MER-GE SOR-TA wa»-n¡ ro-l¦ od-gry-wa funk-cja M
+ER-
+ []
 
-### simple group (level 1) entered at line 32 ({)
-### bottom level 
+[3{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/plms.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 118--122
+
+ []
+
+[4]
+Overfull \hbox (127.19922pt too wide) in paragraph at lines 136--137
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[5] (./sprawozdanie lista 1.aux) ) 
 Here is how much of TeX's memory you used:
- 3382 strings out of 476025
- 50394 string characters out of 5794016
- 1874382 words of memory out of 5000000
- 23814 multiletter control sequences out of 15000+600000
+ 4726 strings out of 476025
+ 71979 string characters out of 5794016
+ 1880382 words of memory out of 5000000
+ 25110 multiletter control sequences out of 15000+600000
  519423 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,64p,780b,1446s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c
-:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.pfb><c:/texlive/2023/tex
-mf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type
-1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr12.p
-fb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pfb><c:/texlive/2023
-/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023/texmf-dist/fonts/
-type1/public/cm-super/sfrm1200.pfb>
-Output written on "sprawozdanie lista 1.pdf" (3 pages, 95353 bytes).
+ 62i,6n,67p,789b,1642s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2023/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.pfb><c
+:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/2023/tex
+mf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1
+/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pf
+b><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023
+/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on "sprawozdanie lista 1.pdf" (5 pages, 103310 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 72 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

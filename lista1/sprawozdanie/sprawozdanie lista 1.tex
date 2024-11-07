@@ -3,6 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage{amsmath}  % dla matematycznych symboli
+
 \title{AiSD Lista 1}
 \author{Dominik Kowalczyk}
 
@@ -27,7 +29,7 @@ void INSERTION_SORT(int A[], int n) {
 	}
 	\end{lstlisting}
 	
-\large {Powyższy fragment kodu idealnie przez funkcje for przechodzi kolejno po każdym elemencie tablicy \(A\). Naszą iterację zaczynamy od drugiego elementu tablicy (z indeksem \(1\)) (zakładając, że \(0\) jest już posortowany). Zmienna \(key\) umożliwia przechowanie wartości wstawianego elementu zapobiegając  nadpisaniu oraz pozwalając na porównywanie tej wartości z kolejnymi elementami posortowanego ciągu. Gdy napotkany element w posortowanej części jest większy od wstawianego, przesuwamy go o jedną pozycję w prawo, aby zrobić miejsce na wstawienie nowego elementu. Jeśli element w posortowanej części jest mniejszy lub równy wstawianemu, wówczas zapisujemy wstawiany element na kolejnej pozycji.}
+\large {Powyższy fragment kodu zaczyna się od funkcji for, która przechodzi kolejno po każdym elemencie tablicy \(A\). Naszą iterację zaczynamy od drugiego elementu tablicy (z indeksem \(1\)) (zakładając, że \(0\) jest już posortowany). Zmienna \(key\) umożliwia przechowanie wartości wstawianego elementu zapobiegając  nadpisaniu oraz pozwalając na porównywanie tej wartości z kolejnymi elementami posortowanego ciągu. Gdy napotkany element w posortowanej części jest większy od wstawianego, przesuwamy go o jedną pozycję w prawo, aby zrobić miejsce na wstawienie nowego elementu. Jeśli element w posortowanej części jest mniejszy lub równy wstawianemu, wówczas zapisujemy wstawiany element na kolejnej pozycji.}
 		
 \large {
 \begin{figure}
@@ -85,10 +87,66 @@ if (n % 2 == 0) {
 
 	\section{Algorytm sortowania MERGE SORT (przez scalenie)}
 	
-\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-
-	
+\begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez scalenie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void MERGE(int A[], int p, int s, int k) {
+	int n1 = s - p + 1;
+	int n2 = k - s;
+	int L[n1 + 1];
+	int P[n2 + 1];
+	L[n1] = INT_MAX;
+	P[n2] = INT_MAX;
+}
 \end{lstlisting}
+
+\large{W przypadku MERGE SORTA ważną rolę odgrywa funkcja MERGE, na której na dobrą sprawę zbudowany jest MERGE SORT. MERGE przyjmuje cztery argumenty: \(p\) - początek, \(s\) - środek oraz \(k\) - koniec. Za ich pomocą dzielimy tablicę na dwie części: lewą (\(n1 = s - p + 1\)) oraz prawą (\(n2 = k - s\)). Definiujemy funkcje pomocnicze L i P o pojemności kolejno \(n1 + 1\) oraz \(n2 + 1\). Następnie ustawiamy ostatni element na "napewno większy" od największego elementu tablicy \(A[]\).}
+
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez scalenie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+int i = 0;
+int j = 0;
+for (int l = p; l <= k; l++) {
+	if (L[i] <= P[j]) {
+		A[l] = L[i];
+		i++;
+	} else {
+		A[l] = P[j];
+		j++;
+	}
+}
+\end{lstlisting}
+\large{Po przypisaniu z lewej części do zmiennej \(L\) i z prawej części \(P\) resetujemy wskaźniki \(i\) oraz \(j\) (które wskazują naszą pozycję w kolejno w L i P).
+	
+Instrukcja \(if (L[i] \leq P[j])\)} sprawdza, czy bieżący element z \(L\) jest mniejszy lub równy bieżącemu elementowi z \(P\). \\
+Jeśli tak, to mniejszy element \(L[i]\) jest wstawiany do tablicy \(A[l]\), a wskaźnik \(i\) jest zwiększany o \(1\), by przejść do następnego elementu w \(L\). \\
+Jeśli nie, to mniejszy element \(P[j]\) jest kopiowany do \(A[l]\), a wskaźnik \(j\) jest zwiększany o \(1\), by przejść do następnego elementu w \(P\).}
+\\
+
+\begin{lstlisting}[language=C++, caption={Fragment 3 funkcji sortującej przez scalenie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void MERGE_SORT(int A[], int p, int k) {
+	if (p < k) {
+		int s = (p + k) / 2;
+		MERGE_SORT(A, p, s);
+		MERGE_SORT(A, s + 1, k);
+		MERGE(A, p, s, k);
+	}
+}
+\end{lstlisting}
+\large{Po przeanalizowaniu funkcji MERGE, możemy przejść do funkcji MERGE SORT, która wylicza srodek tablicy i wywołuje kolejno sortowanie z lewej strony, prawej strony po czym scala obie strony.}
+
+\begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez scalenie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k) {
+	int n1 = s1 - p + 1;
+	int n2 = s2 - s1;
+	int n3 = k - s2;
+	int L[n1 + 1];
+	int S[n2 + 1];
+	int P[n3 + 1];
+	L[n1] = INT_MAX;
+	S[n2] = INT_MAX;
+	P[n3] = INT_MAX;
+}
+\end{lstlisting}
+\large{Modyfikacja MERGE SORTA polegała na podzieleniu tablicy na trzy części zamiast dwóch, wiec cały kod opiera się i ma bardzo podobną budowę do podstawowego MERGE SORTA. Zamiast dwóch części tworzymy trzy \(n1 = s1 - p + 1\), \(n2 = s2 - s1\), \(n3 = k - s2\), a jako, że rozdzielamy tablicę. Pozostała reszta MERGA MODYFIKOWANEGO jak i MERGE SORTA MODYFIKOWANEGO przebiega bardzo podobnie.}
+
 
 
 \end{document}
