@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 01:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 02:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -328,63 +328,97 @@ File: omlcmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 20.
-<tabelains1.png, id=1, 475.7775pt x 47.42719pt>
-File: tabelains1.png Graphic file (type png)
-<use tabelains1.png>
-Package pdftex.def Info: tabelains1.png  used on input line 37.
-(pdftex.def)             Requested size: 310.4979pt x 30.95322pt.
  [1
 
 {c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/
 texmf-dist/fonts/enc/dvips/pl/plrm.enc}{c:/texlive/2023/texmf-dist/fonts/enc/dv
 ips/cm-super/cm-super-ts1.enc}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pl
 mi.enc}]
-Overfull \hbox (0.29944pt too wide) in paragraph at lines 55--56
+Overfull \hbox (0.29944pt too wide) in paragraph at lines 46--47
 [][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (35.54938pt too wide) in paragraph at lines 58--59
+Overfull \hbox (35.54938pt too wide) in paragraph at lines 49--50
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[2 <./tabelains1.png>]
-Overfull \hbox (3.61354pt too wide) in paragraph at lines 101--102
+[2]
+Overfull \hbox (3.61354pt too wide) in paragraph at lines 92--93
 []\OT4/cmr/m/n/12 W przy-pad-ku MER-GE SOR-TA wa»-n¡ ro-l¦ od-gry-wa funk-cja M
 ER-
  []
 
 [3{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/plms.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 118--122
+Underfull \hbox (badness 10000) in paragraph at lines 109--113
 
  []
 
 [4]
-Overfull \hbox (127.19922pt too wide) in paragraph at lines 136--137
+Overfull \hbox (127.19922pt too wide) in paragraph at lines 127--128
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[5] (./sprawozdanie lista 1.aux) ) 
+
+Overfull \hbox (1.22954pt too wide) in paragraph at lines 145--145
+[]\OT4/cmr/bx/n/14.4 Algorytm sor-to-wa-nia HE-AP-SORT (przez kop-
+ []
+
+[5]
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
+186.
+ (c:/texlive/2023/texmf-dist/tex/latex/polski/ot4cmtt.fd
+File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+Overfull \hbox (1.41833pt too wide) in paragraph at lines 188--190
+\OT4/cmr/m/n/12 Oblicza in-deks pra-we-go dziec-ka w¦-zªa $\OML/plm/m/it/12 i$ 
+\OT4/cmr/m/n/12 i przy-pi-su-je go do zmien-
+ []
+
+[6{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 202--204
+
+ []
+
+
+Overfull \hbox (0.29944pt too wide) in paragraph at lines 206--207
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
+
+ []
+
+
+Overfull \hbox (1.90097pt too wide) in paragraph at lines 227--230
+\OT4/cmr/m/n/12 Inicjuje p¦-tl¦, któ-ra ite-ru-je od ostat-nie-go ele-men-tu ta
+-bli-cy $\OML/plm/m/it/12 A\OT4/cmr/m/n/12 [\OML/plm/m/it/12 n \OMS/plsy/m/n/12
+ ^^@
+ []
+
+[7] [8] [9] (./sprawozdanie lista 1.aux) ) 
 Here is how much of TeX's memory you used:
- 4726 strings out of 476025
- 71979 string characters out of 5794016
- 1880382 words of memory out of 5000000
- 25110 multiletter control sequences out of 15000+600000
- 519423 words of font info for 50 fonts, out of 8000000 for 9000
+ 4764 strings out of 476025
+ 72529 string characters out of 5794016
+ 1888382 words of memory out of 5000000
+ 25145 multiletter control sequences out of 15000+600000
+ 519720 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,67p,789b,1642s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.pfb><c
-:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/2023/tex
-mf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1
-/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pf
-b><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023
-/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on "sprawozdanie lista 1.pdf" (5 pages, 103310 bytes).
+<c:/texlive/2023/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx1
+2.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/
+2023/texmf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fon
+ts/type1/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/
+plr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texl
+ive/2023/texmf-dist/fonts/type1/public/pl/pltt12.pfb><c:/texlive/2023/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on "sprawozdanie lista 1.pdf" (9 pages, 112991 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

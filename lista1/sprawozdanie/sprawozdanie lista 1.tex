@@ -31,15 +31,6 @@ void INSERTION_SORT(int A[], int n) {
 	
 \large {Powyższy fragment kodu zaczyna się od funkcji for, która przechodzi kolejno po każdym elemencie tablicy \(A\). Naszą iterację zaczynamy od drugiego elementu tablicy (z indeksem \(1\)) (zakładając, że \(0\) jest już posortowany). Zmienna \(key\) umożliwia przechowanie wartości wstawianego elementu zapobiegając  nadpisaniu oraz pozwalając na porównywanie tej wartości z kolejnymi elementami posortowanego ciągu. Gdy napotkany element w posortowanej części jest większy od wstawianego, przesuwamy go o jedną pozycję w prawo, aby zrobić miejsce na wstawienie nowego elementu. Jeśli element w posortowanej części jest mniejszy lub równy wstawianemu, wówczas zapisujemy wstawiany element na kolejnej pozycji.}
 		
-\large {
-\begin{figure}
-	\centering
-	\includegraphics[width=0.9\textwidth]{tabelains1.png}
-	\caption{ilość przypisań oraz porównań dla INSERTION SORT}
-	\label{fig:tabela1}
-\end{figure}
-
-
 \newpage
 
 \large {Modyfikacja INSERTION SORTA polega na wstawianiu "na raz" dwóch kolejnych elementów tablicy. Zatem duża część kodu działa w dość analogiczny sposób.}
@@ -115,7 +106,7 @@ for (int l = p; l <= k; l++) {
 \end{lstlisting}
 \large{Po przypisaniu z lewej części do zmiennej \(L\) i z prawej części \(P\) resetujemy wskaźniki \(i\) oraz \(j\) (które wskazują naszą pozycję w kolejno w L i P).
 	
-Instrukcja \(if (L[i] \leq P[j])\)} sprawdza, czy bieżący element z \(L\) jest mniejszy lub równy bieżącemu elementowi z \(P\). \\
+Instrukcja \(if (L[i] \leq P[j])\) sprawdza, czy bieżący element z \(L\) jest mniejszy lub równy bieżącemu elementowi z \(P\). \\
 Jeśli tak, to mniejszy element \(L[i]\) jest wstawiany do tablicy \(A[l]\), a wskaźnik \(i\) jest zwiększany o \(1\), by przejść do następnego elementu w \(L\). \\
 Jeśli nie, to mniejszy element \(P[j]\) jest kopiowany do \(A[l]\), a wskaźnik \(j\) jest zwiększany o \(1\), by przejść do następnego elementu w \(P\).}
 \\
@@ -145,10 +136,140 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k) {
 	P[n3] = INT_MAX;
 }
 \end{lstlisting}
-\large{Modyfikacja MERGE SORTA polegała na podzieleniu tablicy na trzy części zamiast dwóch, wiec cały kod opiera się i ma bardzo podobną budowę do podstawowego MERGE SORTA. Zamiast dwóch części tworzymy trzy \(n1 = s1 - p + 1\), \(n2 = s2 - s1\), \(n3 = k - s2\), a jako, że rozdzielamy tablicę. Pozostała reszta MERGA MODYFIKOWANEGO jak i MERGE SORTA MODYFIKOWANEGO przebiega bardzo podobnie.}
+\large{Modyfikacja MERGE SORTA polegała na podzieleniu tablicy na trzy części zamiast dwóch, wiec cały kod opiera się i ma bardzo podobną budowę do podstawowego MERGE SORTA. Zamiast dwóch części tworzymy trzy: \\
+	 \(n1 = s1 - p + 1\)\\
+	 \(n2 = s2 - s1\)\\ 
+	 \(n3 = k - s2\)\\
+	  a jako, że rozdzielamy tablicę. Pozostała reszta MERGA MODYFIKOWANEGO jak i MERGE SORTA MODYFIKOWANEGO przebiega bardzo podobnie.}
+
+	\section{Algorytm sortowania HEAPSORT (przez kopcowanie)}
 
 
+\large{Przy HEAPSORCIE podobnie jak przy MERGESORCIE ciekawe rzeczy dzieją się w funkcjach pomocniczych. Przeanalizujmy zateam HEAPIFY (na kopcach binarnych).}
 
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+int LEWA(int i) {
+	return 2 * i;
+}
+int PRAWA(int i) {
+	return 2 * i + 1;
+}
+\end{lstlisting}
+
+\large{Kod powyżej definiuje pozycje lewego "dziecka" oraz "prawego" dziecka w kopcu binarnym.}
+
+\begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void HEAPIFY(int A[], int i, int n) {
+	int l = LEWA(i);
+	int p = PRAWA(i);
+	int naj = i;
+		
+	if (l < n && A[l] > A[i]) {
+		naj = l;
+	}
+		
+	if (p < n && A[p] > A[naj]) {
+		naj = p;
+	}
+		
+	if (naj != i) {
+		swap(A[i], A[naj]);
+		HEAPIFY(A, naj, n);
+	}
+}
+	
+\end{lstlisting}
+\large{Argumentami jest tablica \(A[]\), która reprezentuje nasz "kopiec", \(i\) która oznacza indeks od którego zaczynamy "naprawę kopca" oraz \(n\) odpowiedzialna za długość tablic.}
+
+\begin{itemize}
+	\item $l = \text{LEWA}(i)$ \\
+	Oblicza indeks lewego dziecka węzła $i$ i przypisuje go do zmiennej $l$. Używa funkcji \texttt{LEWA}, która zwraca $2 \cdot i$.
+	
+	\item $p = \text{PRAWA}(i)$ \\
+	Oblicza indeks prawego dziecka węzła $i$ i przypisuje go do zmiennej $p$. Używa funkcji \texttt{PRAWA}, która zwraca $2 \cdot i + 1$.
+	
+	\item $naj = i$ \\
+	Ustawia zmienną $naj$ (przechowującą indeks największego elementu) na $i$. Zakładamy na początku, że węzeł $i$ jest największy wśród siebie i swoich dzieci.
+\end{itemize}
+\begin{itemize}
+\item $ \text{if} \ (l < n \ \text{and} \ A[l] > A[i]) \ {\{} \ naj = l; \ {\}}$ \\
+Sprawdza, czy lewe dziecko $l$ znajduje się w zakresie kopca ($l < n$), a wartość w tablicy $A$ pod indeksem $l$ jest większa niż wartość w $A[i]$. \\
+Jeśli oba warunki są spełnione, to zmienna $naj$ zostaje ustawiona na $l$, co oznacza, że największy element jest teraz na pozycji lewego dziecka.
+\end{itemize}
+
+\large{To samo robimy dla p, tylko zmieniamy \(A[i]\) na \(A[naj]\), gdyż w naturalny sposób przez pierwszego ifa wartość największa mogła się zmienić.}
+
+\large{Na sam koniec sprawdzamy, czy znaleźliśmy element większy od naszego początkowego, jeśli tak to zamieniamy miejscami je miejscami. Jeszcze wywołujemy HEAPIFY rekurencyjnie na poddrzewie naj, aby upewnić się, że poddrzewo również spełnia własność kopca.}
+\\
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+void BUILD_HEAP(int A[], int n) {
+	for (int i = n / 2 - 1; i >= 0; i--) {
+		HEAPIFY(A, i, n);
+	}
+}
+
+void HEAPSORT(int A[], int n) {
+	BUILD_HEAP(A, n);
+	
+	for (int i = n - 1; i >= 1; i--) {
+		swap(A[0], A[i]);
+		n--;
+		HEAPIFY(A, 0, n);
+	}
+}
+\end{lstlisting}
+
+\large{W BUILD HEAPIE inicjujemy pętlę for, która iteruje od środkowego elementu tablicy \((n / 2 - 1)\) wstecz do pierwszego elementu (indeks \(0\)). Dzięki takiemu iterowaniu nasza funkcja HEAPIFY może poprawnie naprawić kopiec dla każdego poddrzewa, budując kopiec od dołu do góry.}
+\\
+
+\large {W HEAPSORCIE: }
+\begin{itemize}
+\item $ \text{for} \ (i = n - 1; i \geq 1; i--) \ {\{}$ \\
+Inicjuje pętlę, która iteruje od ostatniego elementu tablicy $A[n - 1]$ wstecz do drugiego elementu $A[1]$. \\
+przesuwając największy element kopca do jego końcowej pozycji.
+
+\item $ \text{swap}(A[0], A[i]);$ \\
+Zamienia miejscami elementy $A[0]$ (korzeń kopca, największy element) oraz $A[i]$ (bieżący koniec kopca), dzięki czemu największy element trafia na właściwe miejsce. 
+\end{itemize}
+
+\begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez kopcowanie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+int LEWA_T(int i) {
+	return 3 * i;
+}
+int SRODEK_T(int i) {
+	return 3 * i + 1;
+}
+int PRAWA_T(int i) {
+	return 3 * i + 2;
+}
+void HEAPIFY_T(int A[], int i, int n) {
+	int l = LEWA_T(i);
+	int s = SRODEK_T(i);
+	int p = PRAWA_T(i);
+	int naj = i;
+	if (l < n && A[l] > A[i]) {
+		naj = l;
+	}
+	if (s < n && A[s] > A[naj]) {
+		naj = s;
+	}
+	if (p < n && A[p] > A[naj]) {
+		naj = p;
+	}
+	if (naj != i) {
+		swap(A[i], A[naj]);
+		HEAPIFY_T(A, naj, n);
+	}
+}
+\end{lstlisting}
+
+\large{Modyfikacja algorytmu HEAPSORT miała polegać na użyciu kopców binarnych kopce ternarne. Ta midyfikacja najbardziej wpływa na HEAPIFY, gdyż oprócz lewego oraz prawego "dziecka" mamy również środkowe. Tak więc teraz:\\
+funkcja \(LEWA T\) zwraca \(3 * i\)\\
+funkcja \(SRODEK T\) zwraca \(3 * i + 1\)\\
+funkcja \(PRAWA T\) zwraca \(3 * i + 1\)\\
+Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna s, która przy porównywaniu  wartości dodaje jedną dodatkową pętle if.} 
+
+	\section{Porównania}
 \end{document}
 
 
