@@ -270,7 +270,7 @@ funkcja \(PRAWA T\) zwraca \(3 * i + 1\)\\
 Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna s, która przy porównywaniu  wartości dodaje jedną dodatkową pętle if.} 
 
 	\section{Porównania}
-	
+\subsection{INSERTIONSORT}
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{tabelains.png}
@@ -284,7 +284,7 @@ Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna 
 		\caption{Wykres ilości porównań i przypisań w INSERTION SORT oraz INSERTION SORT MOD.}
 		\label{fig:wykres1}
 	\end{figure}
-	\newpage
+
 \large{Czas wykonywania sortowania INSERTION SORT:
 dla 10000 elementów  - \(95 ms\)\\
 dla 50000 elementów - \(1950 ms\)}\\
@@ -299,8 +299,7 @@ Złożoność:}
 	\item \textbf{Złożoność optymistyczna:} $O(n)$, 
 	\item \textbf{Złożoność pesymistyczna:} $O(n^2)$, 
 \end{itemize}
-
-
+\subsection{MERGESORT}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{mergetabela.png}
@@ -329,8 +328,35 @@ Złożoność:}
 	\item \textbf{Złożoność optymistyczna} $O(n \log n)$, 
 	\item \textbf{Złożoność pesymistyczna:} $O(n \log n)$,
 \end{itemize}
+\subsection{HEAPSORT}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{heaptabela.png}
+	\caption{Porównanie ilości porównań i przypisań w HEAPSORT oraz HEAP SORT T.}
+	\label{fig:tabela3}
+\end{figure}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{heapwykres.png}
+	\caption{Wykres ilości porównań i przypisań w HEAPSORT oraz HEAP SORT T.}
+	\label{fig:wykres3}
+\end{figure}
 
+\large{Czas wykonywania sortowania  HEAPSORT:
+	dla 10000 elementów  - \(2 ms\)\\
+	dla 50000 elementów - \(20 ms\)}\\
+
+\large{Czas wykonania sortowania HEAP SORT T:
+	dla 10000 elementów - \(2 ms\)\\
+	dla 50000 elementów - \(14 ms\)}\\
+	
+\large{W przypadku algorytmu heapsort widać różnicę złożoności algorytmu po modyfikacji, a przed. Heapsort z kopcami ternarnymi jest wydajnieszy oraz szybsza dla większych zbiorów elementów. Jednakowoż w porównaniu do innych, to jest on zarówno szybszy jak i lżejszy pod względem złożoności algorytmu od insertion sort, jednakowoż jest wolniejszy od merge sorta dla dużych zbiorów danych, jak również nie dorównuje dla mergesorta po modyfikacji pod względem złożoności, to ma dosyć zbliżoną względem niemodyfikowanego merge sorta.}
+
+\begin{itemize}
+	\item \textbf{Złożoność optymistyczna:} $O(n \log n)$,
+	\item \textbf{Złożoność pesymistyczna:} $O(n \log n)$,
+\end{itemize}
 \end{document}
 
 
