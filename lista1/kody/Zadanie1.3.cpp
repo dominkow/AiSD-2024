@@ -12,12 +12,12 @@ void RESETUJ() {        //funkcje zerujaca zmienne globalne po kazdym posortowan
 }
 // dla kopca binarnego mamy pozycje:
 int LEWA(int i) {           //pozycja lewego dziecka w drzewie binarnym
-    return 2 * i;
+    return 2 * i + 1;
     przypisania++;
 }
 
 int PRAWA(int i) {          //pozycja prawego dziecka w drzewie binarnym
-    return 2 * i + 1;
+    return 2 * i + 2;
     przypisania++;
 }
 
@@ -70,15 +70,15 @@ void HEAPSORT(int A[], int n) {                 //tworzymy tablice A dlugosci n
 
 //dla kopca ternarnego mamy:
 int LEWA_T(int i){                          //pozycja lewego dziecka w drzewie
-    return 3 * i;
-    przypisania++;
-}
-int SRODEK_T (int i){                       //pozycja srodkowego dziecka w drzewie
     return 3 * i + 1;
     przypisania++;
 }
-int PRAWA_T(int i){                         //pozycja prawego dziecka w drzewie
+int SRODEK_T (int i){                       //pozycja srodkowego dziecka w drzewie
     return 3 * i + 2;
+    przypisania++;
+}
+int PRAWA_T(int i){                         //pozycja prawego dziecka w drzewie
+    return 3 * i + 3;
     przypisania++;
 }
 
