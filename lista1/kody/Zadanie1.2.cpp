@@ -1,7 +1,8 @@
 #include <iostream>
-#include <limits.h>
+#include <limits>
 #include <ctime>
 #include <cstdlib>
+#include <iomanip> // dla precyzji floatow
 using namespace std;
 
 int porownania = 0;                         //zmienne globalne do przypisan i porownan
@@ -12,15 +13,15 @@ void RESETUJ() {                            //funkcja zerujaca po kazdym posorto
     przypisania = 0;
 }
 
-void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p, srodku s, koncu k
+void MERGE(float A[], int p, int s, int k){ //utworzenie tablicy A, o poczatku p, srodku s, koncu k
     int n1 = s - p + 1;                     //zdefiniowanie dlugosci lewej i prawej czesci tablicy
     int n2 = k - s;
-    int L[n1 + 1];
-    int P[n2 + 1];
+    float L[n1 + 1];
+    float P[n2 + 1];
     przypisania +=4;
 
-    L[n1] = INT_MAX;                        //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
-    P[n2] = INT_MAX;                        //gdy skoñczymy przegladac jedna z czesci, dalsze porównania obejma tylko druga czesc.
+    L[n1] = numeric_limits<float>::infinity();   //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
+    P[n2] = numeric_limits<float>::infinity();   //gdy skoñczymy przegladac jedna z czesci, dalsze porównania obejma tylko druga czesc.
     przypisania +=2;
 
     for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L (była p+1 zamiast p+i)
@@ -53,7 +54,7 @@ void MERGE(int A[], int p, int s, int k){   //utworzenie tablicy A, o poczatku p
     }
 }
 
-void MERGE_SORT(int A[], int p, int k){     //tworzymy tablice A, z poczakiem p i koncem k
+void MERGE_SORT(float A[], int p, int k){   //tworzymy tablice A, z poczakiem p i koncem k
     if (p < k) {                            //jesli p mniejsze od k (jezeli na odwrot to element jest juz posortowany)
         porownania++;
         int s = (p + k) / 2;
@@ -64,18 +65,18 @@ void MERGE_SORT(int A[], int p, int k){     //tworzymy tablice A, z poczakiem p 
     }
 }
 
-void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z pocztakiem p, jedna/trzecia s1, dwiema/trzecimi s2, koncem k
+void MERGE_MODYFIKOWANY(float A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z pocztakiem p, jedna/trzecia s1, dwiema/trzecimi s2, koncem k
     int n1 = s1 - p + 1;        //zdefiniowanie dlugosci lewej, srodkowej i prawej czesci
     int n2 = s2- s1;
     int n3 = k - s2;
     przypisania +=3;
-    int L[n1 + 1];
-    int S[n2 + 1];
-    int P[n3 + 1];
+    float L[n1 + 1];
+    float S[n2 + 1];
+    float P[n3 + 1];
     przypisania +=3;
-    L[n1] = INT_MAX;            //dodanie "wartosci nieskonczonosci" na koncach tych tablic.
-    S[n2] = INT_MAX;            //gdy skonczymy przegladac jedna z czesci, dalsze porównania nie obejma juz jej
-    P[n3] = INT_MAX;
+    L[n1] = numeric_limits<float>::infinity(); //dodanie "wartosci nieskonczonosci" na koncach tych tablic.
+    S[n2] = numeric_limits<float>::infinity(); //gdy skonczymy przegladac jedna z czesci, dalsze porównania nie obejma juz jej
+    P[n3] = numeric_limits<float>::infinity();
     przypisania +=3;
 
     for (int i = 0; i < n1; i++){       //przypisujemy elementy z lewej do L
@@ -119,7 +120,7 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k){ //tworzymy tabli
     }
 }
 
-void MERGE_SORT_MODYFIKOWANY(int A[], int p, int k) {   //tworzymy tablice A z poczatkiem p i koncem k
+void MERGE_SORT_MODYFIKOWANY(float A[], int p, int k) {   //tworzymy tablice A z poczatkiem p i koncem k
     if (p < k) {                        //jezeli p mniejsze od k (odwrotnie mamy juz element posortowany
         porownania++;
         int s1 = p + (k - p) / 3;       //dzielimy tablice na czesc 1 i 2
@@ -131,7 +132,7 @@ void MERGE_SORT_MODYFIKOWANY(int A[], int p, int k) {   //tworzymy tablice A z p
         MERGE_MODYFIKOWANY(A, p, s1, s2, k);    //scalamy
     }
 }
-void WYPISZ_WYNIK(int A[], int n) {
+void WYPISZ_WYNIK(float A[], int n) {
 //    cout << "Posortowana tablica: ";
 //    for (int m = 0; m < n; m++) {
 //        cout << A[m] << " ";
@@ -141,15 +142,15 @@ void WYPISZ_WYNIK(int A[], int n) {
     cout << "Liczba przypisan: " << przypisania << endl;
 }
 
-void GENERATOR_TABLIC(int A[], int n) {
+void GENERATOR_TABLIC(float A[], int n) {
     srand(time(0));
     for (int i = 0; i < n; i++) {
-        A[i] = rand() % 100001;
+        A[i] = static_cast<float>(rand()) / RAND_MAX * 100000; // random float from 0 to 100000
     }
 }
-void WYPISZ_TABLICE(int* tab, int n) {
+void WYPISZ_TABLICE(float* tab, int n) {
     for (int i = 0; i < n; i++) {
-        cout << tab[i] << " ";
+        cout << fixed << setprecision(2) << tab[i] << " ";
     }
     cout << endl;
 }
@@ -158,8 +159,8 @@ int main() {
     int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
     for (int i = 0; i < 5; i++) {
         int n = sizes[i];
-        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
-        int* B = new int[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
+        float* A = new float[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        float* B = new float[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
 
         GENERATOR_TABLIC(A, n); // generujemy losowe liczby
 
@@ -226,4 +227,3 @@ int main() {
 
     return 0;
 }
-

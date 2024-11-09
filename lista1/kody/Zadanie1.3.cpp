@@ -1,31 +1,31 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <iomanip> // dla precyzji floatow
 using namespace std;
 
 int porownania = 0;     //tworzymy zmienne globalne
 int przypisania = 0;
 
-void RESETUJ() {        //funkcje zerujaca zmienne globalne po kazdym posortowaniu
+void RESETUJ() {        //funkcja zerujaca zmienne globalne po kazdym posortowaniu
     porownania = 0;
     przypisania = 0;
 }
+
 // dla kopca binarnego mamy pozycje:
 int LEWA(int i) {           //pozycja lewego dziecka w drzewie binarnym
     return 2 * i + 1;
-    przypisania++;
 }
 
 int PRAWA(int i) {          //pozycja prawego dziecka w drzewie binarnym
     return 2 * i + 2;
-    przypisania++;
 }
 
-void HEAPIFY(int A[], int i, int n) {       //twirzymy tablice A, i - korzen, n - dlugosc
+void HEAPIFY(float A[], int i, int n) {       //twirzymy tablice A, i - korzen, n - dlugosc
     int l = LEWA(i);                        //liczymy indeks lewego dziecka
     int p = PRAWA(i);                       //liczymy indeks prawego dziecka
     int naj = i;                            //zakladamy ze najwieksze to i
-    przypisania +=3;
+    przypisania += 3;
 
     if (l < n && A[l] > A[i]) {             //jesli lewe dziecko (mniejsze od n) jest większe niż i
         porownania++;
@@ -33,61 +33,56 @@ void HEAPIFY(int A[], int i, int n) {       //twirzymy tablice A, i - korzen, n 
         przypisania++;
     }
 
-    if (p < n && A[p] > A[naj]) {           //jesli prawe dziecko (mniejsze od n) jest wieksze niz nasze naj (ba naszym naj moze byc l nie i)
+    if (p < n && A[p] > A[naj]) {           //jesli prawe dziecko (mniejsze od n) jest wieksze niz nasze naj
         porownania++;
         naj = p;                            //to naj ustawiamy na p
         przypisania++;
     }
 
-    if (naj != i) {                         //jezeli naj nie rowna sie i (czyli sie zmienil, poprzez ify na gorze)
+    if (naj != i) {                         //jezeli naj nie rowna sie i
         porownania++;
-        swap(A[i], A[naj]);                 //to zamieniamy miejscami i z naszym nowym naj
-        przypisania +=2;
-        HEAPIFY(A, naj, n);                 //wywołujemy rekurencyjnie HEAPIFY dla naj, aby sprawdzić,
-                                            //czy poddrzewo również spełnia własność kopca.
+        swap(A[i], A[naj]);                 //zamieniamy miejscami i z naszym nowym naj
+        przypisania += 2;
+        HEAPIFY(A, naj, n);                 //rekurencyjnie wywołujemy HEAPIFY
     }
 }
 
 
-void BUILD_HEAP(int A[], int n) {               //tworzymy tablice A dlugosci c
-    for (int i = n / 2 - 1; i >= 0; i--) {      //iterujemy wstecz od środka tablicy (n / 2 - 1)  do początku (0).
-    HEAPIFY(A, i, n);                           //elementy od n / 2 do n - 1 to liście, które same w sobie spełniają własność kopca
-    }                                           //wywołujemy HEAPIFY, by upewnić się, że poddrzewo z korzeniem i spełnia własność kopca
-
+void BUILD_HEAP(float A[], int n) {          //tworzymy tablice A dlugosci n
+    for (int i = n / 2 - 1; i >= 0; i--) {   //iterujemy wstecz od srodka
+        HEAPIFY(A, i, n);                    //wywolujemy HEAPIFY
+    }
 }
 
-void HEAPSORT(int A[], int n) {                 //tworzymy tablice A dlugosci n
-    BUILD_HEAP(A, n);                           //budujemy kopiec z tablicy
+void HEAPSORT(float A[], int n) {            //tworzymy tablice A dlugosci n
+    BUILD_HEAP(A, n);                        //budujemy kopiec z tablicy
 
-    for (int i = n - 1; i >= 1; i--) {          //od 1 do n-1 (od 2 i przedostatniego indeksu) wstecz
-        swap(A[0], A[i]);                       //zamieniamy najwiekszy element kopca z A[i]
-        przypisania +=2;
-        n--;                                    //zmniejszamy rozmiar kopca bo ostatni element jest juz na swojej pozycji
+    for (int i = n - 1; i >= 1; i--) {       //od 1 do n-1 wstecz
+        swap(A[0], A[i]);                    //zamieniamy najwiekszy element kopca z A[i]
+        przypisania += 2;
+        n--;                                 //zmniejszamy rozmiar kopca
         przypisania++;
-        HEAPIFY(A, 0, n);                       //wywolujemy HEAPIFY dla korzenia 0 aby sprawdzic czy zachowana jest wlasciwosc kopca
+        HEAPIFY(A, 0, n);                    //wywolujemy HEAPIFY dla korzenia 0
     }
 }
 
 //dla kopca ternarnego mamy:
 int LEWA_T(int i){                          //pozycja lewego dziecka w drzewie
     return 3 * i + 1;
-    przypisania++;
 }
 int SRODEK_T (int i){                       //pozycja srodkowego dziecka w drzewie
     return 3 * i + 2;
-    przypisania++;
 }
 int PRAWA_T(int i){                         //pozycja prawego dziecka w drzewie
     return 3 * i + 3;
-    przypisania++;
 }
 
-void HEAPIFY_T(int A[], int i, int n) {     //tworzymy tablice A dlugosci n, z korzeniem i
+void HEAPIFY_T(float A[], int i, int n) {   //tworzymy tablice A dlugosci n, z korzeniem i
     int l = LEWA_T(i);                      //liczymy indeks lewego dziecka
     int s = SRODEK_T(i);                    //liczymy indeks srodkowego dziecka
     int p = PRAWA_T(i);                     //liczymy indeks prawego dziecka
     int naj = i;                            //zakladamy ze nasz naj na starcie jest i
-    przypisania +=4;
+    przypisania += 4;
 
     if (l < n && A[l] > A[i]) {             //jesli l (mniesze od n) jest wieksze od i
         porownania++;
@@ -95,13 +90,13 @@ void HEAPIFY_T(int A[], int i, int n) {     //tworzymy tablice A dlugosci n, z k
         przypisania++;
     }
 
-    if (s < n && A[s] > A[naj]) {           //jesli s (mniejsze od n) jest wieksze od naszego nowego/starego naj
+    if (s < n && A[s] > A[naj]) {           //jesli s (mniejsze od n) jest wieksze od naszego naj
         porownania++;
         naj = s;                            //s staje sie naszym naj
         przypisania++;
     }
 
-    if (p < n && A[p] > A[naj]) {           //jezeli p (mniejsze od n) jest wieksze od naszego nowego/starego naj
+    if (p < n && A[p] > A[naj]) {           //jezeli p (mniejsze od n) jest wieksze od naj
         porownania++;
         naj = p;                            //p staje sie naszym naj
         przypisania++;
@@ -109,67 +104,63 @@ void HEAPIFY_T(int A[], int i, int n) {     //tworzymy tablice A dlugosci n, z k
 
     if (naj != i) {                         //jezeli naj nie jest juz najwieksze
         porownania++;
-        swap(A[i], A[naj]);                 //to zamieniamy pozycje A[i] z naszym nowym najwiekszynm
-        przypisania +=2;
-        HEAPIFY_T(A, naj, n);               //wywolujemy rekurencyjne HEAPIFY aby sprawdzic czy wlasnosc korzenia jest zachowana
-
+        swap(A[i], A[naj]);                 //zamieniamy pozycje A[i] z najwiekszym
+        przypisania += 2;
+        HEAPIFY_T(A, naj, n);               //rekurencyjne HEAPIFY
     }
 }
-void BUILD_HEAP_T(int A[], int n){          //tworzymy tablice A dlugosci n
+
+void BUILD_HEAP_T(float A[], int n){        //tworzymy tablice A dlugosci n
     for (int i = n / 3 - 1; i >= 0; i--) {  //interujemy wstecz od 1/3 tablicy
-        HEAPIFY_T(A, i, n);                 //wywolujemy HEAPIFY ...
+        HEAPIFY_T(A, i, n);                 //wywolujemy HEAPIFY
     }
 }
-void HEAP_SORT_T(int A[], int n) {      //tworzymy tablice A dlugosci n
-    BUILD_HEAP_T(A, n);                 //budujemy kopiec z tablicy
 
-    for (int i = n - 1; i >= 1; i--) {  //od 1 do n-1 (od 2 i przedostatniego indeksu) wstecz
-        swap(A[0], A[i]);               //zamieniamy najwiekszy element kopca z A[i]
-        przypisania +=2;
-        n--;                            //zmniejszamy rozmiar kopca bo ostatni element mamy uporzadkowany
+void HEAP_SORT_T(float A[], int n) {        //tworzymy tablice A dlugosci n
+    BUILD_HEAP_T(A, n);                     //budujemy kopiec z tablicy
+
+    for (int i = n - 1; i >= 1; i--) {      //od 1 do n-1 wstecz
+        swap(A[0], A[i]);                   //zamieniamy najwiekszy element kopca z A[i]
+        przypisania += 2;
+        n--;                                //zmniejszamy rozmiar kopca
         przypisania++;
-        HEAPIFY_T(A, 0, n);             //wywolujemy HEAPIFY...
+        HEAPIFY_T(A, 0, n);                 //wywolujemy HEAPIFY
     }
 }
-void WYPISZ_WYNIK(int A[], int n) {
-//    cout << "Posortowana tablica: ";
-//    for (int m = 0; m < n; m++) {
-//        cout << A[m] << " ";
-//    }
-    cout << endl;
+
+void WYPISZ_WYNIK(float A[], int n) {
     cout << "Liczba porownan: " << porownania << endl;
     cout << "Liczba przypisan: " << przypisania << endl;
 }
 
-void GENERATOR_TABLIC(int A[], int n) {
+void GENERATOR_TABLIC(float A[], int n) {
     srand(time(0));
     for (int i = 0; i < n; i++) {
-        A[i] = rand() % 100001;
+        A[i] = static_cast<float>(rand()) / (RAND_MAX / 100000.0); // generowanie losowych floatów
     }
 }
 
-void WYPISZ_TABLICE(int* tab, int n) {
+void WYPISZ_TABLICE(float* tab, int n) {
     for (int i = 0; i < n; i++) {
-        cout << tab[i] << " ";
+        cout << fixed << setprecision(2) << tab[i] << " ";
     }
     cout << endl;
 }
+
 
 int main() {
     int sizes[] = {10, 100, 1000, 10000, 50000}; // wielkosci tablic do testu
     for (int i = 0; i < 5; i++) {
         int n = sizes[i];
-        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
-        int* B = new int[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
+        float* A = new float[n]; // dynamiczne przechowywanie tablicy A o dlugosci n
+        float* B = new float[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
 
         GENERATOR_TABLIC(A, n); // generujemy losowe liczby
 
-        // Kopiujemy wygenerowaną tablicę A do B, aby zapamiętać początkową kolejność
         for (int j = 0; j < n; j++) {
             B[j] = A[j];
         }
 
-        // Wyświetlanie oryginalnej zawartości tablic A i B (dla rozmiaru 10)
         if (n == 10) {
             cout << "Oryginalna tablica A: ";
             WYPISZ_TABLICE(A, n);
@@ -177,34 +168,29 @@ int main() {
             WYPISZ_TABLICE(B, n);
         }
 
-        // Mierzenie czasu i liczenie przypisan i porownan dla normalnego sortowania
         RESETUJ();
         clock_t start_time = clock();
         HEAPSORT(A, n);
         clock_t end_time = clock();
         double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "HEAPSORT dla rozmiaru" << n << ":\n";
+        cout << "HEAPSORT dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
-        // Wyświetlanie posortowanej tablicy A po normalnym sortowaniu (dla rozmiaru 10)
         if (n == 10) {
             cout << "Posortowana tablica A po HEAPSORT: ";
             WYPISZ_TABLICE(A, n);
         }
 
-        // Przywracamy oryginalną kolejność liczb z B do A
         for (int j = 0; j < n; j++) {
             A[j] = B[j];
         }
 
-        // Wyświetlanie przywróconej tablicy A (dla rozmiaru 10)
         if (n == 10) {
             cout << "Tablica A przywrócona z B: ";
             WYPISZ_TABLICE(A, n);
         }
 
-        // Mierzenie czasu i liczenie przypisan i porownan dla modyfikacji sortowania
         RESETUJ();
         start_time = clock();
         HEAP_SORT_T(A, n);
@@ -214,14 +200,13 @@ int main() {
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
-        // Wyświetlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
         if (n == 10) {
             cout << "Posortowana tablica A po HEAP_SORT_T: ";
             WYPISZ_TABLICE(A, n);
         }
 
-        delete[] A; // zwalniamy pamiec poprzez usuniecie tablicy A
-        delete[] B; // zwalniamy pamiec poprzez usuniecie tablicy B
+        delete[] A;
+        delete[] B;
         cout << endl;
     }
 
