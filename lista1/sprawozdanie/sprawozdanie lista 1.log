@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  7 NOV 2024 04:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  10 NOV 2024 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -398,77 +398,71 @@ Overfull \hbox (1.90097pt too wide) in paragraph at lines 227--230
  []
 
 [7] [8]
-<tabelains.png, id=38, 587.19376pt x 110.66344pt>
-File: tabelains.png Graphic file (type png)
-<use tabelains.png>
-Package pdftex.def Info: tabelains.png  used on input line 276.
-(pdftex.def)             Requested size: 310.4979pt x 58.51624pt.
-<wykresins.png, id=40, 368.1253pt x 219.82124pt>
-File: wykresins.png Graphic file (type png)
-<use wykresins.png>
-Package pdftex.def Info: wykresins.png  used on input line 283.
-(pdftex.def)             Requested size: 310.4979pt x 185.42339pt.
+<fins.png, id=38, 807.7678pt x 102.3825pt>
+File: fins.png Graphic file (type png)
+<use fins.png>
+Package pdftex.def Info: fins.png  used on input line 277.
+(pdftex.def)             Requested size: 310.4979pt x 39.35411pt.
+<ftins.png, id=40, 370.38374pt x 216.81pt>
+File: ftins.png Graphic file (type png)
+<use ftins.png>
+Package pdftex.def Info: ftins.png  used on input line 284.
+(pdftex.def)             Requested size: 310.4979pt x 181.75854pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 288--291
+Underfull \hbox (badness 10000) in paragraph at lines 289--292
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 292--295
+[9 <./fins.png> <./ftins.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 293--296
 
  []
 
-<mergetabela.png, id=41, 845.40843pt x 123.46124pt>
+<mergetabela.png, id=46, 845.40843pt x 123.46124pt>
 File: mergetabela.png Graphic file (type png)
 <use mergetabela.png>
-Package pdftex.def Info: mergetabela.png  used on input line 305.
+Package pdftex.def Info: mergetabela.png  used on input line 306.
 (pdftex.def)             Requested size: 310.4979pt x 45.34271pt.
-[9 <./tabelains.png>]
 <wykresmerge.png, id=47, 420.06938pt x 225.84375pt>
 File: wykresmerge.png Graphic file (type png)
 <use wykresmerge.png>
-Package pdftex.def Info: wykresmerge.png  used on input line 312.
+Package pdftex.def Info: wykresmerge.png  used on input line 313.
 (pdftex.def)             Requested size: 310.4979pt x 166.93565pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--320
+Underfull \hbox (badness 10000) in paragraph at lines 318--321
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 321--324
+Underfull \hbox (badness 10000) in paragraph at lines 322--325
 
  []
 
-[10 <./wykresins.png> <./mergetabela.png>]
+[10 <./mergetabela.png>]
 <heaptabela.png, id=53, 846.16125pt x 115.93312pt>
 File: heaptabela.png Graphic file (type png)
 <use heaptabela.png>
-Package pdftex.def Info: heaptabela.png  used on input line 334.
+Package pdftex.def Info: heaptabela.png  used on input line 335.
 (pdftex.def)             Requested size: 310.4979pt x 42.54077pt.
 <heapwykres.png, id=54, 411.03563pt x 218.31563pt>
 File: heapwykres.png Graphic file (type png)
 <use heapwykres.png>
-Package pdftex.def Info: heapwykres.png  used on input line 341.
+Package pdftex.def Info: heapwykres.png  used on input line 342.
 (pdftex.def)             Requested size: 310.4979pt x 164.91556pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 346--349
+Underfull \hbox (badness 10000) in paragraph at lines 347--350
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--353
+Underfull \hbox (badness 10000) in paragraph at lines 351--354
 
  []
 
@@ -476,7 +470,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 350--353
 (./sprawozdanie lista 1.aux) ) 
 Here is how much of TeX's memory you used:
  4813 strings out of 476025
- 73385 string characters out of 5794016
+ 73322 string characters out of 5794016
  1888382 words of memory out of 5000000
  25187 multiletter control sequences out of 15000+600000
  519720 words of font info for 51 fonts, out of 8000000 for 9000
@@ -492,7 +486,7 @@ lic/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pfb><c
 -dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/
 public/pl/pltt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sf
 rm1200.pfb>
-Output written on "sprawozdanie lista 1.pdf" (12 pages, 281697 bytes).
+Output written on "sprawozdanie lista 1.pdf" (12 pages, 290951 bytes).
 PDF statistics:
  116 PDF objects out of 1000 (max. 8388607)
  67 compressed objects within 1 object stream
