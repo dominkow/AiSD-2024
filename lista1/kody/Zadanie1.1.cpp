@@ -33,27 +33,29 @@ void INSERTION_SORT(float A[], int n) {       //utworzenie tablicy A, o wielkosc
 
 void INSERTION_SORT_MOD(float A[], int n) {
     for (int s = 1; s < n - 1; s += 2) {
-        float pierwszy = A[s];
+        float pierwszy = A[s];              //definiujemy nasze klucze pierwszy i drugi
         float drugi = A[s + 1];
         przypisania +=2;
 
-        if (pierwszy > drugi) {
+        if (pierwszy > drugi) {             //jezeli pierwszy jest wiekszy od drugiego to zamieniamy je miejscami
             porownania++;
             swap(pierwszy, drugi);
             przypisania +=2;
         }
-        int k = s - 1;
+        int k = s - 1;                      //prypisujemy dla zmiennej k indeks przed kluczem (ktory ma wartoc mniejsza)
         przypisania++;
         while (k >= 0 && A[k] > pierwszy) {
             porownania++;
-            A[k + 1] = A[k];
+            A[k + 1] = A[k];                //przesuwamy A[j] o jedno miejsce w prawo aby zrobic miejsce dla pierwszego
             przypisania++;
-            k--;
+            k--;                            //zmniejszamy indeks k
             przypisania++;
         }
-        A[k + 1] = pierwszy;
+        porownania++;
+        A[k + 1] = pierwszy;                //ustawiamy pierwszy jako k+1
         przypisania++;
-        k = s;
+
+        k = s;                              //analogicznie dla drugiego
         przypisania++;
         while (k >= 0 && A[k] > drugi) {
             A[k + 1] = A[k];
@@ -61,6 +63,7 @@ void INSERTION_SORT_MOD(float A[], int n) {
             k--;
             przypisania++;
         }
+        porownania++;
         A[k + 1] = drugi;
         przypisania++;
     }
@@ -79,28 +82,30 @@ void INSERTION_SORT_MOD(float A[], int n) {
             k--;
             przypisania++;
         }
+        porownania++;
         A[k + 1] = ostatni;                   // Wstawiamy 'ostatni' element w odpowiednie miejsce
         przypisania++;
     }
 }
-void WYPISZ_WYNIK(float A[], int n) {
+void WYPISZ_WYNIK(float A[], int n) {                       //wypisujemy ilosc przypisan i porownan
     cout << endl;
     cout << "Liczba porownan: " << porownania << endl;
     cout << "Liczba przypisan: " << przypisania << endl;
 }
 
-void WYPISZ_TABLICE(float* tab, int n) {
+void WYPISZ_TABLICE(float* A, int n) {
     for (int i = 0; i < n; i++) {
-        cout << fixed << setprecision(2) << tab[i] << " ";
-    }
+        cout << fixed << setprecision(3) << A[i] << " ";       //ustawioamy ze wyswietlane liczby w tablicy beda ze stałą
+    }                                                    //liczbą po przecinku (fixed) , 2 (setprecision)
     cout << endl;
 }
 
 void GENERATOR_TABLIC(float A[], int n) {
-    srand(time(0));
-    for (int i = 0; i < n; i++) {
-        A[i] = static_cast<float>(rand()) / RAND_MAX * 100000.0f;
-    }
+    srand(time(0));                             //inicjalizacja generatora losowego
+    for (int i = 0; i < n; i++) {               //po kolei generujemy az do n
+        A[i] = static_cast<float>(rand()) / RAND_MAX * 50000.00;        //static_cast<float> - przekształcamy na floata
+                                                    //liczbę całkowitą generowaną przez rand() / RAND_MAX
+    }                                               //dostajemy liczbe od 0 do 1, co mnożymy przez 50000
 }
 
 int main() {

@@ -134,16 +134,17 @@ void WYPISZ_WYNIK(float A[], int n) {
 }
 
 void GENERATOR_TABLIC(float A[], int n) {
-    srand(time(0));
-    for (int i = 0; i < n; i++) {
-        A[i] = static_cast<float>(rand()) / (RAND_MAX / 100000.0); // generowanie losowych floatów
-    }
+    srand(time(0));                             //inicjalizacja generatora losowego
+    for (int i = 0; i < n; i++) {               //po kolei generujemy az do n
+        A[i] = static_cast<float>(rand()) / RAND_MAX * 50000.00;        //static_cast<float> - przekształcamy na floata
+                                                    //liczbę całkowitą generowaną przez rand() / RAND_MAX
+    }                                               //dostajemy liczbe od 0 do 1, co mnożymy przez 50000
 }
 
-void WYPISZ_TABLICE(float* tab, int n) {
+void WYPISZ_TABLICE(float* A, int n) {
     for (int i = 0; i < n; i++) {
-        cout << fixed << setprecision(2) << tab[i] << " ";
-    }
+        cout << fixed << setprecision(3) << A[i] << " ";       //ustawioamy ze wyswietlane liczby w tablicy beda ze stałą
+    }                                                    //liczbą po przecinku (fixed) , 2 (setprecision)
     cout << endl;
 }
 

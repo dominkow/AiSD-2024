@@ -1,7 +1,7 @@
 #include <iostream>
-#include <limits>
-#include <ctime>
-#include <cstdlib>
+#include <limits>   // dla granic
+#include <ctime>    // dla inicjalizacji generatora liczb losowych
+#include <cstdlib>  // generowanie losowych liczb
 #include <iomanip> // dla precyzji floatow
 using namespace std;
 
@@ -20,8 +20,8 @@ void MERGE(float A[], int p, int s, int k){ //utworzenie tablicy A, o poczatku p
     float P[n2 + 1];
     przypisania +=4;
 
-    L[n1] = numeric_limits<float>::infinity();   //dodanie "wartoœci nieskoñczonoœci" na koñcach tych tablic.
-    P[n2] = numeric_limits<float>::infinity();   //gdy skoñczymy przegladac jedna z czesci, dalsze porównania obejma tylko druga czesc.
+    L[n1] = numeric_limits<float>::infinity();   //dodanie "wartosci nieskonczonosci" na koñcach tych tablic.
+    P[n2] = numeric_limits<float>::infinity();   //gdy skonczymy przegladac jedna z czesci, dalsze porownania obejma tylko druga czesc.
     przypisania +=2;
 
     for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L (była p+1 zamiast p+i)
@@ -143,15 +143,16 @@ void WYPISZ_WYNIK(float A[], int n) {
 }
 
 void GENERATOR_TABLIC(float A[], int n) {
-    srand(time(0));
-    for (int i = 0; i < n; i++) {
-        A[i] = static_cast<float>(rand()) / RAND_MAX * 100000; // random float from 0 to 100000
-    }
+    srand(time(0));                             //inicjalizacja generatora losowego
+    for (int i = 0; i < n; i++) {               //po kolei generujemy az do n
+        A[i] = static_cast<float>(rand()) / RAND_MAX * 50000.00;        //static_cast<float> - przekształcamy na floata
+                                                    //liczbę całkowitą generowaną przez rand() / RAND_MAX
+    }                                               //dostajemy liczbe od 0 do 1, co mnożymy przez 50000
 }
-void WYPISZ_TABLICE(float* tab, int n) {
+void WYPISZ_TABLICE(float* A, int n) {
     for (int i = 0; i < n; i++) {
-        cout << fixed << setprecision(2) << tab[i] << " ";
-    }
+        cout << fixed << setprecision(3) << A[i] << " ";       //ustawioamy ze wyswietlane liczby w tablicy beda ze stałą
+    }                                                    //liczbą po przecinku (fixed) , 2 (setprecision)
     cout << endl;
 }
 
