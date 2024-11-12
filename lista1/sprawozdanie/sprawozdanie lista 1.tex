@@ -16,9 +16,9 @@
 \large {W podstawowej wersji (bez modyfikacji) algorytmu sortowania przez wstawienie wyróżniamy następujący fragment kodu: }
 
 	\begin{lstlisting}[language=C++, caption={Kod dla funkcji sortującej przez wstawienie}, numbers=left, frame=single, xleftmargin=20pt]
-void INSERTION_SORT(int A[], int n) {
+void INSERTION_SORT(float A[], int n) {
 	for (int i = 1; i < n; i++) {
-		int key = A[i];
+		float key = A[i];
 		int j = i - 1;
 		while (j >= 0 && A[j] > key) {
 			A[j + 1] = A[j];
@@ -38,10 +38,10 @@ void INSERTION_SORT(int A[], int n) {
 
 
 \begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void INSERTION_SORT_MOD(int A[], int n) {
+void INSERTION_SORT_MOD(float A[], int n) {
 	for (int s = 1; s < n - 1; s += 2) {
-		int pierwszy = A[s];
-		int drugi = A[s + 1];
+		float pierwszy = A[s];
+		float drugi = A[s + 1];
 		if (pierwszy > drugi) {
 			swap(pierwszy, drugi);
 		}
@@ -57,13 +57,13 @@ void INSERTION_SORT_MOD(int A[], int n) {
 
 \end{lstlisting}
 
-\large{Pętla zaczyna się od indeksu \(1\) i iteruje z krokiem \(+2\), co pozwala jednocześnie rozpatrywać dwie wartości – \(pierwszy\) i \(drugi\). Następie porównujemy je za pomocą funkcji if i jeśli \(pierwszy\) jest większy zamieniamy miejscami. Funkcja while działa już na tej samej zasadzie co w kodzie bez modyfikacji.}
+\large{Pętla zaczyna się od indeksu \(1\) i iteruje z krokiem \(+2\), co pozwala jednocześnie rozpatrywać dwie wartości – \(pierwszy\) i \(drugi\). Następie porównujemy je za pomocą funkcji if i jeśli \(pierwszy\) jest większy zamieniamy miejscami. Funkcja while działa już na tej samej zasadzie co w kodzie bez modyfikacji, (opis wyżej).}
 
 \newpage
 
 \begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez wstawienie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
 if (n % 2 == 0) {
-	int ostatni = A[n - 1];
+	float ostatni = A[n - 1];
 	int k = n - 2;
 	while (k >= 0 && A[k] > ostatni) {
 		A[k + 1] = A[k];
@@ -79,13 +79,13 @@ if (n % 2 == 0) {
 	\section{Algorytm sortowania MERGE SORT (przez scalenie)}
 	
 \begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez scalenie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void MERGE(int A[], int p, int s, int k) {
+void MERGE(float A[], int p, int s, int k) {
 	int n1 = s - p + 1;
 	int n2 = k - s;
-	int L[n1 + 1];
-	int P[n2 + 1];
-	L[n1] = INT_MAX;
-	P[n2] = INT_MAX;
+	float L[n1 + 1];
+	float P[n2 + 1];
+	L[n1] = numeric_limits<float>::infinity();
+	P[n2] = numeric_limits<float>::infinity();
 }
 \end{lstlisting}
 
@@ -104,6 +104,7 @@ for (int l = p; l <= k; l++) {
 	}
 }
 \end{lstlisting}
+
 \large{Po przypisaniu z lewej części do zmiennej \(L\) i z prawej części \(P\) resetujemy wskaźniki \(i\) oraz \(j\) (które wskazują naszą pozycję w kolejno w L i P).
 	
 Instrukcja \(if (L[i] \leq P[j])\) sprawdza, czy bieżący element z \(L\) jest mniejszy lub równy bieżącemu elementowi z \(P\). \\
@@ -112,7 +113,7 @@ Jeśli nie, to mniejszy element \(P[j]\) jest kopiowany do \(A[l]\), a wskaźnik
 \\
 
 \begin{lstlisting}[language=C++, caption={Fragment 3 funkcji sortującej przez scalenie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void MERGE_SORT(int A[], int p, int k) {
+void MERGE_SORT(float A[], int p, int k) {
 	if (p < k) {
 		int s = (p + k) / 2;
 		MERGE_SORT(A, p, s);
@@ -121,27 +122,44 @@ void MERGE_SORT(int A[], int p, int k) {
 	}
 }
 \end{lstlisting}
+
 \large{Po przeanalizowaniu funkcji MERGE, możemy przejść do funkcji MERGE SORT, która wylicza srodek tablicy i wywołuje kolejno sortowanie z lewej strony, prawej strony po czym scala obie strony.}
 
 \begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez scalenie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k) {
+void MERGE_MODYFIKOWANY(float A[], int p, int s1, int s2, int k) {
 	int n1 = s1 - p + 1;
 	int n2 = s2 - s1;
 	int n3 = k - s2;
-	int L[n1 + 1];
-	int S[n2 + 1];
-	int P[n3 + 1];
-	L[n1] = INT_MAX;
-	S[n2] = INT_MAX;
-	P[n3] = INT_MAX;
+	float L[n1 + 1];
+	float S[n2 + 1];
+	float P[n3 + 1];
+	L[n1] = numeric_limits<float>::infinity();
+	S[n2] = numeric_limits<float>::infinity();
+	P[n3] = numeric_limits<float>::infinity();
 }
 \end{lstlisting}
+
 \large{Modyfikacja MERGE SORTA polegała na podzieleniu tablicy na trzy części zamiast dwóch, wiec cały kod opiera się i ma bardzo podobną budowę do podstawowego MERGE SORTA. Zamiast dwóch części tworzymy trzy: \\
 	 \(n1 = s1 - p + 1\)\\
 	 \(n2 = s2 - s1\)\\ 
 	 \(n3 = k - s2\)\\
-	  a jako, że rozdzielamy tablicę. Pozostała reszta MERGA MODYFIKOWANEGO jak i MERGE SORTA MODYFIKOWANEGO przebiega bardzo podobnie.}
+	  a jako, że rozdzielamy tablicę. Pozostała reszta MERGA MODYFIKOWANEGO jak i MERGE SORTA MODYFIKOWANEGO przebiega bardzo podobnie. Ze względu na podział na trzy zamiast dwie części otrzymujemy dodatkową pętlę if przypisującą elemnty ze środka do S:}
+\begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez scalenie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+for (int j = 0; j < n2 j++){       
+	S[j] = A[s1 + 1 + j];
+}
+\end{lstlisting}
 
+\large {oraz dodatkowy warunek na sortowanie:}
+
+\begin{lstlisting}[language=C++, caption={Fragment 3 funkcji sortującej przez scalenie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
+else if (S[j] <= L[i] && S[j] <= P[m]) {  
+	A[x] = S[j];                           
+	j++;    
+}                         
+\end{lstlisting}
+
+\large{odpowiedzialne za prawidłowe umiejscowienie w posortowanej tablicy elementu wziętego za nasz środkowy poprzez sprawdzanie czy jest mniejszy od elementu lewego oraz prawego (na takiej samej zasadzie jak w MERGE SORCIE).}
 	\section{Algorytm sortowania HEAPSORT (przez kopcowanie)}
 
 
@@ -149,17 +167,17 @@ void MERGE_MODYFIKOWANY(int A[], int p, int s1, int s2, int k) {
 
 \begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
 int LEWA(int i) {
-	return 2 * i;
+	return 2 * i + 1;
 }
 int PRAWA(int i) {
-	return 2 * i + 1;
+	return 2 * i + 2;
 }
 \end{lstlisting}
 
-\large{Kod powyżej definiuje pozycje lewego "dziecka" oraz "prawego" dziecka w kopcu binarnym.}
+\large{Kod powyżej definiuje pozycje lewego "dziecka" oraz prawego "dziecka" w kopcu binarnym.}
 
 \begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void HEAPIFY(int A[], int i, int n) {
+void HEAPIFY(float A[], int i, int n) {
 	int l = LEWA(i);
 	int p = PRAWA(i);
 	int naj = i;
@@ -179,6 +197,7 @@ void HEAPIFY(int A[], int i, int n) {
 }
 	
 \end{lstlisting}
+
 \large{Argumentami jest tablica \(A[]\), która reprezentuje nasz "kopiec", \(i\) która oznacza indeks od którego zaczynamy "naprawę kopca" oraz \(n\) odpowiedzialna za długość tablic.}
 
 \begin{itemize}
@@ -191,6 +210,7 @@ void HEAPIFY(int A[], int i, int n) {
 	\item $naj = i$ \\
 	Ustawia zmienną $naj$ (przechowującą indeks największego elementu) na $i$. Zakładamy na początku, że węzeł $i$ jest największy wśród siebie i swoich dzieci.
 \end{itemize}
+
 \begin{itemize}
 \item $ \text{if} \ (l < n \ \text{and} \ A[l] > A[i]) \ {\{} \ naj = l; \ {\}}$ \\
 Sprawdza, czy lewe dziecko $l$ znajduje się w zakresie kopca ($l < n$), a wartość w tablicy $A$ pod indeksem $l$ jest większa niż wartość w $A[i]$. \\
@@ -202,13 +222,13 @@ Jeśli oba warunki są spełnione, to zmienna $naj$ zostaje ustawiona na $l$, co
 \large{Na sam koniec sprawdzamy, czy znaleźliśmy element większy od naszego początkowego, jeśli tak to zamieniamy miejscami je miejscami. Jeszcze wywołujemy HEAPIFY rekurencyjnie na poddrzewie naj, aby upewnić się, że poddrzewo również spełnia własność kopca.}
 \\
 \begin{lstlisting}[language=C++, caption={Fragment 2 funkcji sortującej przez kopcowanie bez modyfikacji}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
-void BUILD_HEAP(int A[], int n) {
+void BUILD_HEAP(float A[], int n) {
 	for (int i = n / 2 - 1; i >= 0; i--) {
 		HEAPIFY(A, i, n);
 	}
 }
 
-void HEAPSORT(int A[], int n) {
+void HEAPSORT(float A[], int n) {
 	BUILD_HEAP(A, n);
 	
 	for (int i = n - 1; i >= 1; i--) {
@@ -223,6 +243,7 @@ void HEAPSORT(int A[], int n) {
 \\
 
 \large {W HEAPSORCIE: }
+
 \begin{itemize}
 \item $ \text{for} \ (i = n - 1; i \geq 1; i--) \ {\{}$ \\
 Inicjuje pętlę, która iteruje od ostatniego elementu tablicy $A[n - 1]$ wstecz do drugiego elementu $A[1]$. \\
@@ -234,15 +255,15 @@ Zamienia miejscami elementy $A[0]$ (korzeń kopca, największy element) oraz $A[
 
 \begin{lstlisting}[language=C++, caption={Fragment 1 funkcji sortującej przez kopcowanie z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt, xrightmargin = 1pt]
 int LEWA_T(int i) {
-	return 3 * i;
-}
-int SRODEK_T(int i) {
 	return 3 * i + 1;
 }
-int PRAWA_T(int i) {
+int SRODEK_T(int i) {
 	return 3 * i + 2;
 }
-void HEAPIFY_T(int A[], int i, int n) {
+int PRAWA_T(int i) {
+	return 3 * i + 3;
+}
+void HEAPIFY_T(float A[], int i, int n) {
 	int l = LEWA_T(i);
 	int s = SRODEK_T(i);
 	int p = PRAWA_T(i);
@@ -264,10 +285,15 @@ void HEAPIFY_T(int A[], int i, int n) {
 \end{lstlisting}
 
 \large{Modyfikacja algorytmu HEAPSORT miała polegać na użyciu kopców binarnych kopce ternarne. Ta midyfikacja najbardziej wpływa na HEAPIFY, gdyż oprócz lewego oraz prawego "dziecka" mamy również środkowe. Tak więc teraz:\\
-funkcja \(LEWA T\) zwraca \(3 * i\)\\
-funkcja \(SRODEK T\) zwraca \(3 * i + 1\)\\
-funkcja \(PRAWA T\) zwraca \(3 * i + 1\)\\
-Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna s, która przy porównywaniu  wartości dodaje jedną dodatkową pętle if.} 
+\begin{itemize}
+	\item \( \text{LEWA} \ T \) zwraca \( 3 * i + 1 \)
+	\item \( \text{SRODEK} \ T \) zwraca \( 3 * i + 2 \)
+	\item \( \text{PRAWA} \ T \) zwraca \( 3 * i + 3 \)
+\end{itemize}
+
+Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna s, która przy porównywaniu  wartości dodaje jedną dodatkową pętle (sytuacja podobna jak w modyfikacji MERGE SORT).} 
+
+\newpage
 
 	\section{Porównania}
 
@@ -278,26 +304,24 @@ Więc w zmodyfikowanej wersji HEAPSORTA, w HEAPIFY występuje dodatkowa zmienna 
 		\caption{Porównanie ilości porównań i przypisań w INSERTION SORT oraz INSERTION SORT MOD.}
 		\label{fig:tabela1}
 	\end{figure}
-	
 		\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{ftins.png}
 		\caption{Wykres ilości porównań i przypisań w INSERTION SORT oraz INSERTION SORT MOD.}
 		\label{fig:wykres1}
 	\end{figure}
+	
+\large{Czas wykonywania sortowania INSERTION SORT (średnia dla 10 sortowań): \\
+	dla 10000 elementów - \(110,70 ms\)\\
+	dla 50000 elementów - \(2471,50 ms\)}\\
 
-\large{Czas wykonywania sortowania INSERTION SORT:
-dla 10000 elementów  - \(97 ms\)\\
-dla 50000 elementów - \(2147 ms\)}\\
+\large{Czas wykonania sortowania INSERTION SORT MOD (średnia dla 10 losowań): \\
+	dla 10000 elementów - \(106,40 ms\)\\
+	dla 50000 elementów - \(2413,50 ms\)}\\
 
-\large{Czas wykonania sortowania INSERTION SORT MOD:
-dla 10000 elementów - \(98 ms\)\\
-dla 50000 elementów - \(2240 ms\)}\\
-
-\large{Obydwa algorytmy mają bardzo zbliżoną złożoność, która minimalnie jest większa dla zmodyfikowanej wersji insertion sort. Pod względem ilości czasu na sortowanie również wypadają bardzo podobnie.\\
+\large{Obydwa algorytmy mają bardzo zbliżoną złożoność, która minimalnie jest większa dla zmodyfikowanej wersji insertion sort. Pod względem ilości czasu na sortowanie również wypadają bardzo podobnie, ze wskazaniem na modyfikację. Warto zauważyć, że różnica pomiędzy dwoma wersjami kody występuje tylko w przypadku ilości powtórzeń, ilość przypisań jest stała. Zatem możemy stwierdzić, że nasza modyfikacja polegająca na sprawdzaniu dwóch kolejnych elementów "na raz" daje nam zmniejszenie ilości sprawdzanych warunków w pętlach. \\
 Złożoność:}
-\begin{itemize}
-	\item \textbf{Złożoność optymistyczna:} $O(n)$, 
+\begin{itemize} 
 	\item \textbf{Złożoność pesymistyczna:} $O(n^2)$, 
 \end{itemize}
 \subsection{MERGESORT}
@@ -315,18 +339,18 @@ Złożoność:}
 	\label{fig:wykres2}
 \end{figure}
 
-\large{Czas wykonywania sortowania MERGE SORT:
-	dla 10000 elementów  - \(1 ms\)\\
-	dla 50000 elementów - \(8 ms\)}\\
+\large{Czas wykonywania sortowania MERGE SORT (średnia dla 10 losowań): \\
+	dla 10000 elementów  - \(1,80 ms\)\\
+	dla 50000 elementów - \(10,70 ms\)}\\
 
-\large{Czas wykonania sortowania MERGE SORT MODYFIKOWANY:
-	dla 10000 elementów - \(2 ms\)\\
-	dla 50000 elementów - \(8 ms\)}\\
+\large{Czas wykonania sortowania MERGE SORT MODYFIKOWANY (średnia dla 10 losowań): \\
+	dla 10000 elementów - \(1,90 ms\)\\
+	dla 50000 elementów - \(9,00 ms\)}\\
 	
-\large{W tym przypadku zdecydowanie bardziej wydajniejszym i lżejszym algorytmem jest merge z modyfikacja, który dodatkowo nie odstaje wcale bardzo czasowo względem klasycznego merga. Dodatkowo Merge sort jest znacznie szybszy od insertion sorta jak również znacznie lżejszy, przez co i wydajniejszy, co zgadza się z teorią.}
+\large{W tym przypadku zdecydowanie bardziej wydajniejszym i lżejszym algorytmem jest merge sort z modyfikacja. Zarówno ilość przypisań jak i porównań jest znacznie mniejsza, co stwierdza jednoznacznie poprawność oraz optymalność modyfikacji. Pod względem czasu czasy ponownie są dosyć zbliżone do siebie, jednakże dla bardziej rozległych tablic wygrywać zdaje się zmodyfikowany merge sort. 
+Oba zaimplementowane algorytmy merge sorta są zdecydowanie szybsze od ukazanych insertion sortów. Insertion sorty mają mniejszą ilość przypisań niż merge sort dla bardzo małych tablic, jednakowoż dla większych merge sort staje się o wiele wydajnieszym i lżejszym algorytmem.  }
 
 \begin{itemize}
-	\item \textbf{Złożoność optymistyczna} $O(n \log n)$, 
 	\item \textbf{Złożoność pesymistyczna:} $O(n \log n)$,
 \end{itemize}
 \subsection{HEAPSORT}
@@ -344,21 +368,22 @@ Złożoność:}
 	\label{fig:wykres3}
 \end{figure}
 
-\large{Czas wykonywania sortowania  HEAPSORT:
-	dla 10000 elementów  - \(2 ms\)\\
-	dla 50000 elementów - \(20 ms\)}\\
+\large{Czas wykonywania sortowania  HEAPSORT (średnia dla 10 losowań): \\
+	dla 10000 elementów  - \(4,00 ms\)\\
+	dla 50000 elementów - \(22,40 ms\)}\\
 
-\large{Czas wykonania sortowania HEAP SORT T:
-	dla 10000 elementów - \(2 ms\)\\
-	dla 50000 elementów - \(14 ms\)}\\
+\large{Czas wykonania sortowania HEAP SORT T (średnia dla 10 losowań): \\
+	dla 10000 elementów - \(3,70 ms\)\\
+	dla 50000 elementów - \(19,30 ms\)}\\
 	
-\large{W przypadku algorytmu heapsort widać różnicę złożoności algorytmu po modyfikacji, a przed. Heapsort z kopcami ternarnymi jest wydajnieszy oraz szybsza dla większych zbiorów elementów. Jednakowoż w porównaniu do innych, to jest on zarówno szybszy jak i lżejszy pod względem złożoności algorytmu od insertion sort, jednakowoż jest wolniejszy od merge sorta dla dużych zbiorów danych, jak również nie dorównuje dla mergesorta po modyfikacji pod względem złożoności, to ma dosyć zbliżoną względem niemodyfikowanego merge sorta.}
+\large{W przypadku algorytmu heapsort widać różnicę złożoności algorytmu po modyfikacji, a przed. Heapsort z kopcami ternarnymi jest wydajnieszy oraz szybsza dla większych zbiorów elementów. Dla większych tablic ilość porównań jak i przypisań jest mniejsza dla kopca ternrnego, co ostatecznie pozwala nam stwierdzić, że modyfikacja daje nam większą efektywność algorytmu.} 
 
 \begin{itemize}
-	\item \textbf{Złożoność optymistyczna:} $O(n \log n)$,
 	\item \textbf{Złożoność pesymistyczna:} $O(n \log n)$,
 \end{itemize}
+
+
+	\section{Wnioski}
+\large{Podsumowując wszystkie zaimplementowane modyfikacje do algorytmów sortujących przez wstawianie, scalanie oraz kopcowanie okazały się wydajniejsze, szybsze, lżejsze obliczeniowo, zwiększając tym samym całkowitą efektywność pierwotnych algorytmów. Porównując jednakże każdy algorytm z każdym, to zwycięskim, najlepszym algorytmem nazwiemy zmodyfikowany merge sort, który "wygrywa" z pozostałymi pod każdym względem. Natomiast najmniej optymalnym, najdłużej działającym i najcięższym obliczeniowo algorytmem będzie insertion sort (bez modyfikacji), który odstaje zdecydowanie od zaimplementowanych algorytmów sortowania przez scslanie oraz kopcowanie. HEAPSORT  jest dosyć zbliżony do merge sorta, co pokrywa się z teorią dotyczącą złożoności pesymistycznych tych algorytmów.}
+
 \end{document}
-
-
-

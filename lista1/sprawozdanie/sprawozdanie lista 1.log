@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  10 NOV 2024 22:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  12 NOV 2024 02:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -344,45 +344,60 @@ Overfull \hbox (35.54938pt too wide) in paragraph at lines 49--50
  []
 
 [2]
+Overfull \hbox (28.49939pt too wide) in paragraph at lines 87--88
+[][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (28.49939pt too wide) in paragraph at lines 88--89
+[][][][][][][][][][][][][][][][][] 
+ []
+
+
 Overfull \hbox (3.61354pt too wide) in paragraph at lines 92--93
 []\OT4/cmr/m/n/12 W przy-pad-ku MER-GE SOR-TA wa»-n¡ ro-l¦ od-gry-wa funk-cja M
 ER-
  []
 
 [3{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/plms.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 109--113
+Underfull \hbox (badness 10000) in paragraph at lines 110--114
 
  []
 
 [4]
-Overfull \hbox (127.19922pt too wide) in paragraph at lines 127--128
+Overfull \hbox (141.2992pt too wide) in paragraph at lines 129--130
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (1.22954pt too wide) in paragraph at lines 145--145
-[]\OT4/cmr/bx/n/14.4 Algorytm sor-to-wa-nia HE-AP-SORT (przez kop-
+Overfull \hbox (28.49939pt too wide) in paragraph at lines 136--137
+[][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (28.49939pt too wide) in paragraph at lines 137--138
+[][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (28.49939pt too wide) in paragraph at lines 138--139
+[][][][][][][][][][][][][][][][][] 
  []
 
 [5]
+Overfull \hbox (1.22954pt too wide) in paragraph at lines 163--163
+[]\OT4/cmr/bx/n/14.4 Algorytm sor-to-wa-nia HE-AP-SORT (przez kop-
+ []
+
+[6]
 LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
-186.
+205.
  (c:/texlive/2023/texmf-dist/tex/latex/polski/ot4cmtt.fd
 File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
-Overfull \hbox (1.41833pt too wide) in paragraph at lines 188--190
+Overfull \hbox (1.41833pt too wide) in paragraph at lines 207--209
 \OT4/cmr/m/n/12 Oblicza in-deks pra-we-go dziec-ka w¦-zªa $\OML/plm/m/it/12 i$ 
 \OT4/cmr/m/n/12 i przy-pi-su-je go do zmien-
- []
-
-[6{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 202--204
-
- []
-
-
-Overfull \hbox (0.29944pt too wide) in paragraph at lines 206--207
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
@@ -391,105 +406,115 @@ Underfull \hbox (badness 10000) in paragraph at lines 222--224
  []
 
 
-Overfull \hbox (1.90097pt too wide) in paragraph at lines 227--230
+Overfull \hbox (0.29944pt too wide) in paragraph at lines 226--227
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[7{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 242--244
+
+ []
+
+
+Overfull \hbox (1.90097pt too wide) in paragraph at lines 248--251
 \OT4/cmr/m/n/12 Inicjuje p¦-tl¦, któ-ra ite-ru-je od ostat-nie-go ele-men-tu ta
 -bli-cy $\OML/plm/m/it/12 A\OT4/cmr/m/n/12 [\OML/plm/m/it/12 n \OMS/plsy/m/n/12
  ^^@
  []
 
-[7] [8]
-<fins.png, id=38, 807.7678pt x 102.3825pt>
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
+
+ []
+
+[9]
+<fins.png, id=41, 807.7678pt x 102.3825pt>
 File: fins.png Graphic file (type png)
 <use fins.png>
-Package pdftex.def Info: fins.png  used on input line 277.
+Package pdftex.def Info: fins.png  used on input line 303.
 (pdftex.def)             Requested size: 310.4979pt x 39.35411pt.
-<ftins.png, id=40, 370.38374pt x 216.81pt>
+<ftins.png, id=43, 370.38374pt x 216.81pt>
 File: ftins.png Graphic file (type png)
 <use ftins.png>
-Package pdftex.def Info: ftins.png  used on input line 284.
+Package pdftex.def Info: ftins.png  used on input line 309.
 (pdftex.def)             Requested size: 310.4979pt x 181.75854pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--292
+Underfull \hbox (badness 10000) in paragraph at lines 314--317
 
  []
-
-[9 <./fins.png> <./ftins.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 293--296
-
- []
-
-<mergetabela.png, id=46, 845.40843pt x 123.46124pt>
-File: mergetabela.png Graphic file (type png)
-<use mergetabela.png>
-Package pdftex.def Info: mergetabela.png  used on input line 306.
-(pdftex.def)             Requested size: 310.4979pt x 45.34271pt.
-<wykresmerge.png, id=47, 420.06938pt x 225.84375pt>
-File: wykresmerge.png Graphic file (type png)
-<use wykresmerge.png>
-Package pdftex.def Info: wykresmerge.png  used on input line 313.
-(pdftex.def)             Requested size: 310.4979pt x 166.93565pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 318--321
 
  []
 
+[10 <./fins.png> <./ftins.png>]
+<mergetabela.png, id=49, 845.40843pt x 123.46124pt>
+File: mergetabela.png Graphic file (type png)
+<use mergetabela.png>
+Package pdftex.def Info: mergetabela.png  used on input line 330.
+(pdftex.def)             Requested size: 310.4979pt x 45.34271pt.
+<wykresmerge.png, id=50, 420.06938pt x 225.84375pt>
+File: wykresmerge.png Graphic file (type png)
+<use wykresmerge.png>
+Package pdftex.def Info: wykresmerge.png  used on input line 337.
+(pdftex.def)             Requested size: 310.4979pt x 166.93565pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 322--325
+Underfull \hbox (badness 10000) in paragraph at lines 342--345
 
  []
 
-[10 <./mergetabela.png>]
-<heaptabela.png, id=53, 846.16125pt x 115.93312pt>
+[11 <./mergetabela.png> <./wykresmerge.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 346--349
+
+ []
+
+<heaptabela.png, id=57, 846.16125pt x 115.93312pt>
 File: heaptabela.png Graphic file (type png)
 <use heaptabela.png>
-Package pdftex.def Info: heaptabela.png  used on input line 335.
+Package pdftex.def Info: heaptabela.png  used on input line 359.
 (pdftex.def)             Requested size: 310.4979pt x 42.54077pt.
-<heapwykres.png, id=54, 411.03563pt x 218.31563pt>
+<heapwykres.png, id=58, 411.03563pt x 218.31563pt>
 File: heapwykres.png Graphic file (type png)
 <use heapwykres.png>
-Package pdftex.def Info: heapwykres.png  used on input line 342.
+Package pdftex.def Info: heapwykres.png  used on input line 366.
 (pdftex.def)             Requested size: 310.4979pt x 164.91556pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--350
+Underfull \hbox (badness 10000) in paragraph at lines 371--374
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--354
+Underfull \hbox (badness 10000) in paragraph at lines 375--378
 
  []
 
-[11 <./wykresmerge.png> <./heaptabela.png>] [12 <./heapwykres.png>]
-(./sprawozdanie lista 1.aux) ) 
+[12 <./heaptabela.png>] [13 <./heapwykres.png>] (./sprawozdanie lista 1.aux) ) 
 Here is how much of TeX's memory you used:
- 4813 strings out of 476025
- 73322 string characters out of 5794016
- 1888382 words of memory out of 5000000
- 25187 multiletter control sequences out of 15000+600000
+ 4820 strings out of 476025
+ 73396 string characters out of 5794016
+ 1884382 words of memory out of 5000000
+ 25194 multiletter control sequences out of 15000+600000
  519720 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,6n,67p,789b,1642s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.pfb><c:/te
-xlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/2023/texmf-d
-ist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/pub
-lic/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pfb><c
-:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr8.pfb><c:/texlive/2023/texmf
--dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/
-public/pl/pltt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sf
-rm1200.pfb>
-Output written on "sprawozdanie lista 1.pdf" (12 pages, 290951 bytes).
+ 62i,6n,67p,870b,1656s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<
+c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texliv
+e/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/te
+xmf-dist/fonts/type1/public/pl/plbx12.pfb><c:/texlive/2023/texmf-dist/fonts/typ
+e1/public/pl/plmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr10
+.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr12.pfb><c:/texlive/20
+23/texmf-dist/fonts/type1/public/pl/plr17.pfb><c:/texlive/2023/texmf-dist/fonts
+/type1/public/pl/plr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/pls
+y10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/pltt12.pfb><c:/texliv
+e/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on "sprawozdanie lista 1.pdf" (13 pages, 293021 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
