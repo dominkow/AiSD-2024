@@ -5,6 +5,9 @@
 #include <iomanip> // dla precyzji floatow
 using namespace std;
 
+
+constexpr float inf = std::numeric_limits<float>::infinity();
+
 int porownania = 0;                         //zmienne globalne do przypisan i porownan
 int przypisania = 0;
 
@@ -20,8 +23,8 @@ void MERGE(float A[], int p, int s, int k){ //utworzenie tablicy A, o poczatku p
     float P[n2 + 1];
     przypisania +=4;
 
-    L[n1] = numeric_limits<float>::infinity();   //dodanie "wartosci nieskonczonosci" na koñcach tych tablic.
-    P[n2] = numeric_limits<float>::infinity();   //gdy skonczymy przegladac jedna z czesci, dalsze porownania obejma tylko druga czesc.
+    L[n1] = inf;  //dodanie "wartosci nieskonczonosci" na koñcach tych tablic.
+    P[n2] = inf;   //gdy skonczymy przegladac jedna z czesci, dalsze porownania obejma tylko druga czesc.
     przypisania +=2;
 
     for (int i = 0; i < n1; i++) {          //przypisujemy elementy z lewej czesci do L (była p+1 zamiast p+i)
@@ -74,9 +77,9 @@ void MERGE_MOD(float A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z
     float S[n2 + 1];
     float P[n3 + 1];
     przypisania +=3;
-    L[n1] = numeric_limits<float>::infinity(); //dodanie "wartosci nieskonczonosci" na koncach tych tablic.
-    S[n2] = numeric_limits<float>::infinity(); //gdy skonczymy przegladac jedna z czesci, dalsze porównania nie obejma juz jej
-    P[n3] = numeric_limits<float>::infinity();
+    L[n1] = inf; //dodanie "wartosci nieskonczonosci" na koncach tych tablic.
+    S[n2] = inf; //gdy skonczymy przegladac jedna z czesci, dalsze porównania nie obejma juz jej
+    P[n3] = inf;
     przypisania +=3;
 
     for (int i = 0; i < n1; i++){       //przypisujemy elementy z lewej do L

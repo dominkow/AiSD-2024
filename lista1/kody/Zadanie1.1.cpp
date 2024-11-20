@@ -33,15 +33,15 @@ void INSERTION_SORT(float A[], int n) {       //utworzenie tablicy A, o wielkosc
 
 void INSERTION_SORT_MOD(float A[], int n) {
     for (int s = 1; s < n; s += 2) {  // Iterujemy po parach elementów
-        float pierwszy = A[s - 1];    // Pierwszy element pary
+        float pier = A[s - 1];    // Pierwszy element pary
         float drugi = A[s];           // Drugi element pary
         przypisania += 2;
 
         // Upewnij się, że pierwszy <= drugi
-        if (pierwszy > drugi) {
-            swap(pierwszy, drugi);
-            przypisania += 2;
+        if (pier > drugi) {
             porownania++;
+            swap(pier, drugi);
+            przypisania += 2;
         }
 
         // Znajdź miejsce dla "drugiego" w posortowanej części
@@ -60,7 +60,7 @@ void INSERTION_SORT_MOD(float A[], int n) {
         przypisania++;
 
         // Znajdź miejsce dla "pierwszego" w posortowanej części
-        while (k >= 0 && A[k] > pierwszy) {
+        while (k >= 0 && A[k] > pier) {
             porownania++;
             A[k + 1] = A[k];  // Przesuwamy o jedno miejsce
             przypisania++;
@@ -69,7 +69,7 @@ void INSERTION_SORT_MOD(float A[], int n) {
         }
 
         // Wstaw "pierwszy" na swoje miejsce
-        A[k + 1] = pierwszy;
+        A[k + 1] = pier;
         przypisania++;
     }
 
@@ -78,12 +78,14 @@ void INSERTION_SORT_MOD(float A[], int n) {
         float ostatni = A[n - 1];
         przypisania++;
         int k = n - 2;
+        przypisania++;
 
         while (k >= 0 && A[k] > ostatni) {
+            porownania++;
             A[k + 1] = A[k];
             przypisania++;
-            porownania++;
             k--;
+            przypisania++;
         }
 
         A[k + 1] = ostatni;
