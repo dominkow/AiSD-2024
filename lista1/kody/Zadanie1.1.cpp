@@ -32,61 +32,66 @@ void INSERTION_SORT(float A[], int n) {       //utworzenie tablicy A, o wielkosc
 }
 
 void INSERTION_SORT_MOD(float A[], int n) {
-    for (int s = 1; s < n - 1; s += 2) {
-        float pierwszy = A[s];              //definiujemy nasze klucze pierwszy i drugi
-        float drugi = A[s + 1];
-        przypisania +=2;
+    for (int s = 1; s < n; s += 2) {  // Iterujemy po parach elementów
+        float pierwszy = A[s - 1];    // Pierwszy element pary
+        float drugi = A[s];           // Drugi element pary
+        przypisania += 2;
 
-        if (pierwszy > drugi) {             //jezeli pierwszy jest wiekszy od drugiego to zamieniamy je miejscami
-            porownania++;
+        // Upewnij się, że pierwszy <= drugi
+        if (pierwszy > drugi) {
             swap(pierwszy, drugi);
-            przypisania +=2;
-        }
-        int k = s - 1;                      //prypisujemy dla zmiennej k indeks przed kluczem (ktory ma wartoc mniejsza)
-        przypisania++;
-        while (k >= 0 && A[k] > pierwszy) {
+            przypisania += 2;
             porownania++;
-            A[k + 1] = A[k];                //przesuwamy A[j] o jedno miejsce w prawo aby zrobic miejsce dla pierwszego
-            przypisania++;
-            k--;                            //zmniejszamy indeks k
-            przypisania++;
         }
-        porownania++;
-        A[k + 1] = pierwszy;                //ustawiamy pierwszy jako k+1
-        przypisania++;
 
-        k = s;                              //analogicznie dla drugiego
+        // Znajdź miejsce dla "drugiego" w posortowanej części
+        int k = s - 2;  // Zaczynamy od końca posortowanej części
         przypisania++;
         while (k >= 0 && A[k] > drugi) {
-            A[k + 1] = A[k];
+            porownania++;
+            A[k + 2] = A[k];  // Przesuwamy o dwa miejsca
             przypisania++;
             k--;
             przypisania++;
         }
-        porownania++;
-        A[k + 1] = drugi;
+
+        // Wstaw "drugi" na swoje miejsce
+        A[k + 2] = drugi;
+        przypisania++;
+
+        // Znajdź miejsce dla "pierwszego" w posortowanej części
+        while (k >= 0 && A[k] > pierwszy) {
+            porownania++;
+            A[k + 1] = A[k];  // Przesuwamy o jedno miejsce
+            przypisania++;
+            k--;
+            przypisania++;
+        }
+
+        // Wstaw "pierwszy" na swoje miejsce
+        A[k + 1] = pierwszy;
         przypisania++;
     }
 
-    if (n % 2 == 0) {                        // Sprawdzamy, czy n jest parzyste
-        porownania++;
-        float ostatni = A[n - 1];            // Jeśli tak, robimy dodatkowe wstawienie dla ostatniego elementu, bo nie miał pary
+    // Obsługa ostatniego elementu w przypadku nieparzystej liczby elementów
+    if (n % 2 != 0) {
+        float ostatni = A[n - 1];
         przypisania++;
-        int k = n - 2;                       // Ustawiamy k jako indeks przedostatniego elementu
-        przypisania++;
+        int k = n - 2;
 
-        while (k >= 0 && A[k] > ostatni) {    // Przesuwamy elementy większe od 'ostatni' o jedno miejsce w prawo
+        while (k >= 0 && A[k] > ostatni) {
+            A[k + 1] = A[k];
+            przypisania++;
             porownania++;
-            A[k + 1] = A[k];                  // Przypisujemy element A[k] do pozycji o jeden większej
-            przypisania++;
             k--;
-            przypisania++;
         }
-        porownania++;
-        A[k + 1] = ostatni;                   // Wstawiamy 'ostatni' element w odpowiednie miejsce
+
+        A[k + 1] = ostatni;
         przypisania++;
     }
 }
+
+
 void WYPISZ_WYNIK(float A[], int n) {                       //wypisujemy ilosc przypisan i porownan
     cout << endl;
     cout << "Liczba porownan: " << porownania << endl;

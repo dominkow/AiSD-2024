@@ -65,7 +65,7 @@ void MERGE_SORT(float A[], int p, int k){   //tworzymy tablice A, z poczakiem p 
     }
 }
 
-void MERGE_MODYFIKOWANY(float A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z pocztakiem p, jedna/trzecia s1, dwiema/trzecimi s2, koncem k
+void MERGE_MOD(float A[], int p, int s1, int s2, int k){ //tworzymy tablice A, z pocztakiem p, jedna/trzecia s1, dwiema/trzecimi s2, koncem k
     int n1 = s1 - p + 1;        //zdefiniowanie dlugosci lewej, srodkowej i prawej czesci
     int n2 = s2- s1;
     int n3 = k - s2;
@@ -120,16 +120,16 @@ void MERGE_MODYFIKOWANY(float A[], int p, int s1, int s2, int k){ //tworzymy tab
     }
 }
 
-void MERGE_SORT_MODYFIKOWANY(float A[], int p, int k) {   //tworzymy tablice A z poczatkiem p i koncem k
+void MERGE_SORT_MOD(float A[], int p, int k) {   //tworzymy tablice A z poczatkiem p i koncem k
     if (p < k) {                        //jezeli p mniejsze od k (odwrotnie mamy juz element posortowany
         porownania++;
         int s1 = p + (k - p) / 3;       //dzielimy tablice na czesc 1 i 2
         int s2 = p + 2 * (k - p) / 3;   //dzielimy tablice na czesc 2 i 3
         przypisania +=2;
-        MERGE_SORT_MODYFIKOWANY(A, p, s1);  //sortujemy pierwsza czesc
-        MERGE_SORT_MODYFIKOWANY(A, s1 + 1, s2); //sortujemy 2 czesc
-        MERGE_SORT_MODYFIKOWANY(A, s2 + 1, k);  //sortujemy 3 czesc
-        MERGE_MODYFIKOWANY(A, p, s1, s2, k);    //scalamy
+        MERGE_SORT_MOD(A, p, s1);  //sortujemy pierwsza czesc
+        MERGE_SORT_MOD(A, s1 + 1, s2); //sortujemy 2 czesc
+        MERGE_SORT_MOD(A, s2 + 1, k);  //sortujemy 3 czesc
+        MERGE_MOD(A, p, s1, s2, k);    //scalamy
     }
 }
 void WYPISZ_WYNIK(float A[], int n) {
@@ -208,16 +208,16 @@ int main() {
         // Mierzenie czasu i liczenie przypisan i porownan dla modyfikacji sortowania
         RESETUJ();
         start_time = clock();
-        MERGE_SORT_MODYFIKOWANY(A, 0, n-1);
+        MERGE_SORT_MOD(A, 0, n-1);
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "MERGE_SORT_MODYFIKOWANY dla rozmiaru " << n << ":\n";
+        cout << "MERGE_SORT_MOD dla rozmiaru " << n << ":\n";
         cout << "Czas trwania: " << elapsed_time << " ms" << endl;
         WYPISZ_WYNIK(A, n);
 
         // Wyświetlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
         if (n == 10) {
-            cout << "Posortowana tablica A po MERGE_SORT_MODYFIKOWANY: ";
+            cout << "Posortowana tablica A po MERGE_SORT_MOD: ";
             WYPISZ_TABLICE(A, n);
         }
 
