@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1733085186 source:c:\users\user\onedrive\pulpit\algorytmy i struktury danych\aisd-2024\lista2\kody\zadanie2.2\main.cpp
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<chrono>
+
