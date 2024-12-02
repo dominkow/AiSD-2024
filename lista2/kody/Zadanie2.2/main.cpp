@@ -19,6 +19,14 @@ void GENERATOR_TABLIC(int A[], int n) {
         A[i] = rand() % 50001;                  // Generowanie liczby całkowitej w zakresie od 0 do 50000
     }
 }
+
+void GENERATOR_TABLIC_NEG(int A[], int n) {
+    srand(time(0));                             // Inicjalizacja generatora losowego
+    for (int i = 0; i < n; i++) {               // Generowanie liczb aż do n
+        A[i] = (rand() % 100001) - 50000;       // Generowanie liczby całkowitej w zakresie od -50000 do 50000
+    }
+}
+
 void WYPISZ_TABLICE(int* A, int n) {
     for (int i = 0; i < n; i++) {
         //cout << fixed << setprecision(3) << A[i] << " ";       //ustawiamy ze wyswietlane liczby w tablicy beda ze stale
@@ -69,7 +77,7 @@ void RADIX_SORT(int A[], int n, int k, int d) {            //k maksymalna liczba
     }
 }
 
-void RADIX_SORT_MOD(int A[], int n, int d, int k) {
+void RADIX_SORT_MOD(int A[], int n, int k, int d) {
     int liczba_dodatnich = 0;
     int liczba_ujemnych = 0;                                //policzmy liczby dodatnie i ujemne
     przypisania += 2;
@@ -102,7 +110,6 @@ void RADIX_SORT_MOD(int A[], int n, int d, int k) {
             przypisania++;
         }
     }
-
     //sortujemy liczby dodatnie za pomocą Counting sort
     if (liczba_dodatnich > 0) {
         porownania++;
@@ -110,7 +117,6 @@ void RADIX_SORT_MOD(int A[], int n, int d, int k) {
             COUNTING_SORT(dodatnie, liczba_dodatnich, exp, d);
         }
     }
-
     //sortujemy liczby ujemne (jako dodatnie) za pomocą Counting Sort
     if (liczba_ujemnych > 0) {
         porownania++;
@@ -118,103 +124,245 @@ void RADIX_SORT_MOD(int A[], int n, int d, int k) {
             COUNTING_SORT(ujemne, liczba_ujemnych, exp, d);
         }
     }
-
     //laczymy wyniki: liczby ujemne (od największej do najmniejszej), a potem dodatnie
     int x = 0;
     przypisania++;
 
     // Liczby ujemne w odwrotnej kolejności
     for (int i = liczba_ujemnych - 1; i >= 0; i--) {
-        A[x++] = -ujemne[i]; // Przywrócenie ujemnych wartości
+        A[x++] = -ujemne[i];                            // Przywrócenie ujemnych wartości
         przypisania++;
     }
-
     // Liczby dodatnie
     for (int i = 0; i < liczba_dodatnich; i++) {
         A[x++] = dodatnie[i];
         przypisania++;
     }
-
-    // Zwolnienie pamięci
     delete[] dodatnie;
     delete[] ujemne;
 }
 int main() {
-    // Tablica do posortowania
-    int A[] = {170, -45, 75, -90, 802, 24, 2, -500, 66, 33};
-    int n = sizeof(A) / sizeof(A[0]);
+    //test sortowania
+    int D[] = {170, -45, 75, -90, 802, 24, 2, -500, 66, 33};
+    int C[] = {149, 67, 58, 321, 90, 124, 125, 67, 870, 13};
+    int n = sizeof(D) / sizeof(D[0]);
+    int m = sizeof(C) / sizeof(C[0]);
+    int d = 10;                                             //podstawa systemu liczbowego
+    int k = 3;                                              //liczba cyfr w największej liczbie
 
-    int d = 10; // Podstawa systemu liczbowego (dziesiętny)
-    int k = 3;  // Liczba cyfr w największej liczbie (tu zakładamy max 3 cyfry)
+    RADIX_SORT_MOD(D, n, d, k);                             //wywolanie radix sortow
+    RADIX_SORT(C, m, d, k);
 
-    // Wywołanie Radix Sorta
-    RADIX_SORT_MOD(A, n, d, k);
-
-    // Wyświetlenie posortowanej tablicy
-    cout << "Posortowana tablica: ";
+    //wyświetlenie posortowanych tablic
+    cout << "Posortowana tablica dla RADIX_SORT_MOD: ";
     for (int i = 0; i < n; i++) {
-        cout << A[i] << " ";
+        cout << D[i] << " ";
     }
+    cout << "\n\n"; // Dwa znaki nowej linii dla czytelności
+    cout << "Posortowana tablica dla RADIX_SORT: ";
+    for (int j = 0; j < m; j++) {
+        cout << C[j] << " ";
+    }
+    cout << "\n\n";                                             // Dwa znaki nowej linii dla czytelności
 
-    int sizes[] = {10, 100000, 200000, 300000, 400000, 500000}; // wielkości tablic do testów
-    for (int i = 0; i < 5; i++) {
+//testy dla roznych d
+    int sizes[] = {10, 100000, 200000, 300000, 400000, 500000};
+
+    cout << "==== WYNIKI RADIX_SORT dla k = 6 i d = 2 ====\n";
+    for (int i = 0; i < 6; i++) {
         int n = sizes[i];
-        int* A = new int[n]; // dynamiczne przechowywanie tablicy A o długości n
-        int* B = new int[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
 
-        GENERATOR_TABLIC(A, n); // generujemy losowe liczby całkowite
+    // Generowanie tablicy dla RADIX_SORT
+    int* A = new int[n];
+    GENERATOR_TABLIC(A, n);
 
-        // Kopiujemy wygenerowaną tablicę A do B, aby zapamiętać początkową kolejność
-        for (int j = 0; j < n; j++) {
-            B[j] = A[j];
-        }
-        // Mierzenie czasu i liczenie przypisań i porównań dla RADIX_SORT
-        RESETUJ();
-        clock_t start_time = clock();
-        RADIX_SORT(A, n, 2, 10); // Wywołanie podstawowego Radix Sort
-        clock_t end_time = clock();
-        double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "RADIX_SORT dla rozmiaru " << n << ":\n";
-        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
-        WYPISZ_WYNIK(A, n);
-
-        // Wyświetlanie posortowanej tablicy A po RADIX_SORT (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Posortowana tablica A po RADIX_SORT: ";
-            WYPISZ_TABLICE(A, n);
-        }
-
-        // Przywracamy oryginalną kolejność liczb z B do A
-        for (int j = 0; j < n; j++) {
-            A[j] = B[j];
-        }
-
-        // Mierzenie czasu i liczenie przypisań i porównań dla RADIX_SORT2
-        RESETUJ();
-        start_time = clock();
-        RADIX_SORT_MOD(A, n, 2, 10); // Wywołanie modyfikowanego Radix Sort
-        end_time = clock();
-        elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
-        cout << "RADIX_SORT2 dla rozmiaru " << n << ":\n";
-        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
-        WYPISZ_WYNIK(A, n);
-
-        // Wyświetlanie posortowanej tablicy A po RADIX_SORT2 (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Posortowana tablica A po RADIX_SORT2: ";
-            WYPISZ_TABLICE(A, n);
-        }
-
-        // Przywracamy oryginalną kolejność liczb z B do A
-        for (int j = 0; j < n; j++) {
-            A[j] = B[j];
-        }
-        delete[] A; // Zwalniamy pamięć poprzez usunięcie tablicy A
-        delete[] B; // Zwalniamy pamięć poprzez usunięcie tablicy B
-        cout << endl;
+    // RADIX_SORT
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT(A, n, 6, 2); // 6 cyfr maksymalnie (np. dla zakresu 0-999999)
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms";
+    WYPISZ_WYNIK(A, n);
+    cout << "\n";
+    delete[] A;
     }
+    cout << "\n\n";
 
-    return 0;
+    cout << "===========================\n\n";
+
+    cout << "==== WYNIKI RADIX_SORT dla k = 6 i d = 6 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT
+    int* A = new int[n];
+    GENERATOR_TABLIC(A, n);
+
+    // RADIX_SORT
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT(A, n, 6, 6); // 6 cyfr maksymalnie (np. dla zakresu 0-999999)
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms";
+    WYPISZ_WYNIK(A, n);
+    cout << "\n";
+    delete[] A;
+    }
+    cout << "\n\n";
+
+    cout << "===========================\n\n";
+
+       cout << "==== WYNIKI RADIX_SORT dla k = 6 i d = 10 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT
+    int* A = new int[n];
+    GENERATOR_TABLIC(A, n);
+
+    // RADIX_SORT
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT(A, n, 6, 10); // 6 cyfr maksymalnie (np. dla zakresu 0-999999)
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms";
+    WYPISZ_WYNIK(A, n);
+    cout << "\n";
+    delete[] A;
+    }
+    cout << "\n\n";
+
+    cout << "===========================\n\n";
+
+       cout << "==== WYNIKI RADIX_SORT dla k = 6 i d = 14 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT
+    int* A = new int[n];
+    GENERATOR_TABLIC(A, n);
+
+    // RADIX_SORT
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT(A, n, 6, 14); // 6 cyfr maksymalnie (np. dla zakresu 0-999999)
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms";
+    WYPISZ_WYNIK(A, n);
+    cout << "\n";
+    delete[] A;
+    }
+    cout << "\n\n";
+
+    cout << "===========================\n\n";
+
+
+    cout << "==== WYNIKI RADIX_SORT_MOD dla k = 6 i d = 2 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT_MOD
+    int* B = new int[n];
+    GENERATOR_TABLIC_NEG(B, n);
+
+    // RADIX_SORT_MOD
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT_MOD(B, n, 6, 2); // 6 cyfr maksymalnie, podstawa dziesiętna
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT_MOD dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms ";
+    WYPISZ_WYNIK(B, n);
+    cout << "\n";
+    delete[] B;
+    }
+    cout << "\n";
+
+    cout << "===========================\n\n";
+
+        cout << "==== WYNIKI RADIX_SORT_MOD dla k = 6 i d = 6 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT_MOD
+    int* B = new int[n];
+    GENERATOR_TABLIC_NEG(B, n);
+
+    // RADIX_SORT_MOD
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT_MOD(B, n, 6, 6); // 6 cyfr maksymalnie, podstawa dziesiętna
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT_MOD dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms ";
+    WYPISZ_WYNIK(B, n);
+    cout << "\n";
+    delete[] B;
+    }
+    cout << "\n";
+
+    cout << "===========================\n\n";
+
+        cout << "==== WYNIKI RADIX_SORT_MOD dla k = 6 i d = 10 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT_MOD
+    int* B = new int[n];
+    GENERATOR_TABLIC_NEG(B, n);
+
+    // RADIX_SORT_MOD
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT_MOD(B, n, 6, 10); // 6 cyfr maksymalnie, podstawa dziesiętna
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT_MOD dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms ";
+    WYPISZ_WYNIK(B, n);
+    cout << "\n";
+    delete[] B;
+    }
+    cout << "\n";
+
+    cout << "===========================\n\n";
+
+        cout << "==== WYNIKI RADIX_SORT_MOD dla k = 6 i d = 14 ====\n";
+    for (int i = 0; i < 6; i++) {
+        int n = sizes[i];
+
+    // Generowanie tablicy dla RADIX_SORT_MOD
+    int* B = new int[n];
+    GENERATOR_TABLIC_NEG(B, n);
+
+    // RADIX_SORT_MOD
+    RESETUJ();
+    clock_t start_time = clock();
+    RADIX_SORT_MOD(B, n, 6, 14); // 6 cyfr maksymalnie, podstawa dziesiętna
+    clock_t end_time = clock();
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000;
+    cout << "RADIX_SORT_MOD dla rozmiaru " << n << ":\n";
+    cout << "Czas trwania: " << elapsed_time << " ms ";
+    WYPISZ_WYNIK(B, n);
+    cout << "\n";
+    delete[] B;
+    }
+    cout << "\n";
+
+    cout << "===========================\n\n";
+
+return 0;
+
 }
 
 
