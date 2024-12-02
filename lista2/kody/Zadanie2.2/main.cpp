@@ -69,42 +69,41 @@ void RADIX_SORT(int A[], int n, int k, int d) {            //k maksymalna liczba
     }
 }
 
-void RADIX_SORT2(int A[], int n, int d, int k) {
-    // Policz liczby dodatnie i ujemne
-    int liczba_dodatnich = 0, liczba_ujemnych = 0;
+void RADIX_SORT_MOD(int A[], int n, int d, int k) {
+    int liczba_dodatnich = 0;
+    int liczba_ujemnych = 0;                                //policzmy liczby dodatnie i ujemne
     przypisania += 2;
 
     for (int i = 0; i < n; i++) {
         if (A[i] >= 0) {
             porownania++;
-            liczba_dodatnich++;
-            przypisania++;
+            liczba_dodatnich++;                             //spawdzamy czy sprawdzana wartosc jest wieksza/rowna/mniejsza
+            przypisania++;                                  //i przypisujemy do odpowiedniej czesci ujemnej/dodatniej
         } else {
             porownania++;
             liczba_ujemnych++;
             przypisania++;
         }
     }
-    // Utwórz tablice pomocnicze
-    int* dodatnie = new int[liczba_dodatnich];
+    int* dodatnie = new int[liczba_dodatnich];              //tworzymy die tablice z liczb ujemnych, duga z dodatnich
     int* ujemne = new int[liczba_ujemnych];
 
-    // Rozdziel liczby dodatnie i ujemne
-    int dod = 0, uje = 0;
+    int plusowe = 0;                                       //rozdzielamy liczby dodatnie i ujemne
+    int minusowe = 0;
     przypisania += 2;
     for (int i = 0; i < n; i++) {
         if (A[i] >= 0) {
             porownania++;
-            dodatnie[dod++] = A[i];
+            dodatnie[plusowe++] = A[i];
             przypisania++;
         } else {
             porownania++;
-            ujemne[uje++] = -A[i]; // Zamiana ujemnych na dodatnie
+            ujemne[minusowe++] = -A[i];                     // Zamieniamy ujemne na dodatnie
             przypisania++;
         }
     }
 
-    // Posortuj liczby dodatnie za pomocą Counting sort
+    //sortujemy liczby dodatnie za pomocą Counting sort
     if (liczba_dodatnich > 0) {
         porownania++;
         for (int exp = 1, iter = 0; iter < k; exp *= d, iter++) {
@@ -112,7 +111,7 @@ void RADIX_SORT2(int A[], int n, int d, int k) {
         }
     }
 
-    // Posortuj liczby ujemne (jako dodatnie) za pomocą Counting Sort
+    //sortujemy liczby ujemne (jako dodatnie) za pomocą Counting Sort
     if (liczba_ujemnych > 0) {
         porownania++;
         for (int exp = 1, iter = 0; iter < k; exp *= d, iter++) {
@@ -120,7 +119,7 @@ void RADIX_SORT2(int A[], int n, int d, int k) {
         }
     }
 
-    // Połącz wyniki: liczby ujemne (od największej do najmniejszej), a potem dodatnie
+    //laczymy wyniki: liczby ujemne (od największej do najmniejszej), a potem dodatnie
     int x = 0;
     przypisania++;
 
@@ -149,7 +148,7 @@ int main() {
     int k = 3;  // Liczba cyfr w największej liczbie (tu zakładamy max 3 cyfry)
 
     // Wywołanie Radix Sorta
-    RADIX_SORT2(A, n, d, k);
+    RADIX_SORT_MOD(A, n, d, k);
 
     // Wyświetlenie posortowanej tablicy
     cout << "Posortowana tablica: ";
@@ -193,7 +192,7 @@ int main() {
         // Mierzenie czasu i liczenie przypisań i porównań dla RADIX_SORT2
         RESETUJ();
         start_time = clock();
-        RADIX_SORT2(A, n, 2, 10); // Wywołanie modyfikowanego Radix Sort
+        RADIX_SORT_MOD(A, n, 2, 10); // Wywołanie modyfikowanego Radix Sort
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
         cout << "RADIX_SORT2 dla rozmiaru " << n << ":\n";
