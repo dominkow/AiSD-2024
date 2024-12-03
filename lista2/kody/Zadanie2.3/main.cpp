@@ -1,88 +1,119 @@
 #include <iostream>
+#include <cstdlib> // Dla funkcji rand()
+#include <ctime>   // Dla funkcji time()
 using namespace std;
 
-int porownania = 0;
-int przypisania = 0;
-
-void RESETUJ() {
-    porownania = 0;
-    przypisania = 0;
-}
-
-//definicja wêz³a dla listy (na wskaŸnikach) - jeden element listy
-//struct sluzy do tworzenia struktur danych
-
+// Definicja wÄ™zÅ‚a
 struct WEZEL {
-    double wartosc;       //wartoœæ przechowywana w wêŸle
-    WEZEL* prev;          //wskaŸnik na poprzedni wêze³
-    WEZEL* next;          //wskaŸnik na nastêpny wêze³
+    double wartosc; // WartoÅ›Ä‡ przechowywana w wÄ™Åºle
+    WEZEL* prev;    // WskaÅºnik na poprzedni wÄ™zeÅ‚
+    WEZEL* next;    // WskaÅºnik na nastÄ™pny wÄ™zeÅ‚
 
-    WEZEL(double war) : wartosc(war), prev(nullptr), next(nullptr) {}    //konstruktor wezla
-
-    //WEZEL przyjmuje war, inicjujacy pole wartosc,
-    //inicjalizuje pole wartosc wartoœci¹ przekazan¹ w parametrze war
-    //inicjalizuje wskaŸnik prev wartoœci¹ nullptr - wêze³ nie ma na pocz¹tku poprzednika
-    //to samo dla wskaznika next - wezel nie ma na poczatku nastepcy
+    WEZEL(double war) : wartosc(war), prev(nullptr), next(nullptr) {} // Konstruktor
 };
-//
+
+// Definicja listy
 struct LISTA {
-    WEZEL* head;                                //wskaŸnik na pierwszy element listy
-    LISTA() : head(nullptr) {}                  //konstruujemy pust¹ listê
+    WEZEL* head;                // WskaÅºnik na pierwszy element listy
+    LISTA() : head(nullptr) {}  // Konstruktor - pusta lista
+
+
+// Dodawanie elementu do listy
+    void LIST_INSERT(LISTA& lista, WEZEL* x) {
+        x->next = lista.head;
+        x->prev = nullptr;
+        if (lista.head == nullptr) {
+            lista.head = x;
+        } else {
+            lista.head->prev = x;
+            lista.head = x;
+        }
+    }
+
+// Usuwanie elementu z listy
+    void LISTA_DELATE(LISTA& lista, WEZEL* x) {
+        if (x->prev != nullptr) {
+            x->prev->next = x->next;
+        } else {
+            lista.head = x->next;
+        }
+        if (x->next != nullptr) {
+            x->next->prev = x->prev;
+        }
+        delete x;
+    }
+
+// Wyszukiwanie elementu w liÅ›cie
+    WEZEL* LIST_SEARCH(LISTA& lista, double k) {
+        WEZEL* x = lista.head;
+        while (x != nullptr && x->wartosc != k) {
+            x = x->next;
+        }
+        return x;
+    }
+
+// Drukowanie listy
+    void PRINT_LIST(LISTA& lista) {
+        WEZEL* x = lista.head;
+        while (x != nullptr) {
+            cout << x->wartosc << " ";
+            x = x->next;
+        }
+        cout << endl;
+    }
+
+    // Sortowanie listy metodÄ… Insertion Sort
+    void LIST_INSERTION_SORT(LISTA& lista) {
+        if (lista.head == nullptr || lista.head->next == nullptr) {
+            return; // Lista pusta lub z jednym elementem, juÅ¼ posortowana
+        }
+
+        WEZEL* current = lista.head->next; // Zaczynamy od drugiego elementu
+        while (current != nullptr) {
+            double key = current->wartosc; // Klucz do wstawienia
+            WEZEL* prev = current->prev;   // PorÃ³wnujemy z poprzednimi elementami
+
+            // Przesuwamy wÄ™zÅ‚y o wiÄ™kszej wartoÅ›ci w prawo
+            while (prev != nullptr && prev->wartosc > key) {
+                prev->next->wartosc = prev->wartosc;
+                prev = prev->prev;
+            }
+
+            // Wstawiamy klucz w odpowiednie miejsce
+            if (prev == nullptr) {
+                lista.head->wartosc = key; // Na poczÄ…tek listy
+            } else {
+                prev->next->wartosc = key; // Do miejsca po `prev`
+            }
+
+            current = current->next; // Przechodzimy do kolejnego elementu
+        }
+    }
+
+    // Tworzenie losowej listy
+    void STWORZ_LOSOWA_LISTE(LISTA& lista, int liczba_elementow, int min_wartosc, int max_wartosc) {
+        srand(time(nullptr)); // Inicjalizacja generatora liczb losowych
+        for (int i = 0; i < liczba_elementow; ++i) {
+            int wartosc = min_wartosc + rand() % (max_wartosc - min_wartosc + 1);
+                LIST_INSERT(lista, new WEZEL(wartosc));
+        }
+    }
 };
+int main() {
+    LISTA lista;
 
-//pseudokod z wykladu (1 do 1) funkcji dodajacej element do list
-void LIST_INSERT(LISTA& lista, WEZEL* x ){      //x to wskaznik odwolujacy sie do WEZEL w naszej liscie, lista to alias
-    x->next = lista.head;                       //nowy wezel wskazuje na aktualna "g³owê" listy
-    x->prev = nullptr;                          //nowy wezel nie ma poprzednika (bedzie na poczatku listy)
-                                                //nullptr to NIL z wykladu
-    if (lista.head == nullptr) {
-        lista.head = x;                         //jesli lista jest pusta to nowy wezel staje siê pierwszym elementem listy
-    } else {
-        lista.head->prev = x;                   //poprzedni pierwszy wezel wskazuje na nowy wezel
-        lista.head = x;                         //nowy wezel staje siê "g³ow¹" listy
-    }
+    // Tworzenie losowej listy z 10 elementami, wartoÅ›ci w przedziale 1 do 100
+    lista.STWORZ_LOSOWA_LISTE(lista, 10, 1.0, 100.0);
+
+    cout << "Lista przed sortowaniem: ";
+    lista.PRINT_LIST(lista);
+
+    // Sortowanie
+    lista.LIST_INSERTION_SORT(lista);
+
+    cout << "Lista po sortowaniu: ";
+    lista.PRINT_LIST(lista);
+
+    return 0;
 }
-
-//pseudokod z wykladu (1 do 1) funkcji usuwajacy element z listy
-void LISTA_DELATE(LISTA& lista, WEZEL* x) {                 //wskaznik x na element do usuniecia z listy
-    if (x->prev != nullptr){                                //sprawdzamy czy wezel ma poprzednika, jesli ma to
-        x->prev->next = x->next;                            //ustawiamy wskaznik next na wezel nastepujacy po x, usuwajac x
-    } else {
-        lista.head = x->next;                               //jesli nie ma poprzednika, to usuwamy glowe i przenosimy ja
-    }                                                       //na nastepny wezel
-    if (x->next != nullptr){                                //sprawdzamy czy nastepnik istnieje
-        x->next->prev = x->prev;                            //jesli x nie jest ostatnim wezlem to chcemy ustawic wskaŸnik
-    }                                                       //prev nastêpnego wêz³a na wêze³ przed x (x->prev)
-    delete x;                                               //po unormowaniu wskaznikow w wezlach usuwamy x
-}
-
-//funkcja drukujaca, wyswietlajaca liste
-void PRINT_LIST(LISTA& lista) {
-    WEZEL* x = lista.head;
-    while (x != nullptr) {
-        cout << x->wartosc << " ";
-        x = x->next;
-    }
-    cout << endl;
-}
-
-//pseudokod z wykladu (1 do 1) funckji szukajcej elemntu listy
-WEZEL* LIST_SEARCH(LISTA& lista, double k){                 //funckja zwraca wskaznik na wezel w liscie
-    WEZEL* x = lista.head;                                  //wskaznik na pierwszy element listy
-    while (x != nullptr && x->wartosc != k){                //sprawdza czy dotarlismy do konca listy
-        x = x->next;                                        //jesli aktualny wezel nie ma wartosci k to przechodzimy do nastepnego wezla
-    }
-    return x;                                               //zwracamy wezel
-}
-
-// Funkcja sortuj¹ca listê metod¹ Insertion Sort
-void INSERTION_SORT(LISTA& lista) {
-    if (lista.head == nullptr || lista.head->next == nullptr) {
-        return;                                                     //lista jest pusta lub ma tylko jeden element
-    }
-
-    WEZEL* x = lista.head->next;                                    //rozpoczynamy od drugiego elementu
-    while (x != nullptr) {                                          //sprawdzamy czy x istnieje
-        WEZEL* temp = x;                                            //
-        x = x->next;
 
