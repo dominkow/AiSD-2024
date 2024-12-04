@@ -74,11 +74,11 @@ struct LISTA {
     }
 
     //implementacja insertion sorta na strukturze listy
-    void LIST_INSERTION_SORT(LISTA& lista) {
-        if (lista.head == nullptr || lista.head->next == nullptr) {
+    void LIST_INSERTION_SORT(LISTA& l) {
+        if (l.head == nullptr || l.head->next == nullptr) {
             return;                                                 //lista pusta lub z jednym elementem (posortowana)
         }
-        WEZEL* element = lista.head->next;                          //zaczynamy od drugiego elementu (bo pierwszy jest posortowany)
+        WEZEL* element = l.head->next;                          //zaczynamy od drugiego elementu (bo pierwszy jest posortowany)
         while (element != nullptr) {                                //lecimy po wszystkich elementach
             float key = element->wartosc;                           //klucz do wstawienia, przechowuje wartosc aktualnego wezla
             WEZEL* prev = element->prev;                            //wskaznik na el. znajdujacy sie przed element (do porownywania z poprzednimi elementami)
@@ -89,7 +89,7 @@ struct LISTA {
             }
 
             if (prev == nullptr) {                                  //osiagniecie poczatku listy
-                lista.head->wartosc = key;                          //wstawiamy key jako pierwsza wartosc
+                l.head->wartosc = key;                          //wstawiamy key jako pierwsza wartosc
             } else {
                 prev->next->wartosc = key;                          //jesli nie to wstawiamy key za wezlem prev
             }
@@ -280,7 +280,7 @@ int main() {
     cout << endl;
 
 
-    int sizes[] = {10000, 20000, 30000, 40000, 50000}; // wielkości tablic do testu
+    int sizes[] = {100000, 200000, 300000, 400000, 500000}; // wielkości tablic do testu
     for (int i = 0; i < 5; i++) {
         int n = sizes[i];
         float* A = new float[n]; // dynamiczne przechowywanie tablicy A o długości n

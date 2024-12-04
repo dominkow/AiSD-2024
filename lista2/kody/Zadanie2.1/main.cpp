@@ -28,7 +28,7 @@ int PARTITION(float A[], int p, int r){     //int bo mamy zwrocic ostateczny ind
             A[i] = A[j];
             przypisania++;                    // zastepujemy ja wartoscia na indeksie j
             A[j] = temp;
-            przypisania++;                    // przypisujemy wartoœæ z temp (czyli oryginaln¹ wartoœæ A[i]) do A[j]
+            przypisania++;                    // przypisujemy wartosc z temp (czyli oryginalna wartosc A[i]) do A[j]
         }
     }
     float temp = A[i + 1];
@@ -161,14 +161,6 @@ int main() {
             B[j] = A[j];
         }
 
-        // Wyswietlenie oryginalnej zawartosci tablic A i B (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Oryginalna tablica A: ";
-            WYPISZ_TABLICE(A, n);
-            cout << "Kopia tablicy B: ";
-            WYPISZ_TABLICE(B, n);
-        }
-
         // Mierzenie czasu i liczenie przypisan i porownan dla normalnego sortowania
         RESETUJ();
         clock_t start_time = clock();
@@ -176,24 +168,13 @@ int main() {
         clock_t end_time = clock();
         double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
         cout << "QUICK_SORT dla rozmiaru " << n << ":\n";
-        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        cout << "Czas trwania: " << elapsed_time << " ms";
         WYPISZ_WYNIK(A, n);
-
-        // Wyswietlanie posortowanej tablicy A po normalnym sortowaniu (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Posortowana tablica A po QUICK_SORT: ";
-            WYPISZ_TABLICE(A, n);
-        }
+        cout << "\n";
 
         // Przywracamy oryginalna kolejnosc liczb z B do A
         for (int j = 0; j < n; j++) {
             A[j] = B[j];
-        }
-
-        // Wyswietlanie przywróconej tablicy A (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Tablica A przywrócona z B: ";
-            WYPISZ_TABLICE(A, n);
         }
 
         // Mierzenie czasu i liczenie przypisan i porownan dla modyfikacji sortowania
@@ -203,14 +184,10 @@ int main() {
         end_time = clock();
         elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC * 1000; // w milisekundach
         cout << "QUICK_SORT_MOD dla rozmiaru " << n << ":\n";
-        cout << "Czas trwania: " << elapsed_time << " ms" << endl;
+        cout << "Czas trwania: " << elapsed_time << " ms";
         WYPISZ_WYNIK(A, n);
+        cout << "\n\n";
 
-        // Wyswietlanie posortowanej tablicy A po zmodyfikowanym sortowaniu (dla rozmiaru 10)
-        if (n == 10) {
-            cout << "Posortowana tablica A po QUICK_SORT_MOD: ";
-            WYPISZ_TABLICE(A, n);
-        }
 
         delete[] A; // zwalniamy pamiec poprzez usuniecie tablicy A
         delete[] B; // zwalniamy pamiec poprzez usuniecie tablicy B
