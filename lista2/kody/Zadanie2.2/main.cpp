@@ -1,9 +1,7 @@
 #include <iostream>
 #include <ctime>    // dla inicjalizacji generatora liczb losowych
 #include <cstdlib>  // generowanie losowych liczb
-#include <chrono>
 using namespace std;
-using namespace std::chrono;
 
 int przypisania = 0;
 int porownania = 0;

@@ -14,11 +14,11 @@ void RESETUJ() {                            //funkcja zerujaca po kazdym posorto
 
 //wezel - definicja elementu listy
 struct WEZEL {
-    float wartosc;      //przehowuje wartoœæ wezla w floacia
+    float wartosc;      //przechowuje wartosc wezla w floacia
     WEZEL* prev;        //wskaznik na poprzedni wezel
-    WEZEL* next;        //wskaznik na nastêpny wezel
+    WEZEL* next;        //wskaznik na nastepny wezel
 
-    WEZEL(float war) : wartosc(war), prev(nullptr), next(nullptr) {} // Konstruktor wskaznika
+    WEZEL(float war) : wartosc(war), prev(nullptr), next(nullptr) {}    //konstrukcja wskaznika
     //pozwala na utworzenie wezla z okreslona wartoscia war, jako ze nowy wezel nie jest z niczym powiazany to next i
     //prev oznaczamy jaklo puste
 };
@@ -101,7 +101,7 @@ struct LISTA {
 
 //u gory copy-paste z zadania 3 struktura listy potrzebna do bucket sorta
 
-//tu jedziemy z funkcja Bucket Sort
+//tu jedziemy z funkcja Bucket Sort (na bazie pseudokodu z wykladu)
 void BUCKET_SORT(float* A, int n) {
     LISTA* B = new LISTA[n];                                //pomocnicza tablica kubelkow
 
@@ -158,7 +158,7 @@ void BUCKET_SORT_MOD(float A[], int n){
         przypisania++;
     }
 }
-    if (maximum == minimum) {                  //jesli przeszlismy po calej liscie i minimu rowne minimu, to wszystkie
+    if (maximum == minimum) {                  //jesli przeszlismy po calej liscie i maximum rowne minimum, to wszystkie
         for (int i = 0; i < n; i++) {          //wartosci tablicy sa takie same (nie ma zbytnio nic do roboty)
             porownania++;
             A[i] = minimum;
@@ -173,7 +173,7 @@ void BUCKET_SORT_MOD(float A[], int n){
     }
 
     for (int i = 0; i < n; i++) {
-        int index = static_cast<int>(n * (A[i] - minimum) / (maximum - minimum));       //oblicz indeks kubelka
+        int index = static_cast<int>(n * (A[i] - minimum) / (maximum - minimum));       //oblicz indeks kubelka (normalizujac)
         przypisania++;
         if (index == n){
             porownania++;
@@ -210,14 +210,18 @@ void GENERATOR_TABLIC_1(float A[], int n) {
     srand(time(0));                                                     //inicjalizacja generatora losowego
     for (int i = 0; i < n; i++) {                                       //po kolei generujemy az do n
         A[i] = static_cast<float>(rand()) / RAND_MAX;             //static_cast<float> - przeksztalcamy na floata
-                                                                        //liczbe calkowita generowana przez rand() / RAND_MAX
+                                                                //liczbe calkowita generowana przez rand() / RAND_MAX
     }                                                                   //dostajemy liczbe od 0 do 1
 }
 
-void GENERATOR_TABLIC_2(float A[], int n) {
-    srand(time(0));                                                     //inicjalizacja generatora losowego
-    for (int i = 0; i < n; i++) {                                       //po kolei generujemy az do n
-        A[i] = static_cast<float>(rand()) / RAND_MAX * 50000;
+void GENERATOR_TABLIC_NEG(float A[], int n) {
+    srand(time(0));                                             //inicjalizacja generatora losowgo
+    for (int i = 0; i < n; i++) {
+        float value = static_cast<float>(rand()) / RAND_MAX * 10000;    //generowaie floatow z zaakresu [ 0, 10000]
+        if (rand() % 2 == 0) {                                      //ustawiamy 50% szans na znak minus
+            value = -value;
+        }
+        A[i] = value;
     }
 }
 void WYPISZ_TABLICE(float* A, int n) {
@@ -258,7 +262,7 @@ int main() {
     float D[n];
 
     // Generowanie tablicy losowych liczb
-    GENERATOR_TABLIC_2(D, n);
+    GENERATOR_TABLIC_NEG(D, n);
 
     cout << "Tablica przed sortowaniem BUCKET_SORT_MOD:" << endl;
     for (int i = 0; i < n; i++) {
@@ -283,7 +287,7 @@ int main() {
         float* B = new float[n]; // dodatkowa tablica B do zapamiętania oryginalnej kolejności
 
         GENERATOR_TABLIC_1(A, n); // generowanie losowe liczby dla Bucket Sort
-        GENERATOR_TABLIC_2(B, n); // generowanie losowe liczby dla Bucket Sort MOD
+        GENERATOR_TABLIC_NEG(B, n); // generowanie losowe liczby dla Bucket Sort MOD
 
         // Kopiowanie wygenerowanej tablicy A do B, aby zapamiętać początkową kolejność
         for (int j = 0; j < n; j++) {
