@@ -414,20 +414,6 @@ for (int i = 0; i < n; i++) {
 
 \section{Porównania algorytmów}
 \subsection{QUICKSORT VS BUCKETSORT}
-	
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\textwidth]{porownania.png}
-	\caption{Tabela ilości porównań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
-	\label{fig:table1}
-\end{figure}
-	
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\textwidth]{przypisania.png}
-	\caption{Tabela ilości przypisań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
-	\label{fig:table2}
-\end{figure}
 
 \begin{figure}[h]
 	\centering
@@ -438,15 +424,60 @@ for (int i = 0; i < n; i++) {
 
 \begin{figure}[h]
 	\centering
+	\includegraphics[width=1\textwidth]{porownania.png}
+	\caption{Tabela ilości porównań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:table1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{przypisania.png}
+	\caption{Tabela ilości przypisań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:table2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=1\textwidth]{czas.png}
 	\caption{Wykres czasu działania   QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
 	\label{fig:wykres1}
 \end{figure}
-
-\large{Pod względem złożoności obliczeniowej, możemy powiedzieć, że najlżejszym algorytmem jest ewidentnie BUCKETSORT. Wykres wygląda jakby był liniowy i zgadza się to z założeniem teoretycznym jako, że ma on złożoność obliczeniową $O(n)$. Drugim poz względem złożoności będzie QUICKSORT MOD, który na w miarę wydłużania się listy, coraz bardziej oddalał się od normalnego QUICKSORTA. W tym przypadku również możemy wywnioskować złożoność, gdyż wykres sugeruje nam, że QUICKSORT będzie $O(n^2)$, a zmodyfikowany $O(n \log n)$, co również pokrywa się ze stroną teoretyczną.}
-
-\large{Jeśli jednak patrzymy na wydajność, złożoność czasową, to najkrócej działającym algoytmem jest zmodyfikowany QUICKSORT, a zdecydowanie najwolniejszym BUCKETSORT.}
-
+\newpage
+\large{Pod względem złożoności obliczeniowej, możemy powiedzieć, że najlżejszym algorytmem jest ewidentnie BUCKETSORT. Wykres wygląda jakby był liniowy i zgadza się to z założeniem teoretycznym jako, że ma on złożoność obliczeniową $O(n)$. Drugim poz względem złożoności będzie QUICKSORT MOD, który na w miarę wydłużania się listy, coraz bardziej oddalał się od normalnego QUICKSORTA. W tym przypadku również możemy wywnioskować złożoność, gdyż wykres sugeruje nam, że QUICKSORT będzie $O(n^2)$, a zmodyfikowany $O(n \log n)$, co również pokrywa się ze stroną teoretyczną.
+Jeśli jednak patrzymy na wydajność, złożoność czasową, to najkrócej działającym algoytmem jest zmodyfikowany QUICKSORT, a zdecydowanie najwolniejszym BUCKETSORT.}
 
 
+\newpage
+\subsection{RADIXSORT a różne systemy liczbowe}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{radixsuma.png}
+	\caption{Wykres sumy ilości przypisań i porównań RADIX SORTA.}
+	\label{fig:wykres1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{radixporownania.png}
+	\caption{Tabela ilości porównań RADIX SORTA.}
+	\label{fig:tabela1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{radixprzypisania.png}
+	\caption{Tabela ilości przypisań RADIX SORTA.}
+	\label{fig:tabela2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{radixczas.png}
+	\caption{Wykres średniego czasu działania RADIX SORTA.}
+	\label{fig:wykres2}
+\end{figure} 
+\newpage
+
+\large{Porównania dla różnych systemów liczbowych dla algorytmu RADIX SORT pokazują, że im większą wartość przyjmuje nasze $d$ (podstawa systemu liczbowego) to zarówno złożoność jak i czas jest coraz mniejsza/krótszy. Najdłuższym działaniem może pochwalić się system binarny, który znacznie odstaje od pozostałych pod względem złożoności jak i czasu. System dziesiętny oraz czternastkowy są bardzo blisko siebie, co mówi nam, że różnice się wypłaszczają, zmniejszają wraz z wzrostem $d$. Stąd najwydajniejszy RADIX SORT wyszedł dla $d = 14$, a najmniej optymalny dla $d = 2$.}
 \end{document}
