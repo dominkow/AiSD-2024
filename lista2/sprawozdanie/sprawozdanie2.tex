@@ -415,6 +415,38 @@ for (int i = 0; i < n; i++) {
 \section{Porównania algorytmów}
 \subsection{QUICKSORT VS BUCKETSORT}
 	
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{porownania.png}
+	\caption{Tabela ilości porównań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:table1}
+\end{figure}
 	
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{przypisania.png}
+	\caption{Tabela ilości przypisań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:table2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{wykres.png}
+	\caption{Wykres sumy przypisań i porównań  w QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:wykres2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{czas.png}
+	\caption{Wykres czasu działania   QUICKSORT, QUICKSORT MOD i BUCKETSORT.}
+	\label{fig:wykres1}
+\end{figure}
+
+\large{Pod względem złożoności obliczeniowej, możemy powiedzieć, że najlżejszym algorytmem jest ewidentnie BUCKETSORT. Wykres wygląda jakby był liniowy i zgadza się to z założeniem teoretycznym jako, że ma on złożoność obliczeniową $O(n)$. Drugim poz względem złożoności będzie QUICKSORT MOD, który na w miarę wydłużania się listy, coraz bardziej oddalał się od normalnego QUICKSORTA. W tym przypadku również możemy wywnioskować złożoność, gdyż wykres sugeruje nam, że QUICKSORT będzie $O(n^2)$, a zmodyfikowany $O(n \log n)$, co również pokrywa się ze stroną teoretyczną.}
+
+\large{Jeśli jednak patrzymy na wydajność, złożoność czasową, to najkrócej działającym algoytmem jest zmodyfikowany QUICKSORT, a zdecydowanie najwolniejszym BUCKETSORT.}
+
+
 
 \end{document}
