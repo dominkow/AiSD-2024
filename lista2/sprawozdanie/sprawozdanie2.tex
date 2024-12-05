@@ -125,14 +125,121 @@ Tutaj rozpatrujemy przypadek, w którym nasz badany element jest większy od dru
 
 \section{Algorytm sortowania RADIXSORT (z użyciem COUNTINGSORT)}
 
+\large{Sortowanie pozycyjne jesteśmy w stanie zaimplementować w oparciu o, między innymi sortowanie przez zliczanie. Zacznijmy od przeanalizowania właśnie jego.}
 
+\begin{lstlisting}[language=C++, caption={Kod funkcji sortowania pozycyjnego}, numbers=left, frame=single, xleftmargin=20pt]
+void COUNTINGST(int A[],int n,int exp,int d){
+	int* B = new int[n];
+	int* C = new int[d]();
+	
+	for (int i = 0; i < n; i++) {
+		int j = (A[i] / exp) % d;
+		C[j]++;
+	}
+	
+	for (int i = 1; i < d; i++) {
+		C[i] += C[i - 1];
+	}
+	
+	for (int i = n - 1; i >= 0; i--) {
+		int j = (A[i] / exp) % d;
+		B[C[j] - 1] = A[i];
+		C[j]--;
+	}
+	
+	for (int i = 0; i < n; i++) {
+		A[i] = B[i];
+	}
+	
+	delete[] B;
+	delete[] C;
+}
 
-\newpage
+\end{lstlisting}
+
+\large{W tym przypadku, jako kod analizę należałoby zaczniemy od wyjaśnienia czym jest exp (wykladnik) i d (podstawa systemu liczbowego). Tworzymy dwie tablica, jedna do przechowywania ilości zliczeń (w naszym wypadku to $C[]$) oraz wynikowa, czyli $B[]$. W pierwszej pętli $for$ wyznaczamy cyfry setek, dziesiątek, jedności, itd. i zapisujemy w tablicy zliczeń. W następnej funkcji sumujemy poprzednie wartości zliczeń, aby prawidłowo wyznaczyć miejsce przypisania do tablicy wynikowej. Umieszczamy wyniki z tablicy C do B (cofając indeks o jeden abyśmy zaczynali od początku B). Na sam koniec przypisujemy wypełnioną tablicę wynikową do tablicy właściwej $A[]$.}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji sortowania pozycyjnego}, numbers=left, frame=single, xleftmargin=20pt]
+void RADIX_SORT(int A[], int n, int d) {
+	int maks_war = A[0];
+	for (int i = 1; i < n; i++) {
+		if (A[i] > maks_war) {
+			maks_war = A[i];
+		}
+	}
+	int k = 0;
+	while (maks_war > 0) {
+		maks_war /= d;
+		k++;
+	}
+	for (int exp = 1, iter = 0; iter < k;
+	 exp *= d, iter++) {
+		COUNTING_SORT(A, n, exp, d);
+	}
+}
+\end{lstlisting}
+
+\large{W funkcji RADIXSORT na dobrą sprawę niewiele się dzieje. Właściwe to większość funkcji jest wyznaczenie wartości $k$, która reprezentuje maksymalną liczbę cyfr w największej liczbie. Kod jednakowoż to nic innego jak znajdowanie największej liczby w tablicy i zliczenie jej ilości cyfr. Oczywiście w funkcji występuje również wywołanie sortowania przez zliczanie, które przy posiadaniu zmiennej, mamy granicę mówiącą jak długo mamy iterować po zmiennych.}\\
+
+\large{Modyfikacja do RADIXSORTA polega na tym, aby funkcja sortowała liczby całkowite (czyli dodatnie i ujemne) a nie same dodatnie, tak jak mamy w przypadku klasycznego algorytmu.}\\
+
+\large{Mój pomysł na implementację tej modyfikacji jest podzielenie na dwie tablice (oddzielne) liczb ujemnych i dodatnich, po czym dodatnie posortować w taki sam sposób jak w klasycznej wersji algorytmu, a dla ujemnych zmienić znak i również zastosować sprawdzony już kod, posortować odwrócić, przywrócić znak i złączyć obie podtablice.Ze względu na to, że kod jest długi i w większości analogiczny to przedstawię sposób uporządkowania liczb ujemnych.}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji sortowania pozycyjnego z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt]
+void RADIX_SORT_MOD(int A[], int n, int d) {
+	int licz_dodatnich = 0;
+	int licz_ujemnych = 0;
+	
+	for (int i = 0; i < n; i++) {
+		if (A[i] >= 0) {
+			licz_dodatnich++;
+		} else {
+			licz_ujemnych++;
+		}
+	}
+	int*dodatnie = new int[licz_dodatnich];
+	int*ujemne = new int[licz_ujemnych];
+	
+	int plus = 0;
+	int minus = 0;
+	
+	for (int i = 0; i < n; i++) {
+		if (A[i] >= 0) {
+			dodatnie[plus++]=A[i];
+		} else {
+			ujemne[minus++]=-A[i];
+		}
+	}
+}
+\end{lstlisting}
+
+\large{W powyższym kodzie, tak jak ostatnio nie mamy nic spektakularnego rozdzielamy na liczby dodatnie i ujemne, tworzymy dla nich dwie osobne tablice i przypisujemy odpowiednie elementy z uwagą, że przy przypisywaniu liczb ujemnych do tablicy zmieniamy ich znak na dodatni.} \\
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji sortowania pozycyjnego z modyfikacją}, numbers=left, frame=single, xleftmargin=20pt]
+int max_ujemne = 0;
+if (liczba_ujemnych > 0) {
+	max_ujemne = ujemne[0];
+}
+for (int i = 1; i < liczba_ujemnych; i++) {
+	if (ujemne[i] > max_ujemne) {
+		max_ujemne = ujemne[i];
+	}
+}
+
+int k_ujemne = 0;
+while (max_ujemne > 0) {
+	max_ujemne /= d;
+	k_ujemne++;
+}
+\end{lstlisting}
+
+\large{W tym przypadku dostajemy bardzo analogiczny przypadek co w klasycznym RADIXSORCIE. Potrzebujemy określić ilość cyfr w największej i najmniejszej liczbie (bo 500 i -500 może się wydarzyć). Ponownie otrzymujemy wielokrotnie wałkowany w tym sprawozdaniu moment szukania wartości największej i jak wcześniej zliczania cyfr. Następnie sortujemy oddzielnie tablice dodatnie oraz ujemne, łączymy je (z zastrzeżeniem, że najpierw wpisujemy do tablicy właściwej cyfry z podtablicy dla liczb ujemnych ze zmianą znaku, a następnie dodatnie.).}\\
+
 
 \section{Algorytm sortowanie kubełkowego BUCKETSORT (z użyciem INSERTION SORT)}
 
 \large{Algorytm BUCKET SORT bazuje swoje sortowanie na sortowaniu przez wstawianie zaimplementowane na listach. Przejdźmy najpierw może przez kod INSERTIONSORTA na listach.}
-
+\newpage
 \subsection{INSERTIONSORT na listach}
 
 \begin{lstlisting}[language=C++, caption={Kod funkcji sortowania przez wstawianie na listach}, numbers=left, frame=single, xleftmargin=20pt]
@@ -303,6 +410,11 @@ for (int i = 0; i < n; i++) {
 }
 \end{lstlisting}
 
-\large{Dzięki odnalezieniu wartości maksymalnej oraz minimalnej jesteśmy w stanie zmodyfikować sprawdzaną wartość na liczbę z przedziału od $0$ do $1$. Pozostała część kodu jest identyczna jak przy normalnym sortowaniu kubełkowym.
+\large{Dzięki odnalezieniu wartości maksymalnej oraz minimalnej jesteśmy w stanie zmodyfikować sprawdzaną wartość na liczbę z przedziału od $0$ do $1$. Pozostała część kodu jest identyczna jak przy normalnym sortowaniu kubełkowym.}
+
+\section{Porównania algorytmów}
+\subsection{QUICKSORT VS BUCKETSORT}
+	
+	
 
 \end{document}
