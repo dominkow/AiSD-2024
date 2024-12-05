@@ -31,13 +31,19 @@ struct LISTA {
 
     //pseudokod z wykladu (1 do 1) na dodawanie elementu do listy
     void LIST_INSERT(LISTA& lista, WEZEL* x) {          //alias dla listy
-        x->next = lista.head;                           //nowy wezel ustawiony na head, bo nowy element bedzie nowym poczatkiem listy
-        x->prev = nullptr;                              //wezel nie ma poprzednika wiec nil
-        if (lista.head == nullptr) {                    //sprawdzamy czy list jest pusta
-            lista.head = x;                             //jesli tak to glowa, x to nasz pierwszy element
+        x->next = lista.head;
+        przypisania++;                           //nowy wezel ustawiony na head, bo nowy element bedzie nowym poczatkiem listy
+        x->prev = nullptr;
+        przypisania++;                              //wezel nie ma poprzednika wiec nil
+        if (lista.head == nullptr) {
+            porownania++;                               //sprawdzamy czy list jest pusta
+            lista.head = x;
+            przypisania++;                          //jesli tak to glowa, x to nasz pierwszy element
         } else {                                        //jesli nie to ustawiamy jako poprzednika naszje glowy x
             lista.head->prev = x;
-            lista.head = x;                             //x to nowy poczatek listy
+            przypisania++;
+            lista.head = x;
+            przypisania++;                               //x to nowy poczatek listy
         }
     }
 
@@ -76,25 +82,37 @@ struct LISTA {
     //implementacja insertion sorta na strukturze listy
     void LIST_INSERTION_SORT(LISTA& l) {
         if (l.head == nullptr || l.head->next == nullptr) {
+            porownania+=2;
             return;                                                 //lista pusta lub z jednym elementem (posortowana)
         }
-        WEZEL* element = l.head->next;                          //zaczynamy od drugiego elementu (bo pierwszy jest posortowany)
-        while (element != nullptr) {                                //lecimy po wszystkich elementach
-            float key = element->wartosc;                           //klucz do wstawienia, przechowuje wartosc aktualnego wezla
-            WEZEL* prev = element->prev;                            //wskaznik na el. znajdujacy sie przed element (do porownywania z poprzednimi elementami)
+        WEZEL* element = l.head->next;
+        przypisania++;                                              //zaczynamy od drugiego elementu (bo pierwszy jest posortowany)
+        while (element != nullptr) {
+            porownania++;                                           //lecimy po wszystkich elementach
+            float key = element->wartosc;
+            przypisania++;                                           //klucz do wstawienia, przechowuje wartosc aktualnego wezla
+            WEZEL* prev = element->prev;
+            przypisania++;                                          //wskaznik na el. znajdujacy sie przed element (do porownywania z poprzednimi elementami)
 
-            while (prev != nullptr && prev->wartosc > key) {        //sprawdzamy czy wartosc w wezlie prev jest wieksza niz key
-                prev->next->wartosc = prev->wartosc;                //jesli jest to przesuwamy ja w prawo do biezacego wezla
-                prev = prev->prev;                                  //prev przesuwamy do jeszcze wczesniejszego wezla
+            while (prev != nullptr && prev->wartosc > key) {
+                porownania++;                                           //sprawdzamy czy wartosc w wezlie prev jest wieksza niz key
+                prev->next->wartosc = prev->wartosc;
+                przypisania++;                                      //jesli jest to przesuwamy ja w prawo do biezacego wezla
+                prev = prev->prev;
+                przypisania++;                                    //prev przesuwamy do jeszcze wczesniejszego wezla
             }
 
-            if (prev == nullptr) {                                  //osiagniecie poczatku listy
-                l.head->wartosc = key;                          //wstawiamy key jako pierwsza wartosc
+            if (prev == nullptr) {
+                porownania++;                                    //osiagniecie poczatku listy
+                l.head->wartosc = key;
+                przypisania++;                                  //wstawiamy key jako pierwsza wartosc
             } else {
-                prev->next->wartosc = key;                          //jesli nie to wstawiamy key za wezlem prev
+                prev->next->wartosc = key;
+                przypisania++;                                    //jesli nie to wstawiamy key za wezlem prev
             }
 
-            element = element->next;                                //przechodzimy do kolejnego elementu
+            element = element->next;
+            przypisania++;                                          //przechodzimy do kolejnego elementu
         }
     }
 };
@@ -103,7 +121,8 @@ struct LISTA {
 
 //tu jedziemy z funkcja Bucket Sort (na bazie pseudokodu z wykladu)
 void BUCKET_SORT(float* A, int n) {
-    LISTA* B = new LISTA[n];                                //pomocnicza tablica kubelkow
+    LISTA* B = new LISTA[n];
+    przypisania++;                                          //pomocnicza tablica kubelkow
 
     for (int j = 0; j < n; j++) {
         B[j] = LISTA();
