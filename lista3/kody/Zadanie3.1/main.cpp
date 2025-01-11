@@ -6,49 +6,54 @@ using namespace std;
 
 constexpr float inf = -std::numeric_limits<float>::infinity();  // ustawienie -nieskonczonosci na floatach
 
-// Wersja Cut_Rod w wersji naiwnej
-float CUT_ROD_NAIWNY(float* p, int n) {
-    if (n == 0) {
+//wersja Cut_Rod w wersji naiwnej
+float CUT_ROD_NAIWNY(float* p, int n) {                     //tablica p - cen, n dlugosc preta
+    if (n == 0) {                                           //zysk 0 dla dlugosci 0
         return 0;
     }
-    float q = inf; // q ustawione na minimalna wartosc (na - nieskonczonosc)
+    float q = inf;                                          //q ustawione poczatkowo na wartosc -nieskonczonosc
     for (int i = 1; i <= n; ++i) {
-        q = max(q, p[i - 1] + CUT_ROD_NAIWNY(p, n - i));
+        q = max(q, p[i - 1] + CUT_ROD_NAIWNY(p, n - i));    //maksymalna cena dla danego odcinka lub jego pocietych czesci
     }
     return q;
 }
 
-// Wersja MEMORIZED_CUT_ROD z pamietaniem wynikow
-float MEMORIZED_CUT_ROD(float* p, float* r, int n) {
-    if (r[n] >= 0) {
+//wersja MEMORIZED_CUT_ROD z pamietaniem wynikow
+float MEMORIZED_CUT_ROD(float* p, float* r, float* s, int n) {        //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
+    if (r[n] >= 0) {                //sprawdzamy czy mamy juz zapisany w tablicy r wynik dla preta
         return r[n];
     }
     float q;
-    if (n == 0) {
-        q = 0;
+    if (n == 0) {                   //zysk 0 dlugosci 0
+        q = 0;                      //zmienna q przechowujaca maksymalny zysk (dla n == 0, naturalnie 0)
     } else {
-        q = inf; // podobnie jak u góry q ustawione na -nieskonczonosc
+        q = inf;                    //podobnie jak u góry q ustawione na -nieskonczonosc
         for (int i = 1; i <= n; ++i) {
-            q = max(q, p[i - 1] + MEMORIZED_CUT_ROD(p, r, n - i));
+            float m = p[i - 1] + MEMORIZED_CUT_ROD(p, r, s, n - 1);      //ustwiamy zmienna m oznaczajaca tymczasowy zysk
+            if (m < q){             //maksymalizacja wyniku, max zysku
+                q = m;              //jesli aktualny zysk mniejszy od q to podmieniamy
+                s[n] = i;           //zapisujemy optymalne ciecie
+            }
         }
     }
-    r[n] = q; // zapamietanie wyniku
+    r[n] = q;                       //zapamietanie wyniku
     return q;
 }
 
-// Wersja iteracyjna CUT_ROD
-void EXT_BOT_UP_CUT_ROD(float* p, float* r, int* s, int n) {
-    r[0] = 0;
-    for (int j = 1; j <= n; ++j) {
-        float q = inf;
-        for (int i = 1; i <= j; ++i) {
+//wersja iteracyjna CUT_ROD
+float EXT_BOT_UP_CUT_ROD(float* p, float* r, int* s, int n) {       //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
+    r[0] = 0;                                                       //tablica zyskow na 0
+    for (int j = 1; j <= n; ++j) {                                  //liczymy maksymalne zyski
+        float q = inf;                                              //ustawiamy q na -nieskonczonosc
+        for (int i = 1; i <= j; ++i) {                              //pierwsze ciecie
             if (q < p[i - 1] + r[j - i]) {
-                q = p[i - 1] + r[j - i];
-                s[j] = i;
+                q = p[i - 1] + r[j - i];                            //jesli lepsze do przypisujemy do q
+                s[j] = i;                                           //zapisujemy dlugosci ciecia
             }
         }
-        r[j] = q;
+        r[j] = q;                                                   //maksymalny zysk
     }
+    return r[n];
 }
 
 // funkcja PRINT_SOLUTION - wypisanie rozwiazania
