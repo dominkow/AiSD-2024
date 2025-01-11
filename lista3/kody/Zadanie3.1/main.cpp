@@ -85,7 +85,7 @@ void PRINT_SOLUTION_MEM(float* p, int* s, int n) {
     cout << "Maksymalny zysk: " << MEMORIZED_CUT_ROD(p, r, c, n) << endl;
     cout << "Optymalne ciecia: ";
     while (n > 0) {
-        cout << c[n] << ", ";
+        cout << c[n] << " ";
         n -= c[n];
     }
     cout << endl;
@@ -142,7 +142,7 @@ int main() {
 
     // Test 2: Wersja z pamięcią MEMORIZED_CUT_ROD
     {
-        int test_lengths[] = {5, 10, 15, 20, 25, 30, 100, 500, 1000, 2000, 4000, 6000, 8000, 10000};
+        int test_lengths[] = {5, 10, 15, 20, 25, 30, 1000, 2000, 4000, 6000, 8000, 10000, 12500, 15000, 17500, 20000};
         for (int n : test_lengths) {
             float* ceny = generujCeny(n);
 
@@ -167,7 +167,7 @@ int main() {
 
     // Test 3: Iteracyjna wersja EXT_BOT_UP_CUT_ROD
     {
-        int test_lengths[] = {5, 10, 15, 20, 25, 30, 100, 500, 1000, 2000, 4000, 6000, 8000, 10000};
+        int test_lengths[] = {5, 10, 15, 20, 25, 30, 1000, 2000, 4000, 6000, 8000, 10000, 12500, 15000, 17500, 20000};
         for (int n : test_lengths) {
             float* ceny = generujCeny(n);
 
@@ -202,15 +202,13 @@ int main() {
 
         cout << "\n[ITERACYJNY] Dla n = 10:\n";
         cout << "Ceny: ";
-        for (int i = 0; i < n; ++i) cout << ceny[i] << " ";
-        cout << "\nMaksymalny zysk: " << wynik << endl;
-        cout << "Podział: ";
+        for (int i = 0; i < n; ++i) cout << ceny[i] << " " << endl;
+        cout << "Podzial: ";
         PRINT_SOLUTION_EXT(ceny, s, n);
         cout << "\n[MEMORIZED] Dla n = 10:\n";
         cout << "Ceny: ";
-        for (int i = 0; i < n; ++i) cout << ceny[i] << " ";
-        cout << "\nMaksymalny zysk: " << wynik1 << endl;
-        cout << "Podział: ";
+        for (int i = 0; i < n; ++i) cout << ceny[i] << " " << endl;
+        cout << "Podzial: ";
         PRINT_SOLUTION_MEM(ceny, s, n);
         delete[] ceny;
         delete[] r;

@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath}  % dla matematycznych symboli
+
+\title{AiSD Lista 3}
+\author{Dominik Kowalczyk}
+
+\begin{document}
+	\maketitle
+	
+\section{Algorytm CUT ROD rozwiązujący problem podziału pręta}
+
+\large{Chcemy znaleźć maksymalny zysk po jakim możemy sprzedać pręt długości n, mając możliwość dzielić go na kawałki. W celu rozwiązania tego problemu optymalizacyjnego może pomóc nam algorytm rozcinania pręta - CUT ROD, które przedstawimy implementację naiwną, ze spamiętywaniem oraz iteracyjną.}
+
+\subsection{Naiwny}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozcinania pręta w wersji naiwnej}, numbers=left, frame=single, xleftmargin=20pt]
+float CUT_ROD_NAIWNY(float* p, int n) {
+	if (n == 0) {
+		return 0;
+	}
+	float q = inf;
+	for (int i = 1; i <= n; ++i) {
+		q = max(q, p[i - 1] + 
+		CUT_ROD_NAIWNY(p, n - i));
+	}
+	return q;
+}
+\end{lstlisting}
+
+\large {W naszym algorytmie funkcja $CUT ROD$ przyjmuje argumenty $p$, który jest wskaźnikiem przechowującym ceny różnych długości pręta oraz $n$ reprezentująca długość pręta.}
+
+\large{Na początku wchodzimy do pętli $for$ sprawdzająca, czy nasz pręt nie jest długości $0$ (jeśli jest zwracamy $0$). Następnie tworzymy zmienną $q$ przechowującą maksymalny zysk i na start ustawiamy ją na \(-\infty\). Następnie przechodzimy do pętli $for$ przechodzącej po wszystkich możliwych podziałach pręta. Następnie obliczamy dla każdego podziału maksymalny zysk poprzez wybór za pomocą funkcji $max$ zysk aktualnie zapisany pod zmienną $q$ lub ceną odcinka długości $i$ lub pozostałej części pręta $n - i$ poprzez rekurencyjne wywołanie $CUT ROD NAIWNY$. Na sam koniec zwracamy $q$.}
+
+\subsection{Ze spamiętywaniem}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozcinania pręta w wersji ze spamiętywaniem}, numbers=left, frame=single, xleftmargin=20pt]
+float MEMORIZED_CUT_ROD(float* p, float* r, 
+int* s, int n) {
+	if (r[n] >= 0) {
+		return r[n];
+	}
+	float q;
+	if (n == 0) {
+		q = 0;
+	} else {
+		q = inf;
+		
+		for (int i = 1; i <= n; ++i) {
+			
+			float m = p[i - 1] +
+			 MEMORIZED_CUT_ROD(p, 
+			 r, s, n - i);
+			 
+			if (m > q) {
+				q = m;
+				s[n] = i;
+			}
+		}
+	}
+	r[n] = q;
+	return q;
+}
+\end{lstlisting}
+
+\large{W przypadku algorytmu ze spamiętywaniem mamy do czynienia z większą ilością argumentów. Oprócz $p$ i $n$ mamy wskaźnik (do tablicy) $r$ gdzie przechowywane jest maksymalny możliwy zysk dla danej długości pręta, jak również wskaźnik (do tablicy) $s$, który przechowuje informacje o optymalnych cięciach pręta.}
+
+\large{Mamy warunki początkowe, które działają na tej samej zasadzie co w algorytmie naiwnym. Znacząca zmiana zachodzi w pętli $for$ gdzie tworzymy zmienną tymczasową $m$ wyliczając dla każdego cięcia $i$ zysk. Następnie mamy krótką pętle $if$, która przy warunku, gdy nasz zysk wyliczony i przechowywany w zmiennej tymczasowej $m$ jest większy od $q$ (zysku maksymalnego) to staje się nim, a nasza tablica optymalnego cięcia zapamiętuje wartość $i$. Ponownie zwracamy nasz zysk maksymalny.}
+
+\subsection{iteracyjna}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozcinania pręta w wersji ze spamiętywaniem}, numbers=left, frame=single, xleftmargin=20pt]
+float EXT_BOT_UP_CUT_ROD(float* p, float* r,
+ int* s, int n) {
+	r[0] = 0;
+	for (int j = 1; j <= n; ++j) {
+		float q = inf;
+		
+		for (int i = 1; i <= j; ++i) {
+			if (q < p[i - 1] + 
+			 r[j - i]) {
+			 	
+				q = p[i - 1] + 
+				 r[j - i];
+				 
+				s[j] = i;
+			}
+		}
+		r[j] = q;
+	}
+	return r[n];
+}
+\end{lstlisting}
+
+\large{W wersji iteracyjnej mamy takie same argumenty jak w przypadku ze spamiętywaniem: $p$, $r$, $s$, $n$. Początkowo ustawiamy maksymalny zysk na $0$ ($r[0] = 0)$. Wchodzimy do pętli $for$, ustawiamy ponownie $q$ na \(-\infty\). Wchodzimy do wewnętrznej pętli $for$, gdzie iterujemy przez wszystkie możliwe cięcia pręta.}
+
+\begin{enumerate}
+	\item Dla każdego cięcia obliczana jest suma:
+	\[
+	\text{zysk} = p[i - 1] + r[j - i],
+	\]
+	gdzie:
+	\begin{itemize}
+		\item $p[i - 1]$ - cena odciętego kawałka pręta o długości $i$ 
+		\item $r[j - i]$ - maksymalny zysk dla pozostałej długości pręta $j - i$, (który już wcześniej został obliczony).
+	\end{itemize}
+	\item Jeżeli obliczony zysk jest większy niż dotychczasowa maksymalna wartość $q$, następuje aktualizacja:
+	\begin{itemize}
+		\item $q$ przyjmuje nową, większą wartość zysku,
+		\item $s[j]$ zapisuje długość cięcia $i$ jako optymalne pierwsze cięcie dla pręta o długości $j$.
+	\end{itemize}
+\end{enumerate}
+
+\large{Pętla kończy się, gdy wszystkie możliwe długości cięć zostaną przeanalizowane, a zmienna $q$ zawiera maksymalny możliwy zysk dla pręta o długości $j$.}
+
+\section{LCS - problem znajdowania najdłuższego wspólnego podciągu}
+
+\large{Przy analizie algorytmu rozwiązującego problem znajdowania najdłuższego wspólnego podciągu przyjrzymy się implementacji rekurencyjnej ze spamiętywaniem oraz wersji iteracyjnej.}
+
+\subsection{rekurencyjna ze spamiętywaniem}
+\end{document}
