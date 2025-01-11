@@ -114,8 +114,6 @@ float* generujCeny(int n) {
     return prices;
 }
 
-
-
 // funkcja do losowego generowania dlugosci preta
 //int generujDlugoscPreta(int maxDlugosc) {
   //  return rand() % maxDlugosc + 1;
