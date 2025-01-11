@@ -2,46 +2,47 @@
 #include <limits>
 #include <ctime>    // dla inicjalizacji generatora liczb losowych
 #include <cstdlib>  // generowanie losowych liczb
+#include <chrono>    // do mierzenia czasu wykonania
 using namespace std;
-
-constexpr float inf = -std::numeric_limits<float>::infinity();  // ustawienie -nieskonczonosci na floatach
+using namespace std::chrono;
+constexpr float inf = -std::numeric_limits<float>::infinity();        //ustawienie -nieskonczonosci na floatach
 
 //wersja Cut_Rod w wersji naiwnej
-float CUT_ROD_NAIWNY(float* p, int n) {                     //tablica p - cen, n dlugosc preta
-    if (n == 0) {                                           //zysk 0 dla dlugosci 0
+float CUT_ROD_NAIWNY(float* p, int n) {                               //tablica p - cen, n dlugosc preta
+    if (n == 0) {                                                     //zysk 0 dla dlugosci 0
         return 0;
     }
-    float q = inf;                                          //q ustawione poczatkowo na wartosc -nieskonczonosc
+    float q = inf;                                                    //q ustawione poczatkowo na wartosc -nieskonczonosc
     for (int i = 1; i <= n; ++i) {
-        q = max(q, p[i - 1] + CUT_ROD_NAIWNY(p, n - i));    //maksymalna cena dla danego odcinka lub jego pocietych czesci
+        q = max(q, p[i - 1] + CUT_ROD_NAIWNY(p, n - i));              //maksymalna cena dla danego odcinka lub jego pocietych czesci
     }
     return q;
 }
 
 //wersja MEMORIZED_CUT_ROD z pamietaniem wynikow
-float MEMORIZED_CUT_ROD(float* p, float* r, float* s, int n) {        //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
-    if (r[n] >= 0) {                //sprawdzamy czy mamy juz zapisany w tablicy r wynik dla preta
+float MEMORIZED_CUT_ROD(float* p, float* r, int* s, int n) {        //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
+    if (r[n] >= 0) {                                                  //sprawdzamy czy mamy juz zapisany w tablicy r wynik dla preta
         return r[n];
     }
     float q;
-    if (n == 0) {                   //zysk 0 dlugosci 0
-        q = 0;                      //zmienna q przechowujaca maksymalny zysk (dla n == 0, naturalnie 0)
+    if (n == 0) {                                                        //zysk 0 dlugosci 0
+        q = 0;                                                           //zmienna q przechowujaca maksymalny zysk
     } else {
-        q = inf;                    //podobnie jak u góry q ustawione na -nieskonczonosc
+        q = inf;                                                         //podobnie jak u góry q ustawione na -nieskonczonosc
         for (int i = 1; i <= n; ++i) {
-            float m = p[i - 1] + MEMORIZED_CUT_ROD(p, r, s, n - 1);      //ustwiamy zmienna m oznaczajaca tymczasowy zysk
-            if (m < q){             //maksymalizacja wyniku, max zysku
-                q = m;              //jesli aktualny zysk mniejszy od q to podmieniamy
-                s[n] = i;           //zapisujemy optymalne ciecie
+            float m = p[i - 1] + MEMORIZED_CUT_ROD(p, r, s, n - i);      //ustwiamy zmienna m oznaczajaca tymczasowy zysk
+            if (m > q){                                                  //maksymalizacja wyniku, max zysku
+                q = m;                                                   //jesli aktualny zysk mniejszy od q to podmieniamy
+                s[n] = i;                                                //zapisujemy optymalne ciecie
             }
         }
     }
-    r[n] = q;                       //zapamietanie wyniku
+    r[n] = q;                                                            //zapamietanie wyniku
     return q;
 }
 
 //wersja iteracyjna CUT_ROD
-float EXT_BOT_UP_CUT_ROD(float* p, float* r, int* s, int n) {       //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
+float EXT_BOT_UP_CUT_ROD(float* p, float* r, int* s, int n) {     //tablica cen p, r do zapamietywania max zysku, s - optymalnych ciec n dlugosc preta
     r[0] = 0;                                                       //tablica zyskow na 0
     for (int j = 1; j <= n; ++j) {                                  //liczymy maksymalne zyski
         float q = inf;                                              //ustawiamy q na -nieskonczonosc
@@ -56,87 +57,170 @@ float EXT_BOT_UP_CUT_ROD(float* p, float* r, int* s, int n) {       //tablica ce
     return r[n];
 }
 
-// funkcja PRINT_SOLUTION - wypisanie rozwiazania
-void PRINT_SOLUTION(float* p, int* s, int n) {
+//funkcja do wypisywania, odzyskania rozwiazan z EXT_BOT_UP_CUT_ROD
+void PRINT_SOLUTION_EXT(float* p, int* s, int n) {
+    float* r = new float [n + 1];       //tablica maksymalnych zyskow
+    int* c = new int [n + 1];       //tablica optymalnych ciec
+
+    cout << "Maksymalny zysk: " << EXT_BOT_UP_CUT_ROD(p, r, c, n) << endl;
     cout << "Rozwiazanie: ";
     while (n > 0) {
-        cout << s[n] << " ";
-        n -= s[n];
+        cout << c[n] << " ";
+        n -= c[n];
     }
     cout << endl;
+    delete[] r;
+    delete[] c;
 }
 
-// funkcja do inicjalizacji tablicy wynikow
-void inicjalizujTabliceWynikow(float* r, int rozmiar) {
+//funkcja do wypisywania, odzyskiwania rozwiazan z MEMORIZED_CUT_ROD
+void PRINT_SOLUTION_MEM(float* p, int* s, int n) {
+    float* r = new float [n + 1];       //tablica maksymlanych zyskow
+    int* c = new int [n + 1];       //tablica optymalnych ciec
+
+    for (int i = 0; i <= n; ++i) {
+        r[i] = inf;                     //wypełniamy tablicę r minimalnymi wartościami
+        c[i] = 0;                       //wypełniamy tablicę c zerami
+    }
+    cout << "Maksymalny zysk: " << MEMORIZED_CUT_ROD(p, r, c, n) << endl;
+    cout << "Optymalne ciecia: ";
+    while (n > 0) {
+        cout << c[n] << ", ";
+        n -= c[n];
+    }
+    cout << endl;
+    delete[] r;
+    delete[] c;
+}
+
+
+//funkcja do inicjalizacji tablicy wynikow
+void TabliceWynikow(float* r, int rozmiar) {
     for (int i = 0; i <= rozmiar; ++i) {
         r[i] = -1;
     }
 }
 
-// Funkcja do uruchomienia testów
-void uruchomTest(float* ceny, int n, const string& nazwaTestu) {
-    cout << "=== Test: " << nazwaTestu << " ===" << endl;
-    cout << "Dlugosc preta: " << n << endl;
-    cout << "Ceny: ";
-    for (int i = 0; i < n; ++i) {
-        cout << ceny[i] << " ";
+//funkcja do generowania cen
+float* generujCeny(int n) {
+    srand(static_cast<unsigned>(time(0))); // Inicjalizacja generatora pseudolosowego
+
+    float* prices = new float[n];
+    prices[0] = 2.0f + static_cast<float>(rand()) / RAND_MAX * (5.0f - 2.0f); // Pierwsza cena w zakresie [2.0, 5.0]
+    for (int i = 1; i < n; ++i) {
+        prices[i] = prices[i - 1] + 2.0f + static_cast<float>(rand()) / RAND_MAX * 3.0f;
+        // Każda kolejna cena wzrasta o losową wartość w zakresie [2.0, 5.0]
     }
-    cout << endl;
-
-    float* r = new float[n + 1];
-    int* s = new int[n + 1];
-    inicjalizujTabliceWynikow(r, n);
-
-    // Obliczenie maksymalnego zysku
-    cout << "Maksymalny zysk: " << MEMORIZED_CUT_ROD(ceny, r, n) << endl;
-
-    // Obliczenie maksymalnego zysku i rozwiazania
-    EXT_BOT_UP_CUT_ROD(ceny, r, s, n);
-    cout << "Maksymalny zysk iteracja: " << r[n] << endl;
-    PRINT_SOLUTION(ceny, s, n);
-
-    delete[] s;
-    delete[] r;
+    return prices;
 }
+
+
+
 // funkcja do losowego generowania dlugosci preta
 //int generujDlugoscPreta(int maxDlugosc) {
   //  return rand() % maxDlugosc + 1;
-}
-
-// funkcja do generowania bardziej zróżnicowanych cen
-//void generujCeny(float* ceny, int n, int maxCena) {
-  //  for (int i = 0; i < n; ++i) {
-    //    // Ceny rosną w miarę zwiększania się długości, z dodatkowym elementem losowym
-      //  ceny[i] = (i + 1) * (maxCena / 10.0f) + static_cast<float>(rand() % (maxCena / 2));
-    //}
 //}
-
-// funkcja do inicjalizacji tablicy wynikow
-//void inicjalizujTabliceWynikow(float* r, int rozmiar) {
-  //  for (int i = 0; i <= rozmiar; ++i) {
-    //    r[i] = -1;
-   // }
-//}
-
 
 int main() {
-    // Test 1: Dane predefiniowane (różnorodne ceny)
-    float ceny1[] = {1, 5, 8, 9, 10, 17, 17, 20}; // Ceny kawałków o długości od 1 do 8
-    uruchomTest(ceny1, 8, "Predefiniowany 1");
+    srand(static_cast<unsigned>(time(0))); // inicjalizacja generatora liczb losowych
 
-    // Test 2: Dane predefiniowane (duże różnice w cenach)
-    float ceny2[] = {3, 7, 8, 9, 10, 20, 24, 30}; // Ceny kawałków o długości od 1 do 8
-    uruchomTest(ceny2, 8, "Predefiniowany 2");
+    // Test 1: Wersja naiwna CUT_ROD_NAIWNY
+    {
+        int test_lengths[] = {5, 10, 15, 20, 25, 30}; // różne długości preta dla wersji naiwnej
+        for (int n : test_lengths) {
+            float* ceny = generujCeny(n);
 
-    // Test 3: Losowe dane (generowane losowo)
-    srand(static_cast<unsigned>(time(0)));
-    int n = 10; // Losowa długość preta
-    float* cenyLosowe = new float[n];
-    for (int i = 0; i < n; ++i) {
-        cenyLosowe[i] = static_cast<float>(rand() % 20 + 1);
+            auto start = chrono::high_resolution_clock::now();
+            CUT_ROD_NAIWNY(ceny, n);
+            auto end = chrono::high_resolution_clock::now();
+
+            cout << "\n[NAIWNY] Czas wykonania dla n = " << n << ": "
+                 << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+                 << " ms\n";
+
+            delete[] ceny;
+        }
     }
-    uruchomTest(cenyLosowe, n, "Losowe dane");
-    delete[] cenyLosowe;
 
+    // Test 2: Wersja z pamięcią MEMORIZED_CUT_ROD
+    {
+        int test_lengths[] = {5, 10, 15, 20, 25, 30, 100, 500, 1000, 2000, 4000, 6000, 8000, 10000};
+        for (int n : test_lengths) {
+            float* ceny = generujCeny(n);
+
+            float* r = new float[n + 1];
+            int* s = new int[n + 1];
+            for (int i = 0; i <= n; ++i) {
+                r[i] = -1; // Wypełniamy tablicę wyników wartością początkową
+            }
+
+            auto start = chrono::high_resolution_clock::now();
+            MEMORIZED_CUT_ROD(ceny, r, s, n);
+            auto end = chrono::high_resolution_clock::now();
+
+            cout << "\n[MEMORIZED] Czas wykonania dla n = " << n << ": "
+                 << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+                 << " ms\n";
+
+            delete[] ceny;
+            delete[] r;
+            delete[] s;
+        }
+
+    // Test 3: Iteracyjna wersja EXT_BOT_UP_CUT_ROD
+    {
+        int test_lengths[] = {5, 10, 15, 20, 25, 30, 100, 500, 1000, 2000, 4000, 6000, 8000, 10000};
+        for (int n : test_lengths) {
+            float* ceny = generujCeny(n);
+
+            float* r = new float[n + 1];
+            int* s = new int[n + 1];
+
+            auto start = chrono::high_resolution_clock::now();
+            EXT_BOT_UP_CUT_ROD(ceny, r, s, n);
+            auto end = chrono::high_resolution_clock::now();
+
+            cout << "\n[ITERACYJNY] Czas wykonania dla n = " << n << ": "
+                 << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+                 << " ms\n";
+
+            delete[] ceny;
+            delete[] r;
+            delete[] s;
+        }
+
+        // Test wypisania cen, kosztu i podziału preta dla n = 10
+        int n = 10;
+        float* ceny = generujCeny(n);
+
+        float* r = new float[n + 1];
+        int* s = new int[n + 1];
+        float* k = new float[n + 1];
+        for (int i = 0; i <= n; ++i) {
+                k[i] = -1; // Wypełniamy tablicę wyników wartością początkową
+        }
+        int wynik = EXT_BOT_UP_CUT_ROD(ceny, r, s, n);
+        int wynik1 = MEMORIZED_CUT_ROD(ceny, k, s, n);
+
+        cout << "\n[ITERACYJNY] Dla n = 10:\n";
+        cout << "Ceny: ";
+        for (int i = 0; i < n; ++i) cout << ceny[i] << " ";
+        cout << "\nMaksymalny zysk: " << wynik << endl;
+        cout << "Podział: ";
+        PRINT_SOLUTION_EXT(ceny, s, n);
+        cout << "\n[MEMORIZED] Dla n = 10:\n";
+        cout << "Ceny: ";
+        for (int i = 0; i < n; ++i) cout << ceny[i] << " ";
+        cout << "\nMaksymalny zysk: " << wynik1 << endl;
+        cout << "Podział: ";
+        PRINT_SOLUTION_MEM(ceny, s, n);
+        delete[] ceny;
+        delete[] r;
+        delete[] s;
+    }
     return 0;
 }
+}
+
+
+
