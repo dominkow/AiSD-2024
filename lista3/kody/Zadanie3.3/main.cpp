@@ -166,6 +166,10 @@ void CZAS_F(float f[], float s[], int n) {
 }
 
 
+
+
+
+//funkcja na zdobycie rozwiazania z dynamicznej implementacji
 void PRINT_DYNAMICZNE(int **c, int **b, int i, int j) {
     if (c[i][j] > 0) {                             //jesli istnieje aktywnosc miedzy i a j
         int k = b[i][j];
@@ -213,11 +217,11 @@ void ACTIVITY_SELECTOR_DYNAMICZNY(float s[], float f[], int n) {
 
 
 int main() {
-    float s[] = {0, 2.2, 3, 4.7, 5.1, 8}; // Czasy rozpoczêcia (indeks 0 to fikcyjny element)
-    float f[] = {inf, 3.3, 7, 5.6, 7, 9.7}; // Czasy zakoñczenia (indeks 0 to fikcyjny element)
-    int n = 5; // Liczba aktywnoœci (bez indeksu 0)
-    PRINT_SOLUTION_R1(s, f, n);
-    PRINT_SOLUTION_I1(s, f, n);
+    float v[] = {0, 2.2, 3, 4.7, 5.1, 8}; // Czasy rozpoczêcia (indeks 0 to fikcyjny element)
+    float u[] = {inf, 3.3, 7, 5.6, 7, 9.7}; // Czasy zakoñczenia (indeks 0 to fikcyjny element)
+    int o = 5; // Liczba aktywnoœci (bez indeksu 0)
+    PRINT_SOLUTION_R1(v, u, o);
+    PRINT_SOLUTION_I1(v, u, o);
 
     float y[] = {0, 2.2, 3, 4.7, 5.1, 8, maks};
     float g[] = {inf, 3.3, 7, 5.6, 7, 9.7, 0};
@@ -225,17 +229,69 @@ int main() {
     PRINT_SOLUTION_R_MOD(y,g,m);
     PRINT_SOLUTION_I_MOD(y,g,m);
 
-    float u[] = {0, 2.2, 3, 4.7, 5.1, 8, maks}; // Czas rozpoczêcia (indeksy od 1)
-    float v[] = {inf, 3.3, 7, 5.6, 7, 9.7, 0}; // Czas zakoñczenia (indeksy od 1)
-
-    ACTIVITY_SELECTOR_DYNAMICZNY(u, v, n);
+    ACTIVITY_SELECTOR_DYNAMICZNY(y, g, o);
 
 
-    // Zwalnianie pamiêci tablicy b
-    //ZWOLNIJ(c, b, n);
+    srand(time(0)); // Inicjalizacja generatora losowego
 
+    for (int n = 1000; n <= 10000; n += 1000) {
+        float *s = new float[n + 2];
+        float *f = new float[n + 2];
 
+        // Generowanie danych testowych
+        CZAS_START(s, n);
+        CZAS_FINISZ(f, s, n);
+
+        cout << "Porównanie czasów wykonania dla n = " << n << ":\n";
+
+        // Test implementacji rekurencyjnej klasycznej
+        auto start = high_resolution_clock::now();
+        PRINT_SOLUTION_R1(s, f, n);
+        auto end = high_resolution_clock::now();
+        auto duration_recursive = duration_cast<milliseconds>(end - start);
+        cout << "Czas wykonania rekurencyjnej klasycznej: " << duration_recursive.count() << " ms\n";
+
+        // Test implementacji iteracyjnej klasycznej
+        start = high_resolution_clock::now();
+        PRINT_SOLUTION_I1(s, f, n);
+        end = high_resolution_clock::now();
+        auto duration_iterative = duration_cast<milliseconds>(end - start);
+        cout << "Czas wykonania iteracyjnej klasycznej: " << duration_iterative.count() << " ms\n";
+
+        // Przygotowanie danych dla wersji modyfikowanej
+        CZAS_S(s, n);
+        CZAS_F(f, s, n);
+
+        // Test implementacji rekurencyjnej zmodyfikowanej
+        start = high_resolution_clock::now();
+        PRINT_SOLUTION_R_MOD(s, f, n + 1);
+        end = high_resolution_clock::now();
+        auto duration_recursive_mod = duration_cast<milliseconds>(end - start);
+        cout << "Czas wykonania rekurencyjnej zmodyfikowanej: " << duration_recursive_mod.count() << " ms\n";
+
+        // Test implementacji iteracyjnej zmodyfikowanej
+        start = high_resolution_clock::now();
+        PRINT_SOLUTION_I_MOD(s, f, n + 1);
+        end = high_resolution_clock::now();
+        auto duration_iterative_mod = duration_cast<milliseconds>(end - start);
+        cout << "Czas wykonania iteracyjnej zmodyfikowanej: " << duration_iterative_mod.count() << " ms\n";
+
+        // Test implementacji dynamicznej
+        start = high_resolution_clock::now();
+        ACTIVITY_SELECTOR_DYNAMICZNY(s, f, n);
+        end = high_resolution_clock::now();
+        auto duration_dynamic = duration_cast<milliseconds>(end - start);
+        cout << "Czas wykonania dynamicznej: " << duration_dynamic.count() << " ms\n";
+
+        // Zwolnienie pamiêci
+        delete[] s;
+        delete[] f;
+
+        cout << "-------------------------------------------\n";
+    }
 
     return 0;
 }
+
+
 

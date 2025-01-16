@@ -121,4 +121,95 @@ float EXT_BOT_UP_CUT_ROD(float* p, float* r,
 \large{Przy analizie algorytmu rozwiązującego problem znajdowania najdłuższego wspólnego podciągu przyjrzymy się implementacji rekurencyjnej ze spamiętywaniem oraz wersji iteracyjnej.}
 
 \subsection{rekurencyjna ze spamiętywaniem}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji znajdowania nadłuższego wspólnego podciągu w wersji rekurencyjnej}, numbers=left, frame=single, xleftmargin=20pt]
+int LCS_R(const string &w1, const string &w2, 
+   int m, int n, int** s) {
+	if (s[m][n] != -1) {
+		return s[m][n];
+	}
+	if (m == 0 || n == 0) {
+		return s[m][n] = 0;
+	}
+	if (w1[m - 1] == w2[n - 1]) {
+		return s[m][n] = 1 + LCS_R(w1,
+		 w2, m - 1, n - 1, s);
+	}
+	return s[m][n] = max(LCS_R(w1, w2, m,
+	 n - 1,s), LCS_R(w1, w2, m - 1, n,s));
+}
+\end{lstlisting}
+
+\large{Argumentami funkcji w implementacji rekurencyjnej są jakieś litery oraz ich długości $w1$, $w2$ i odpowiednio $m$ oraz $n$, a także tablica $s[]$ mająca za zadanie przechowywać maksymalne długości podciągów. Jak w każdej rekurencyjnej funkcji mamy warunki początkowe. Najważniejszą częścią tej implementacji jest podzielenie sytuacji na dwa przypadki - w której mamy styczność z takimi samymi ostatnimi znakami wyrazu (dodajemy $1$ i wywołujemy rekurencyjne dla pozstałych) lub są różne. W takim przypadku obliczamy dwie możliwości (z pominięciem ostatniego znaku $w1$ lub $w2$) i zwracamy wartość maksymalną. Tablica $s[]$ jest zwracana i to ona odpowiada za funkcję spamiętywania.}
+
+\subsection{iteracyjna}
+\begin{lstlisting}[language=C++, caption={Kod funkcji znajdowania nadłuższego wspólnego podciągu w wersji iteracyjnej}, numbers=left, frame=single, xleftmargin=20pt]
+char** LCS_I(const string &w1, const 
+   string &w2, int& dlugosc) {
+	int m = w1.length();
+	int n = w2.length();
+	
+	int** c = new int*[m + 1];
+	char** b = new char*[m + 1];
+	for (int i = 0; i <= m; i++) {
+		c[i] = new int[n + 1];
+		b[i] = new char[n + 1];
+	}
+	
+	for (int i = 0; i <= m; i++) {
+		c[i][0] = 0;
+	}
+	for (int j = 0; j <= n; j++) {
+		c[0][j] = 0;
+	}
+\end{lstlisting}
+
+\large{Przypadek iteracyjny został napisany na podstawie pseudokodu, więc nie jest on zbytnio ciekawym kodem. W mojej implementacji mamy tylko trzy argumenty: $w1$, $w2$ oraz zmienna $dlugosc$. Dopiero wewnątrz funkcji definiuje zmienne $m$ oraz $n$ jak również tworzę dwie pomocnicze tablice: $b[]$ odpowiedzialna za przechowywanie kierunków do odtworzenia LCS oraz $c[]$ przechowująca długość ciągu.}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji znajdowania nadłuższego wspólnego podciągu w wersji iteracyjnej}, numbers=left, frame=single, xleftmargin=20pt]
+if (w1[i - 1] == w2[j - 1]) {
+	c[i][j] = c[i - 1][j - 1] + 1;
+	b[i][j] = '\\';
+} else if (c[i - 1][j] >= c[i][j - 1]) {
+	c[i][j] = c[i - 1][j];
+	b[i][j] = '|';
+} else {
+	c[i][j] = c[i][j - 1];
+	b[i][j] = '-';
+	}
+}
+dlugosc = c[m][n];
+\end{lstlisting}
+
+\large{przeanalizujmy najciekawszy część tego algorytmu:}
+
+\begin{itemize}
+	\item Dla każdej pary $(i, j)$, gdzie $1 \leq i \leq m$ oraz $1 \leq j \leq n$:
+	\begin{enumerate}
+		\item Jeśli znaki w obu ciągach są równe, tj. $w1[i-1] = w2[j-1]$, to:
+		\[
+		c[i][j] = c[i-1][j-1] + 1
+		\]
+		oraz ustawiamy kierunek na ukośny
+		\item Jeśli znaki są różne, porównujemy wartości:
+		\[
+		c[i-1][j] \quad \text{oraz} \quad c[i][j-1]
+		\]
+		\begin{itemize}
+			\item Jeśli $c[i-1][j] \geq c[i][j-1]$, to:
+			\[
+			c[i][j] = c[i-1][j]
+			\]
+			oraz ustawiamy kierunek pionowy
+			\item W przeciwnym przypadku:
+			\[
+			c[i][j] = c[i][j-1]
+			\]
+			oraz ustawiamy kierunek poziomy
+		\end{itemize}
+	\end{enumerate}
+\end{itemize}
+
+\large{Na sam koniec przypisujemy do argumentu $dlugosc$ wartość najdłuższego wspólnego podciągu. Funkcja zwraca $b[]$.}
+
 \end{document}
