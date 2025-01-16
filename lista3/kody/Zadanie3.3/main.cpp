@@ -10,7 +10,7 @@ constexpr float maks = std::numeric_limits<float>::infinity();        //ustawien
 
 
 //normalna implementacja rekurencyjna na podstawie pseudokodu
-void RECURSIVE_ACTIVITY_SELECTOR(float s[], float f[], int n, int k, int zajecia[], int &ilosc){    //s,f tablice start finisz, n ich wielkosc (aktywnosci)
+void RECURSIVE_ACTIVITY_SELECTOR(float s[], float f[], int n, int k, int zaj[], int &ilosc){    //s,f tablice start finisz, n ich wielkosc (aktywnosci)
                                                                                                 //k aktualne indeks sal, licznik zajec
     int m =k + 1;                                                       //zaczynamy od zajec nastepujacych po aktualnych
 
@@ -18,36 +18,36 @@ void RECURSIVE_ACTIVITY_SELECTOR(float s[], float f[], int n, int k, int zajecia
         m = m + 1;                                                      //jesli tak to zwiekszamy m ( przechodzimy do nastepnych zajec)
     }
     if (m <= n){
-        zajecia[ilosc++] = m;                                           //dodajemy aktywnosc m do tablicy zajecia
-        RECURSIVE_ACTIVITY_SELECTOR(s, f, n, m, zajecia, ilosc);        //rekurencja m - nowa ostatnie wybrane zajecia
+        zaj[ilosc++] = m;                                           //dodajemy aktywnosc m do tablicy zajecia
+        RECURSIVE_ACTIVITY_SELECTOR(s, f, n, m, zaj, ilosc);        //rekurencja m - nowa ostatnie wybrane zajecia
     }
 }                                                                       //nie ma return bo wedlug psuodokodu wywoluje pusty
 
 //funkcja wypisujaca rozwiazanie z wersji rekurencyjnej
 void PRINT_SOLUTION_R1(float s[], float f[], int n) {
-    int zajecia[n];                                     //tablica na indeksy zajec pasujacych
+    int zaj[n];                                     //tablica na indeksy zajec pasujacych
     int ilosc = 0;                                      //licznik wybranych zajec
 
-    RECURSIVE_ACTIVITY_SELECTOR(s, f, n, 0, zajecia, ilosc);  //rekurencja wywolana
+    RECURSIVE_ACTIVITY_SELECTOR(s, f, n, 0, zaj, ilosc);  //rekurencja wywolana
 
     cout << "Wybrane aktywnoœci:\n";
     for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zajecia[i];
+        int aktywnosc = zaj[i];
         cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
 }
 
 
 //normalna implementacja iteracyjna na podstawie pseudokodu
-void ACTIVITY_SELECTOR(float s[], float f[], int n, int zajecia[], int &ilosc) {
+void ACTIVITY_SELECTOR(float s[], float f[], int n, int zaj[], int &ilosc) {
     ilosc = 0;                                                       //startujemy od 0
-    zajecia[ilosc++] = 1;                                            //pierwsze zajecia zawsze sa wybrane
+    zaj[ilosc++] = 1;                                            //pierwsze zajecia zawsze sa wybrane
 
     int k = 1;                                                       //indeks ostatnich zajec
 
     for (int m = 2; m <= n; m++) {
         if (s[m] >= f[k]) {                                          //sprawdzamy czy zajecia koliduja
-            zajecia[ilosc++] = m;                                    //jesli nie to dodajemy zajecia do tablicy zajecia
+            zaj[ilosc++] = m;                                    //jesli nie to dodajemy zajecia do tablicy zajecia
             k = m;                                                   //aktualizujemy ostatnio wybran¹ aktywnosc
         }
     }
@@ -55,14 +55,14 @@ void ACTIVITY_SELECTOR(float s[], float f[], int n, int zajecia[], int &ilosc) {
 
 //funkjca wypisujaca rozwiazanie z funkcji iteracyjnej
 void PRINT_SOLUTION_I1(float s[], float f[], int n) {
-    int zajecia[n];                                         //tablica na indeksy zajec pasujacych
+    int zaj[n];                                         //tablica na indeksy zajec pasujacych
     int ilosc = 0;                                          //licznik wybranych zajec
 
-    ACTIVITY_SELECTOR(s, f, n, zajecia, ilosc);             //wywolujemy rekurencje
+    ACTIVITY_SELECTOR(s, f, n, zaj, ilosc);             //wywolujemy rekurencje
 
     cout << "Wybrane aktywnoœci:\n";                        //wypisujemy dane
     for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zajecia[i];
+        int aktywnosc = zaj[i];
         cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
 }
@@ -95,38 +95,38 @@ void CZAS_FINISZ(float f[], float s[], int n) {
 
 
 //modyfikacja rekurencji aby zamiast po koncu sortowala po starcie - s
-void RECURSIVE_ACTIVITY_SELECTOR_MOD(float s[], float f[], int k, int zajecia[], int &ilosc){
+void RECURSIVE_ACTIVITY_SELECTOR_MOD(float s[], float f[], int k, int zaj[], int &ilosc){
         int m = k - 1;                                  //interesuja nas teraz zajecia odbywajace sie przed aktualnym
 
     while (m > 0 && f[m] > s[k]) {                      //szukamy zajecia, konczacego sie przed zajêciem k (aktualnym)
         m--;
     }
     if (m > 0) {                                                //jeœli znaleziono pasuj¹ce zajêcie
-        zajecia[ilosc++] = m;                                   //dodajemy indeks zajêcia do wyniku
-        RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, m, zajecia, ilosc);    //rekurencyjnie wybieramy wczeœniejsze zajêcia
+        zaj[ilosc++] = m;                                   //dodajemy indeks zajêcia do wyniku
+        RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, m, zaj, ilosc);    //rekurencyjnie wybieramy wczeœniejsze zajêcia
     }
 }
 
 void PRINT_SOLUTION_R_MOD(float s[], float f[], int n) {
-    int zajecia[n];                                         //tablica na indeksy zajêæ pasuj¹cych
+    int zaj[n];                                         //tablica na indeksy zajêæ pasuj¹cych
     int ilosc = 0;                                          //licznik wybranych zajêæ
 
-    RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, n, zajecia, ilosc);
+    RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, n, zaj, ilosc);
 
     cout << "Wybrane aktywnoœci:\n";
     for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zajecia[i];
-        cout << "Zajêcia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
+        int aktywnosc = zaj[i];
+        cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
 }
 
-void ACTIVITY_SELECTOR_MOD(float s[], float f[], int n, int zajecia[], int &ilosc) {        //pomijamy k
-    zajecia[ilosc++] = n - 1;             // Ostatnie zajêcie przed fikcyjnym jest zawsze wybrane
+void ACTIVITY_SELECTOR_MOD(float s[], float f[], int n, int zaj[], int &ilosc) {        //pomijamy k
+    zaj[ilosc++] = n - 1;             // Ostatnie zajêcie przed fikcyjnym jest zawsze wybrane
     int k = n - 1;
 
     for (int m = n - 2; m >= 1; m--) {      // Iterujemy od koñca i wybieramy zajêcia, które koñcz¹ siê przed rozpoczêciem ostatnio wybranego zajêcia
         if (f[m] <= s[k]) {
-            zajecia[ilosc++] = m;             // Dodajemy indeks zajêcia do wyniku
+            zaj[ilosc++] = m;             // Dodajemy indeks zajêcia do wyniku
             k = m;
         }
     }
@@ -134,14 +134,14 @@ void ACTIVITY_SELECTOR_MOD(float s[], float f[], int n, int zajecia[], int &ilos
 
 //funkjca wypisujaca rozwiazanie z funkcji iteracyjnej
 void PRINT_SOLUTION_I_MOD(float s[], float f[], int n) {
-    int zajecia[n];                                         //tablica na indeksy zajec pasujacych
+    int zaj[n];                                         //tablica na indeksy zajec pasujacych
     int ilosc = 0;                                          //licznik wybranych zajec
 
-    ACTIVITY_SELECTOR_MOD(s, f, n, zajecia, ilosc);         //wywolujemy rekurencje
+    ACTIVITY_SELECTOR_MOD(s, f, n, zaj, ilosc);         //wywolujemy rekurencje
 
     cout << "Wybrane aktywnoœci:\n";                        //wypisujemy dane
     for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zajecia[i];
+        int aktywnosc = zaj[i];
         cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
 }
@@ -234,7 +234,7 @@ int main() {
 
     srand(time(0)); // Inicjalizacja generatora losowego
 
-    for (int n = 1000; n <= 10000; n += 1000) {
+    for (int n = 100; n <= 1000; n += 100) {
         float *s = new float[n + 2];
         float *f = new float[n + 2];
 

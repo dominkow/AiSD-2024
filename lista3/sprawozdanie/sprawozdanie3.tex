@@ -212,4 +212,159 @@ dlugosc = c[m][n];
 
 \large{Na sam koniec przypisujemy do argumentu $dlugosc$ wartość najdłuższego wspólnego podciągu. Funkcja zwraca $b[]$.}
 
+\section{ACTIVITY SELECTOR, czyli problem z przydziałem sal}
+
+\large{W przypadku algorytmu rozwiązującego problem przydziału sal skupimy się na wersji rekurencyjnej oraz iteracyjnej wraz z ich modyfikacjami, a także implementacji opartej na programowaniu dynamicznym. Przy czym, pominiemy klasyczne algorytmy wersji rekurencyjnej i iteracyjnej, gdyż były one omawiane na wykładzie i zostały napisane wprost na podstawie pseudokodu.}
+
+\subsection{Zmodyfikowana rekurencja oraz iteracja}
+
+\large{Modyfikacja zarówno wersji rekurencyjnej jak i iteracyjnej polega na tym samym, czyli by działał na danych wejściowych posortowanych względem czasu rozpoczęcia. Przyjmujemy następujące argumenty:}
+
+\begin{itemize}
+	\item $s[]$ - tablica przechowująca czasy rozpoczęcia zajęć.
+	\item $f[]$ - tablica przechowująca czasy zakończenia zajęć.
+	\item $k$ - indeks aktualnie rozważanego zajęcia.
+	\item $zaj[]$ - tablica, w której zapisywane są indeksy wybranych zajęć.
+	\item $ilosc$ - referencja do zmiennej liczącej liczbę wybranych zajęć.
+	\item $n$ - długość tablicy zajęcia.
+\end{itemize}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozwiazywania problemu przydziału sal w wersji zmodyfikowanej rekurencji}, numbers=left, frame=single, xleftmargin=20pt]
+void REC_ACTIVITY_SELECTOR_MOD(float s[], 
+   float f[], int k, int zaj[], int &ilosc) {
+	int m = k - 1;
+	
+	while (m > 0 && f[m] > s[k]) {
+		m--;
+	}
+	if (m > 0) {
+		zaj[ilosc++] = m;
+		REC_ACTIVITY_SELECTOR_MOD(s,f,
+		 m, zaj, ilosc);
+	}
+}
+\end{lstlisting}
+
+\large{zaczynamy nasze rozważania od zajęć następujących po aktualnych. Pętla $while$ poszukuje pierwszego zajęcia (m), które kończy się przed rozpoczęciem aktualnego zajęcia k. Jeśli warunek jest spełniony to zmniejszamy m aby przejść do wcześniejszego zajęcia. Jeżeli udało się takowe znaleźć to indeks $m$ jest dodawany do tablicy $zaj[]$. Wywołujemy rekurencję.}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozwiazywania problemu przydziału sal w wersji zmodyfikowanej iteracji}, numbers=left, frame=single, xleftmargin=20pt]
+void ACTIVITY_SELECTOR_MOD(float s[], 
+float f[], int n, int zaj[], int &ilosc) {
+	zaj[ilosc++] = n - 1;
+	int k = n - 1;
+	
+	for (int m = n - 2; m >= 1; m--) {
+		if (f[m] <= s[k]) {
+			zaj[ilosc++] = m;
+			k = m;
+		}
+	}
+}
+\end{lstlisting}
+
+\large{W przypadku iteracji ponownie wybieramy ostatnie zajęcie, jak to od którego, zaczynamy i idziemy w dół.Sprawdzamy, czy zajęcia o indeksie m (które kończy się w czasie $f[m]$) kończy się przed rozpoczęciem ostatnio wybranego zajęcia ($s[k]$).
+Jeśli warunek jest spełniony, to możemy wybrać to zajęcie, ponieważ nie nakłada się na ostatnio wybrane i dodajemy je do tablicy $zaj[]$.}
+
+
+\subsection{Dynamiczna}
+
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozwiazywania problemu przydziału sal w wersji opartej o programowanie dynamiczne}, numbers=left, frame=single, xleftmargin=20pt]
+void ACT_SEL_D(float s[], float f[], int n) {
+	int **c = new int *[n + 2];
+	int **b = new int *[n + 2];
+	for (int i = 0; i < n + 2; ++i) {
+		c[i] = new int[n + 2]();
+		b[i] = new int[n + 2]();
+	}
+\end{lstlisting}
+
+\large{Schemat działania oraz implementacji tego kodu jest bardzo podobny do iteracyjnej wersji LCS, gdzie tworzyliśmy tablicę, które pomagały nam dzielić problem na podproblemy. Tutaj mamy podobnie z tym, że długość tablic jest długości $n + 2$, gdyż przy algorytmie ACIVITY SELECTOR musimy pamiętać o fejkowych zmiennych (takich które potrzebują miejsca, ale nie są brane do wyniku ostatecznego).
+}
+\begin{lstlisting}[language=C++, caption={Kod funkcji rozwiazywania problemu przydziału sal w wersji opartej o programowanie dynamiczne}, numbers=left, frame=single, xleftmargin=20pt]
+for (int k = i + 1; k < j; ++k) {
+	if (f[i] <= s[k] && f[k] <= s[j]) {
+		int elem = c[i][k]+c[k][j] +1;
+		if (elem > c[i][j]) {
+			c[i][j] = elem;
+			b[i][j] = k;
+		}
+	}
+}
+\end{lstlisting}
+
+\large{Przyjrzyjmy się najbardziej skomplikowanej pętli w tym kodzie:}
+\\
+
+\textbf{1.} \texttt{for (int k = i + 1; k < j; ++k)} \\
+Pętla iteruje przez wszystkie możliwe wartości indeksu \texttt{k} w przedziale od \texttt{i+1} do \texttt{j-1}. Celem jest znalezienie odpowiedniego zajęcia \texttt{k}, które może dzielić przedział \([i, j]\) na dwa mniejsze, niezależne podproblemy.
+
+\bigskip
+
+\textbf{2.} 
+Warunek $2$ sprawdza, czy aktywność \texttt{k} nie nakłada się na inne w przedziale \([i, j]\). 
+\bigskip
+
+\textbf{3.} \texttt{int element = c[i][k] + c[k][j] + 1;} \\
+Obliczamy wartość \texttt{element}, która reprezentuje liczbę zajęć, które można wybrać w przedziale \([i, j]\). \texttt{c[i][k]} to maksymalna liczba aktywności w przedziale \([i, k]\), \texttt{c[k][j]} to maksymalna liczba aktywności w przedziale \([k, j]\), a \texttt{+ 1} uwzględnia aktywność \texttt{k}.
+
+\bigskip
+
+\textbf{4.} \texttt{if (element > c[i][j])} \\
+Sprawdzamy, czy liczba zajęć obliczona dla podziału przez \texttt{k} jest większa niż obecna wartość w \texttt{c[i][j]}.
+
+\bigskip
+
+\textbf{5.} \texttt{c[i][j] = element;} \\
+Jeśli nowa liczba aktywności jest większa, to zapisujemy ją w \texttt{c[i][j]}, aktualizując maksymalną liczbę zajęć dla przedziału \([i, j]\).
+
+\bigskip
+
+\textbf{6.} \texttt{b[i][j] = k;} \\
+Zapisujemy indeks \texttt{k} w tablicy \texttt{b[i][j]}, ponieważ \texttt{k} jest najlepszym punktem podziału przedziału \([i, j]\) na dwa podproblemy.
+
+
+\section{Porównania}
+
+\subsection{Porównania różnych implementacji algorytmu CUT ROD}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Naiwny.png}
+	\caption{Tabela czasu działania algorytmu CUT ROD w wersji naiwnej.}
+	\label{fig:table1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{cutrod.png}
+	\caption{Tabela czasu działania algorytmu CUT ROD w wersji ze spamiętywaniem oraz iteracyjną.}
+	\label{fig:table2}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{cutwykres.png}
+	\caption{Wykres czasu działania algorytmu CUT ROD w wersji ze spamiętywaniem oraz iteracyjną.}
+	\label{fig:wykres1}
+\end{figure}
+
+
+\newpage
+\subsection{Porównania różnych implmentacji LCS}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{lcswykres.png}
+	\caption{Wykres czasu działania algorytmu LCS w wersji rekurencyjnej ze spamiętywaniem oraz iteracyjnej.}
+	\label{fig:tabela3}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{lcstabela.png}
+	\caption{Wykres czasu działania algorytmu CUT ROD w wersji naiwnej.}
+	\label{fig:wykres2}
+\end{figure}
+
 \end{document}

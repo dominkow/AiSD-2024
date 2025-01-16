@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  16 JAN 2025 06:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  16 JAN 2025 08:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -334,27 +334,91 @@ Overfull \hbox (14.4061pt too wide) in paragraph at lines 119--119
 []\OT4/cmr/bx/n/14.4 LCS - pro-blem znaj-do-wa-nia naj-dªu»-sze-go wspól-
  []
 
-[4] [5] [6] [7] (./sprawozdanie3.aux) ) 
+[4] [5] [6]
+Overfull \hbox (5.58957pt too wide) in paragraph at lines 215--215
+[]\OT4/cmr/bx/n/14.4 ACTIVITY SE-LEC-TOR, czy-li pro-blem z przy-
+ []
+
+[7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 295--297
+
+ []
+
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
+298.
+(c:/texlive/2023/texmf-dist/tex/latex/polski/ot4cmtt.fd
+File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+) [9{c:/texlive/2023/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
+Overfull \hbox (7.31001pt too wide) in paragraph at lines 317--319
+\OT4/cmr/m/n/12 Je±li no-wa licz-ba ak-tyw-no-±ci jest wi¦k-sza, to za-pi-su-je
+-my j¡ w \OT4/cmtt/m/n/12 c[i][j]\OT4/cmr/m/n/12 ,
+ []
+
+<Naiwny.png, id=41, 314.67563pt x 234.8775pt>
+File: Naiwny.png Graphic file (type png)
+<use Naiwny.png>
+Package pdftex.def Info: Naiwny.png  used on input line 332.
+(pdftex.def)             Requested size: 207.0021pt x 154.50713pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<cutrod.png, id=43, 571.38469pt x 342.5297pt>
+File: cutrod.png Graphic file (type png)
+<use cutrod.png>
+Package pdftex.def Info: cutrod.png  used on input line 339.
+(pdftex.def)             Requested size: 345.0pt x 206.82082pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<cutwykres.png, id=44, 706.13812pt x 412.54124pt>
+File: cutwykres.png Graphic file (type png)
+<use cutwykres.png>
+Package pdftex.def Info: cutwykres.png  used on input line 347.
+(pdftex.def)             Requested size: 345.0pt x 201.55525pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10]
+<lcswykres.png, id=48, 567.62062pt x 353.06906pt>
+File: lcswykres.png Graphic file (type png)
+<use lcswykres.png>
+Package pdftex.def Info: lcswykres.png  used on input line 358.
+(pdftex.def)             Requested size: 345.0pt x 214.60141pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<lcstabela.png, id=49, 702.37407pt x 415.5525pt>
+File: lcstabela.png Graphic file (type png)
+<use lcstabela.png>
+Package pdftex.def Info: lcstabela.png  used on input line 365.
+(pdftex.def)             Requested size: 345.0pt x 204.12343pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 <./Naiwny.png>] [12 <./cutrod.png> <./cutwykres.png>] [13 <./lcswykres.png>
+ <./lcstabela.png>] (./sprawozdanie3.aux) ) 
 Here is how much of TeX's memory you used:
- 4713 strings out of 476025
- 71717 string characters out of 5794016
+ 4796 strings out of 476025
+ 73002 string characters out of 5794016
  1888382 words of memory out of 5000000
- 25099 multiletter control sequences out of 15000+600000
- 519423 words of font info for 50 fonts, out of 8000000 for 9000
+ 25171 multiletter control sequences out of 15000+600000
+ 519720 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,67p,763b,1656s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.p
-fb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/202
-3/texmf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/
-type1/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr
-17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive
-/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on sprawozdanie3.pdf (7 pages, 101058 bytes).
+<c:/texlive/2023/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx
+12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive
+/2023/texmf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fo
+nts/type1/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl
+/plr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/tex
+live/2023/texmf-dist/fonts/type1/public/pl/pltt12.pfb><c:/texlive/2023/texmf-di
+st/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on sprawozdanie3.pdf (13 pages, 216301 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 113 PDF objects out of 1000 (max. 8388607)
+ 67 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
