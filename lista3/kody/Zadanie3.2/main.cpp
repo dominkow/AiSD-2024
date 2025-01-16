@@ -61,8 +61,8 @@ char** LCS_ITERACJA(const string &w1, const string &w2, int& dlugosc) {
     int m = w1.length();
     int n = w2.length();
 
-    int** c = new int*[m + 1];
-    char** b = new char*[m + 1];
+    int** c = new int*[m + 1];                  //c odpowiada za
+    char** b = new char*[m + 1];                //
     for (int i = 0; i <= m; i++) {
         c[i] = new int[n + 1];
         b[i] = new char[n + 1];

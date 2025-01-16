@@ -31,10 +31,10 @@ void PRINT_SOLUTION_R1(float s[], float f[], int n) {
     RECURSIVE_ACTIVITY_SELECTOR(s, f, n, 0, zaj, ilosc);  //rekurencja wywolana
 
     cout << "Wybrane aktywnoœci:\n";
-    for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zaj[i];
-        cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
-    }
+   // for (int i = 0; i < ilosc; i++) {
+       // int aktywnosc = zaj[i];
+        //cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
+    //}
 }
 
 
@@ -61,11 +61,11 @@ void PRINT_SOLUTION_I1(float s[], float f[], int n) {
     ACTIVITY_SELECTOR(s, f, n, zaj, ilosc);             //wywolujemy rekurencje
 
     cout << "Wybrane aktywnoœci:\n";                        //wypisujemy dane
-    for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zaj[i];
-        cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
+    //for (int i = 0; i < ilosc; i++) {
+        //int aktywnosc = zaj[i];
+      //  cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
-}
+//}
 
 void CZAS_START(float s[], int n) {
     s[0] = 0.0f;                                                    //fikcyjny na pocz¹tku, ustawiony na 0
@@ -114,10 +114,10 @@ void PRINT_SOLUTION_R_MOD(float s[], float f[], int n) {
     RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, n, zaj, ilosc);
 
     cout << "Wybrane aktywnoœci:\n";
-    for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zaj[i];
-        cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
-    }
+    //for (int i = 0; i < ilosc; i++) {
+        //int aktywnosc = zaj[i];
+      //  cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
+    //}
 }
 
 void ACTIVITY_SELECTOR_MOD(float s[], float f[], int n, int zaj[], int &ilosc) {        //pomijamy k
@@ -139,12 +139,12 @@ void PRINT_SOLUTION_I_MOD(float s[], float f[], int n) {
 
     ACTIVITY_SELECTOR_MOD(s, f, n, zaj, ilosc);         //wywolujemy rekurencje
 
-    cout << "Wybrane aktywnoœci:\n";                        //wypisujemy dane
-    for (int i = 0; i < ilosc; i++) {
-        int aktywnosc = zaj[i];
-        cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
+    //cout << "Wybrane aktywnoœci:\n";                        //wypisujemy dane
+    //for (int i = 0; i < ilosc; i++) {
+        //int aktywnosc = zaj[i];
+        //cout << "Zajecia " << aktywnosc << ": Start = " << s[aktywnosc] << ", Koniec = " << f[aktywnosc] << "\n";
     }
-}
+//}
 //analogicznie jak przy normalnych tylko ¿e s jak f, a f jak s
 void CZAS_S(float s[], int n) {
     s[0] = 0.0f;                                                    //pierwszy element musi byc rowny 0
@@ -223,18 +223,9 @@ int main() {
     PRINT_SOLUTION_R1(v, u, o);
     PRINT_SOLUTION_I1(v, u, o);
 
-    float y[] = {0, 2.2, 3, 4.7, 5.1, 8, maks};
-    float g[] = {inf, 3.3, 7, 5.6, 7, 9.7, 0};
-    int m = 6;//o 1 wiêcej ni¿ zajêæ bo ostatnie fikcyjne
-    PRINT_SOLUTION_R_MOD(y,g,m);
-    PRINT_SOLUTION_I_MOD(y,g,m);
-
-    ACTIVITY_SELECTOR_DYNAMICZNY(y, g, o);
-
-
     srand(time(0)); // Inicjalizacja generatora losowego
 
-    for (int n = 100; n <= 1000; n += 100) {
+    for (int n = 10000; n <= 100000; n += 10000) {
         float *s = new float[n + 2];
         float *f = new float[n + 2];
 
@@ -246,14 +237,17 @@ int main() {
 
         // Test implementacji rekurencyjnej klasycznej
         auto start = high_resolution_clock::now();
-        PRINT_SOLUTION_R1(s, f, n);
+        int zaj[n];
+        int ilosc = 0;
+        RECURSIVE_ACTIVITY_SELECTOR(s, f, n, 0, zaj, ilosc);
         auto end = high_resolution_clock::now();
         auto duration_recursive = duration_cast<milliseconds>(end - start);
         cout << "Czas wykonania rekurencyjnej klasycznej: " << duration_recursive.count() << " ms\n";
 
         // Test implementacji iteracyjnej klasycznej
         start = high_resolution_clock::now();
-        PRINT_SOLUTION_I1(s, f, n);
+        ilosc = 0;
+        ACTIVITY_SELECTOR(s, f, n, zaj, ilosc);
         end = high_resolution_clock::now();
         auto duration_iterative = duration_cast<milliseconds>(end - start);
         cout << "Czas wykonania iteracyjnej klasycznej: " << duration_iterative.count() << " ms\n";
@@ -264,21 +258,23 @@ int main() {
 
         // Test implementacji rekurencyjnej zmodyfikowanej
         start = high_resolution_clock::now();
-        PRINT_SOLUTION_R_MOD(s, f, n + 1);
+        ilosc = 0;
+        RECURSIVE_ACTIVITY_SELECTOR_MOD(s, f, n + 1, zaj, ilosc);
         end = high_resolution_clock::now();
         auto duration_recursive_mod = duration_cast<milliseconds>(end - start);
         cout << "Czas wykonania rekurencyjnej zmodyfikowanej: " << duration_recursive_mod.count() << " ms\n";
 
         // Test implementacji iteracyjnej zmodyfikowanej
         start = high_resolution_clock::now();
-        PRINT_SOLUTION_I_MOD(s, f, n + 1);
+        ilosc = 0;
+        ACTIVITY_SELECTOR_MOD(s, f, n + 1, zaj, ilosc);
         end = high_resolution_clock::now();
         auto duration_iterative_mod = duration_cast<milliseconds>(end - start);
         cout << "Czas wykonania iteracyjnej zmodyfikowanej: " << duration_iterative_mod.count() << " ms\n";
 
         // Test implementacji dynamicznej
         start = high_resolution_clock::now();
-        ACTIVITY_SELECTOR_DYNAMICZNY(s, f, n);
+        //ACTIVITY_SELECTOR_DYNAMICZNY(s, f, n);
         end = high_resolution_clock::now();
         auto duration_dynamic = duration_cast<milliseconds>(end - start);
         cout << "Czas wykonania dynamicznej: " << duration_dynamic.count() << " ms\n";
