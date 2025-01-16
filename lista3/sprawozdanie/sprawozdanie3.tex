@@ -325,7 +325,8 @@ Zapisujemy indeks \texttt{k} w tablicy \texttt{b[i][j]}, ponieważ \texttt{k} je
 
 \section{Porównania}
 
-\subsection{Porównania różnych implementacji algorytmu CUT ROD}
+\large{Podsumowując, dokonaliśmy testów trzech różnych algorytmów oraz ich najróżniejszej implementacji. W CUT RODZIE najbardziej optymalną wersją był EXT BOT UP, a najgorszą wersja NAIWNA. W przypadku LCS zwyciężył sposób iteracyjny, który na większych długościach $n$ spisywał sie znacznie lepiej do wersji rekurencyjnej. Na koniec algorytm ACTIVITY SELECTOR, gdzie modyfikacje nie okazały się być wydajniejsze od klasycznych implementacji. Nie mówiąc już nic, o tragicznie wypadającą implementacją opartą o programowanie dynamiczne. Najlepszym okazał się klasyczny iteracyjny, który nieznacznie lepiej wypada w testach efektywności pracy. }
+
 
 \begin{figure}[h]
 	\centering
@@ -349,10 +350,6 @@ Zapisujemy indeks \texttt{k} w tablicy \texttt{b[i][j]}, ponieważ \texttt{k} je
 	\label{fig:wykres1}
 \end{figure}
 
-
-\newpage
-\subsection{Porównania różnych implmentacji LCS}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\textwidth]{lcswykres.png}
@@ -366,5 +363,20 @@ Zapisujemy indeks \texttt{k} w tablicy \texttt{b[i][j]}, ponieważ \texttt{k} je
 	\caption{Wykres czasu działania algorytmu CUT ROD w wersji naiwnej.}
 	\label{fig:wykres2}
 \end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{acttabela.png}
+	\caption{Tabela czasu działania algorytmu ACTIVITY SELECTOR.}
+	\label{fig:tabela4}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{actwykres.png}
+	\caption{Wykres czasu działania algorytmu ACTIVITY SELECTOR.}
+	\label{fig:wykres3}
+\end{figure}
+
 
 \end{document}

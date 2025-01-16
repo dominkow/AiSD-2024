@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  16 JAN 2025 08:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.5)  16 JAN 2025 10:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -354,10 +354,16 @@ Overfull \hbox (7.31001pt too wide) in paragraph at lines 317--319
 -my j¡ w \OT4/cmtt/m/n/12 c[i][j]\OT4/cmr/m/n/12 ,
  []
 
+
+Overfull \hbox (0.52171pt too wide) in paragraph at lines 328--329
+\OT4/cmr/m/n/12 ich naj-ró»-niej-szej im-ple-men-ta-cji. W CUT RO-DZIE naj-bar-
+dziej opty-
+ []
+
 <Naiwny.png, id=41, 314.67563pt x 234.8775pt>
 File: Naiwny.png Graphic file (type png)
 <use Naiwny.png>
-Package pdftex.def Info: Naiwny.png  used on input line 332.
+Package pdftex.def Info: Naiwny.png  used on input line 333.
 (pdftex.def)             Requested size: 207.0021pt x 154.50713pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -365,7 +371,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <cutrod.png, id=43, 571.38469pt x 342.5297pt>
 File: cutrod.png Graphic file (type png)
 <use cutrod.png>
-Package pdftex.def Info: cutrod.png  used on input line 339.
+Package pdftex.def Info: cutrod.png  used on input line 340.
 (pdftex.def)             Requested size: 345.0pt x 206.82082pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -373,52 +379,67 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <cutwykres.png, id=44, 706.13812pt x 412.54124pt>
 File: cutwykres.png Graphic file (type png)
 <use cutwykres.png>
-Package pdftex.def Info: cutwykres.png  used on input line 347.
+Package pdftex.def Info: cutwykres.png  used on input line 348.
 (pdftex.def)             Requested size: 345.0pt x 201.55525pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10]
-<lcswykres.png, id=48, 567.62062pt x 353.06906pt>
+<lcswykres.png, id=45, 567.62062pt x 353.06906pt>
 File: lcswykres.png Graphic file (type png)
 <use lcswykres.png>
-Package pdftex.def Info: lcswykres.png  used on input line 358.
+Package pdftex.def Info: lcswykres.png  used on input line 355.
 (pdftex.def)             Requested size: 345.0pt x 214.60141pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<lcstabela.png, id=49, 702.37407pt x 415.5525pt>
+<lcstabela.png, id=46, 702.37407pt x 415.5525pt>
 File: lcstabela.png Graphic file (type png)
 <use lcstabela.png>
-Package pdftex.def Info: lcstabela.png  used on input line 365.
+Package pdftex.def Info: lcstabela.png  used on input line 362.
 (pdftex.def)             Requested size: 345.0pt x 204.12343pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11 <./Naiwny.png>] [12 <./cutrod.png> <./cutwykres.png>] [13 <./lcswykres.png>
- <./lcstabela.png>] (./sprawozdanie3.aux) ) 
+<acttabela.png, id=47, 1048.66782pt x 350.81062pt>
+File: acttabela.png Graphic file (type png)
+<use acttabela.png>
+Package pdftex.def Info: acttabela.png  used on input line 369.
+(pdftex.def)             Requested size: 345.0pt x 115.40921pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<actwykres.png, id=48, 706.89093pt x 429.85594pt>
+File: actwykres.png Graphic file (type png)
+<use actwykres.png>
+Package pdftex.def Info: actwykres.png  used on input line 376.
+(pdftex.def)             Requested size: 345.0pt x 209.79169pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10] [11 <./Naiwny.png> <./cutrod.png>] [12 <./cutwykres.png> <./lcswykres.png>
+] [13 <./lcstabela.png> <./acttabela.png>] [14 <./actwykres.png>]
+(./sprawozdanie3.aux) ) 
 Here is how much of TeX's memory you used:
- 4796 strings out of 476025
- 73002 string characters out of 5794016
+ 4812 strings out of 476025
+ 73272 string characters out of 5794016
  1888382 words of memory out of 5000000
- 25171 multiletter control sequences out of 15000+600000
+ 25185 multiletter control sequences out of 15000+600000
  519720 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,67p,763b,1656s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx
-12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive
-/2023/texmf-dist/fonts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fo
-nts/type1/public/pl/plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl
-/plr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/tex
-live/2023/texmf-dist/fonts/type1/public/pl/pltt12.pfb><c:/texlive/2023/texmf-di
-st/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on sprawozdanie3.pdf (13 pages, 216301 bytes).
+<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plbx12.pfb><c:/texlive/2
+023/texmf-dist/fonts/type1/public/pl/plmi12.pfb><c:/texlive/2023/texmf-dist/fon
+ts/type1/public/pl/plr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/
+plr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/pl/plr17.pfb><c:/texli
+ve/2023/texmf-dist/fonts/type1/public/pl/plsy10.pfb><c:/texlive/2023/texmf-dist
+/fonts/type1/public/pl/pltt12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
+c/cm-super/sfrm1200.pfb>
+Output written on sprawozdanie3.pdf (14 pages, 290803 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
