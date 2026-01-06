@@ -5,5 +5,6 @@ Kurs: Algorytmy i struktury danych
 
 Repozytorium zawiera implementacje różnych algorytmów sortujących z wieloma różnymi modyfikacjami napisane w języku C++
 
+Każda lista zawiera kod w c++ oraz sprawozdanie przygotowane w języku latex.
 
 
